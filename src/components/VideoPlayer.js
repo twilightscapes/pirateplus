@@ -154,12 +154,13 @@ const handleEndFromPlayhead = () => {
         {/* Form Container */}
         <div className="form-container controller font" style={{ position: 'relative', zIndex: '3', top: '0', height: 'auto', width: '100vw', margin: '0 auto', marginTop: showNav ? '0' : '0', transition: 'all 1s ease-in-out', background: 'var(--theme-ui-colors-headerColor)' }}>
           <div style={{ maxWidth: '1000px', margin: '0 auto', padding:'2vh 1vw 0 1vw', }}>
+
+
+            
             <form className="youtubeform frontdrop" onSubmit={handleSubmit} id="youtubeform" name="youtubeform">
 
 
-              {/* Installed Viewers */}
-              {isRunningStandalone() && (
-                <>
+
               <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
               <input
     aria-label="Start Time"
@@ -190,6 +191,11 @@ const handleEndFromPlayhead = () => {
 />
                 
               </div>
+
+
+
+
+
         
 
               {/* Mute option */}
@@ -242,8 +248,8 @@ const handleEndFromPlayhead = () => {
 
               </div>
 
-              </>
-              )}
+      
+
               {/* Rest of the form controls... */}
               {/* Add your other form controls here */}
 
@@ -271,7 +277,7 @@ const handleEndFromPlayhead = () => {
               </button>
 
               {/* Installed Viewers */}
-              {isRunningStandalone() && (
+              {!isRunningStandalone() && (
                 <>
                   <a title="Open YouTube" aria-label="Open YouTube" href="https://youtube.com">
                     <ImYoutube2 style={{ fontSize: '50px', opacity:'.5' }} />
