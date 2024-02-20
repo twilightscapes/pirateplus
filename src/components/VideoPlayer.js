@@ -6,48 +6,28 @@ import useSiteMetadata from "../hooks/SiteMetadata";
 import PageMenu from "../components/PageMenu";
 
 const VideoPlayer = ({ location }) => {
-  const queryParams = new URLSearchParams(location.search);
-  const videoUrlParam = queryParams.get('video');
-  const startTimeParam = queryParams.get('start');
-  const stopTimeParam = queryParams.get('stop');
-  const loopParam = queryParams.get('loop') === 'true';
-  const muteParam = queryParams.get('mute') === 'true';
-  const controlsParam = queryParams.get('controls') === 'true';
-
-  const { featureOptions, proOptions } = useSiteMetadata();
-  const { showBranding } = proOptions;
-  const { showNav } = featureOptions;
-  const inputElement = useRef(null);
-  const playerRef = useRef(null);
-  const [youtubelink, setYoutubelink] = useState(videoUrlParam || "");
-  const [startInputValue, setStartInputValue] = useState(startTimeParam || "");
-  const [stopInputValue, setStopInputValue] = useState(stopTimeParam || "");
-  const [loop, setLoop] = useState(loopParam);
-  const [mute, setMute] = useState(muteParam);
-  const [controls, setControls] = useState(controlsParam === 'false' ? false : true);
-  const [copied, setCopied] = useState(false);
-  const [scrubbing, setScrubbing] = useState(false);
-  const [endFocused, setEndFocused] = useState(false);
-
-  useEffect(() => {
-    const fillFormFromClipboard = async () => {
-      try {
-        const clipboardText = await navigator.clipboard.readText();
-        if (isValidURL(clipboardText)) {
-          setYoutubelink(clipboardText);
-          updateQueryString({ video: clipboardText });
-        }
-      } catch (error) {
-        console.error("Error reading clipboard:", error.message);
-      }
-    };
-    fillFormFromClipboard();
-  }, []);
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    updateQueryString({ video: youtubelink, start: startInputValue, stop: stopInputValue, loop, mute, controls });
-  };
+    const queryParams = new URLSearchParams(location.search);
+    const videoUrlParam = queryParams.get('video');
+    const startTimeParam = queryParams.get('start');
+    const stopTimeParam = queryParams.get('stop');
+    const loopParam = queryParams.get('loop') === 'true';
+    const muteParam = queryParams.get('mute') === 'true';
+    const controlsParam = queryParams.get('controls') === 'true';
+    
+  
+    const { featureOptions, proOptions } = useSiteMetadata();
+    const { showBranding } = proOptions;
+    const { showNav } = featureOptions;
+    const inputElement = useRef(null);
+    const playerRef = useRef(null);
+    const [youtubelink, setYoutubelink] = useState(videoUrlParam || "");
+    const [startTime, setStartTime] = useState(startTimeParam || ""); // Use query parameter if available, otherwise default to empty string
+    const [stopTime, setStopTime] = useState(stopTimeParam || ""); // Use query parameter if available, otherwise default to empty string
+    
+    const [loop, setLoop] = useState(loopParam);
+    const [mute, setMute] = useState(muteParam);
+    const [controls, setControls] = useState(true); // Set controls to true initially
+    const [copied, setCopied] = useState(false);
 
   const handleInputChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -63,22 +43,64 @@ const VideoPlayer = ({ location }) => {
       if (name === 'video') {
         setYoutubelink(value);
       } else if (name === 'start') {
-        setStartInputValue(value);
+        setStartTime(value);
       } else if (name === 'stop') {
-        setStopInputValue(value);
+        setStopTime(value);
       }
-      updateQueryString({ video: youtubelink, start: startInputValue, stop: stopInputValue, loop, mute, controls });
     }
+  };
+
+  const handleStartBlur = () => {
+    setStartTime(startTime.trim() || ''); // Trim any leading/trailing spaces
+    updateQueryString({ start: startTime });
+  };
+  
+  const handleStopBlur = () => {
+    setStopTime(stopTime.trim() || ''); // Trim any leading/trailing spaces
+    updateQueryString({ stop: stopTime });
+  };
+
+  // Event handler to update start time from playhead position
+const handleStartFromPlayhead = () => {
+  const currentTime = playerRef.current.getCurrentTime();
+  setStartTime(currentTime.toString());
+};
+
+// Event handler to update end time from playhead position
+const handleEndFromPlayhead = () => {
+  const currentTime = playerRef.current.getCurrentTime();
+  setStopTime(currentTime.toString());
+};
+
+  useEffect(() => {
+    const updateQueryString = (values) => {
+      const { start, stop } = values;
+      const newUrl = `${window.location.pathname}?video=${encodeURIComponent(youtubelink)}&start=${encodeURIComponent(start)}&stop=${encodeURIComponent(stop)}&loop=${loop}&mute=${mute}&controls=${controls}`;
+      window.history.pushState({}, '', newUrl);
+    };
+
+    // document.getElementById("start-input").addEventListener("blur", handleStartBlur);
+    // document.getElementById("stop-input").addEventListener("blur", handleStopBlur);
+
+    return () => {
+      document.getElementById("start-input").removeEventListener("blur", handleStartBlur);
+      document.getElementById("stop-input").removeEventListener("blur", handleStopBlur);
+    };
+  }, [youtubelink, startTime, stopTime, loop, mute, controls]);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    updateQueryString({ video: youtubelink, start: startTime, stop: stopTime, loop, mute, controls });
   };
 
   const handleReset = () => {
     setYoutubelink("");
-    setStartInputValue("");
-    setStopInputValue("");
+    setStartTime("");
+    setStopTime("");
     setLoop(false);
     setMute(false);
-    setControls(false);
-    updateQueryString({ video: "", start: "", stop: "", loop: false, mute: false, controls: false });
+    setControls(true); // Set controls to true by default
+    updateQueryString({ video: "", start: "", stop: "", loop: false, mute: false, controls: true });
   };
 
   const updateQueryString = (values) => {
@@ -126,78 +148,53 @@ const VideoPlayer = ({ location }) => {
 
   const isVideoActive = youtubelink !== "";
 
-  const handleProgress = ({ playedSeconds }) => {
-    if (!scrubbing) {
-      if (document.activeElement.id === 'start-input') {
-        setStartInputValue(parseFloat(playedSeconds).toFixed(2));
-      } else if (document.activeElement.id === 'stop-input') {
-        setStopInputValue(parseFloat(playedSeconds).toFixed(2));
-      }
-    }
-  };
-  
-  const handleSeek = ({ playedSeconds }) => {
-    if (scrubbing || (!playerRef.current.getInternalPlayer().getPlayerState() && (document.activeElement.id === 'start-input' || document.activeElement.id === 'stop-input'))) {
-      if (endFocused && document.activeElement.id === 'stop-input') {
-        setStopInputValue(parseFloat(playedSeconds).toFixed(2));
-      } else if (!endFocused && document.activeElement.id === 'start-input') {
-        setStartInputValue(parseFloat(playedSeconds).toFixed(2));
-      }
-    }
-  };
-  
-  
-
-
   return (
     <>
       <div id="piratevideo" className='player-wrapper' style={{ display: 'grid', placeContent: '', width: '100vw', transition: 'all 1s ease-in-out' }}>
+        {/* Form Container */}
+        <div className="form-container controller font" style={{ position: 'relative', zIndex: '3', top: '0', height: 'auto', width: '100vw', margin: '0 auto', marginTop: showNav ? '0' : '0', transition: 'all 1s ease-in-out', background: 'var(--theme-ui-colors-headerColor)' }}>
+          <div style={{ maxWidth: '1000px', margin: '0 auto', padding:'2vh 1vw 0 1vw', }}>
+            <form className="youtubeform frontdrop" onSubmit={handleSubmit} id="youtubeform" name="youtubeform">
 
-      <div className="form-container controller font" style={{ position: 'relative', zIndex: '3', top: '0', height: 'auto', width: '100vw', maxWidth:'', margin: '0 auto', marginTop: showNav ? '0' : '0', transition: 'all 1s ease-in-out', background: 'var(--theme-ui-colors-headerColor)' }}>
 
-          <div style={{  maxWidth:'90vw', margin: '0 auto', padding:'2vh 1vw 0 1vw', }}>
-            
-            <form className="youtubeform frontdrop" onSubmit={handleSubmit} id="youtubeform" name="youtubeform" style={{maxWidth:'', minWidth:''}}>
-
-            {isRunningStandalone() && (
+              {/* Installed Viewers */}
+              {isRunningStandalone() && (
                 <>
               <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-                <input
-                  aria-label="Start Time"
-                  id="start-input"
-                  className="youtubelinker"
-                  type="text"
-                  name="start"
-                  value={startInputValue}
-                  onChange={handleInputChange}
-                  onFocus={() => {
-                    setScrubbing(false);
-                    setEndFocused(false); // Set endFocused to false when start input is focused
-                  }}
-                  placeholder="Start"
-                  style={{ maxWidth: '60px', fontSize: 'clamp(1rem,.8vw,1.3rem)', textAlign: 'center' }}
-                />
-                <input
-                  aria-label="Stop Time"
-                  id="stop-input"
-                  className="youtubelinker"
-                  type="text"
-                  name="stop"
-                  value={stopInputValue}
-                  onChange={handleInputChange}
-                  onFocus={() => {
-                    setScrubbing(false);
-                    setEndFocused(true); // Set endFocused to true when end input is focused
-                  }}
-                  onBlur={() => setEndFocused(false)} // Reset endFocused when end input is blurred
-                  placeholder="Stop"
-                  style={{ maxWidth: '60px', fontSize: 'clamp(1rem,.8vw,1.4rem)', textAlign: 'center' }}
-                />
+              <input
+    aria-label="Start Time"
+    id="start-input"
+    className="youtubelinker"
+    type="text"
+    name="start"
+    value={startTime} // Ensure this corresponds to the startTime state variable
+    onChange={handleInputChange}
+    onClick={handleStartFromPlayhead} // Add this line
+    placeholder="Start"
+    disabled={!isVideoActive}
+    style={{ maxWidth: '60px', fontSize: 'clamp(1rem,.8vw,1.3rem)', textAlign: 'center' }}
+/>
+
+<input
+    aria-label="Stop Time"
+    id="stop-input"
+    className="youtubelinker"
+    type="text"
+    name="stop"
+    value={stopTime}
+    onChange={handleInputChange}
+    onClick={handleEndFromPlayhead} // Add this line
+    placeholder="Stop"
+    disabled={!isVideoActive}
+    style={{ maxWidth: '60px', fontSize: 'clamp(1rem,.8vw,1.4rem)', textAlign: 'center' }}
+/>
+                
               </div>
+        
 
+              {/* Mute option */}
+              <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
 
-              
-              <div style={{ display: 'flex', gap: '1vw', alignItems: 'center' }}>
               <label htmlFor="loop-checkbox" style={{textAlign:'center', fontSize:'60%'}}>Loop:
                   <input
                     aria-label="Set to loop"
@@ -207,9 +204,12 @@ const VideoPlayer = ({ location }) => {
                     name="loop"
                     checked={loop}
                     onChange={handleInputChange}
+                    disabled={!isVideoActive}
                     style={{maxWidth:'50px'}}
                   />
                 </label>
+
+
                 <label htmlFor="mute-checkbox" style={{textAlign:'center', fontSize:'60%'}}>Mute:
                   <input
                     aria-label="Set to mute"
@@ -219,11 +219,12 @@ const VideoPlayer = ({ location }) => {
                     name="mute"
                     checked={mute}
                     onChange={handleInputChange}
+                    disabled={!isVideoActive}
                     style={{maxWidth:'50px'}}
                   />
                 </label>
               
-    
+      
                 <label htmlFor="controls-checkbox" style={{textAlign:'center', fontSize:'60%'}}>Controls:
                   <input
                     aria-label="Set to show controls"
@@ -233,17 +234,18 @@ const VideoPlayer = ({ location }) => {
                     name="controls"
                     checked={controls}
                     onChange={handleInputChange}
+                    disabled={!isVideoActive}
                     style={{maxWidth:'50px'}}
                   />
                 </label>
-
+        
 
               </div>
+
               </>
               )}
-
-
-
+              {/* Rest of the form controls... */}
+              {/* Add your other form controls here */}
 
               <input
                 ref={inputElement}
@@ -252,24 +254,23 @@ const VideoPlayer = ({ location }) => {
                 name="video"
                 value={youtubelink}
                 onChange={handleInputChange}
-                style={{ padding: '.5vh 1vw', minWidth:'100px', width: '', maxWidth: '800px', fontSize: 'clamp(.8rem,1.5vw,2rem)', transition: 'all 1s ease-in-out' }}
+                style={{ padding: '.5vh 1vw', minWidth:'100px', width: '100%', maxWidth: '800px', fontSize: 'clamp(.8rem,1.5vw,2rem)', transition: 'all 1s ease-in-out' }}
                 placeholder="Paste Link To Video"
                 className="youtubelinker"
                 aria-label="Paste Link To Video"
               />
 
-              <button aria-label="Reset" type="reset" onClick={handleReset} style={{ color: '', fontSize: 'clamp(.8rem,1,2vw,1rem)', fontWeight: 'bold', textAlign: 'left', width: '30px', margin: '', opacity: isVideoActive ? 1 : 0.5 }}>
+              <button aria-label="Reset" type="reset" onClick={handleReset} disabled={!isVideoActive} style={{ color: '', fontSize: 'clamp(.8rem,1vw,1rem)', fontWeight: 'bold', textAlign: 'left', width: '20px', margin: '', opacity: isVideoActive ? 1 : 0.5 }}>
                 Reset
               </button>
 
-              <button aria-label="Copy Link" onClick={handleCopyAndShareButtonClick} style={{ display: "flex", gap: '.5vw', justifyContent: "center", padding: ".5vh .8vw", width:'80px', maxHeight: "", margin: "0 auto", textAlign: 'center', fontSize: '14px', fontWeight: 'light', textShadow: '0 1px 0 #000', marginLeft:'15px', opacity: isVideoActive ? 1 : 0.5 }} className="button font print">
+              <button aria-label="Copy Link" onClick={handleCopyAndShareButtonClick} disabled={!isVideoActive} style={{ display: "flex", gap: '.5vw', justifyContent: "center", padding: ".5vh .8vw", width:'80px', maxHeight: "", margin: "0 auto", textAlign: 'center', fontSize: '14px', fontWeight: 'light', textShadow: '0 1px 0 #000', marginLeft:'', opacity: isVideoActive ? 1 : 0.5 }} className="button font print">
                 <svg style={{ maxWidth: '30px', maxHeight: '30px' }}>
                   <use href="#share-icon"></use>
                 </svg>   {copied ? 'Copied Link' : 'Copy Link'}
               </button>
 
-
-
+              {/* Installed Viewers */}
               {isRunningStandalone() && (
                 <>
                   <a title="Open YouTube" aria-label="Open YouTube" href="https://youtube.com">
@@ -284,44 +285,53 @@ const VideoPlayer = ({ location }) => {
                 </>
               )}
 
-
             </form>
           </div>
         </div>
 
-
-
+        {/* Hidden SVG */}
         <svg className="hidden">
           <defs>
             <symbol id="share-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-share"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></symbol>
           </defs>
         </svg>
+
+        {/* Page Menu */}
         {showBranding ? (
           <PageMenu />
         ) : ( "")}
+
+        {/* ReactPlayer */}
         <ReactPlayer
-          ref={playerRef}
-          allow="web-share"
-          style={{
-            position: 'relative', top: '0', margin: '0 auto 0 auto', zIndex: '1', overflow: 'hidden', width: '100vw', minHeight: '', height: '100%', background: 'transparent',
-            transition: 'all 1s ease-in-out',
-          }}
-          width="100%"
-          height="100%"
-          url={youtubelink}
-          playing={true}
-          controls={controls}
-          playsinline
-          loop={loop}
-          muted={mute}
-          config={{
-            youtube: {
-              playerVars: { showinfo: false, autoplay: false, controls: controls ? 1 : 0, start: startInputValue || "0", end: stopInputValue || null, mute: false }
-            },
-          }}
-          onProgress={handleProgress}
-          onSeek={handleSeek}
-        />
+  ref={playerRef}
+  allow="web-share"
+  style={{
+    position: 'relative', top: '0', margin: '0 auto 0 auto', zIndex: '1', overflow: 'hidden', width: '100vw', minHeight: '', height: '100%', background: 'transparent',
+    transition: 'all 1s ease-in-out',
+  }}
+  width="100%"
+  height="100%"
+  url={youtubelink}
+  playing={true}
+  controls={controls}
+  playsinline
+  loop={loop}
+  muted={mute}
+  config={{
+    youtube: {
+      playerVars: { showinfo: false, autoplay: false, controls: controls ? 1 : 0, mute: false }
+    },
+  }}
+  onReady={() => {
+    if (startTime) {
+      playerRef.current.seekTo(parseFloat(startTime)); // Seek to the specified start time
+    }
+  }}
+/>
+
+
+
+
       </div>
     </>
   );
@@ -329,7 +339,9 @@ const VideoPlayer = ({ location }) => {
 
 export default VideoPlayer;
 
+// Function to validate URL (You can use a library like 'valid-url' for more comprehensive validation)
 const isValidURL = (url) => {
+  // Regular expression for URL validation
   const urlPattern = /^(ftp|http|https):\/\/[^ "]+$/;
   return urlPattern.test(url);
 };
