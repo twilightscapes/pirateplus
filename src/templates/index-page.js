@@ -11,7 +11,7 @@ import { GatsbyImage } from "gatsby-plugin-image"
 import Social from "../components/social"
 // import PropTypes from "prop-types";
 
-import YouTubePlayer from "../components/VideoPlayer";
+import YouTubePlayer from "../components/VideoPlayer2";
 import ReactPlayer from 'react-player/lazy'
 import { ImPlay } from "react-icons/im"
 // import { MdVolumeUp } from "react-icons/md"

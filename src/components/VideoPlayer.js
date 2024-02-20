@@ -26,7 +26,8 @@ const VideoPlayer = ({ location }) => {
     
     const [loop, setLoop] = useState(loopParam);
     const [mute, setMute] = useState(muteParam);
-    const [controls, setControls] = useState(true); // Set controls to true initially
+    const [controls, setControls] = useState(controlsParam !== undefined ? controlsParam : false || startTimeParam !== undefined || stopTimeParam !== undefined); // Set controls to false by default unless start or stop time is provided in the query string
+
     const [copied, setCopied] = useState(false);
 
   const handleInputChange = (event) => {
@@ -195,8 +196,6 @@ const handleEndFromPlayhead = () => {
 
 
 
-
-        
 
               {/* Mute option */}
               <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
