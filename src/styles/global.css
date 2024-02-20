@@ -1366,7 +1366,7 @@ min-height: 80px;
   gap: 2vw;
   /* white-space: nowrap;  */
   /* display:flex; */
-
+width:100%;
 margin: 0 auto;
 }
 
@@ -1376,6 +1376,7 @@ margin: 0 auto;
   flex-wrap: nowrap; /* Prevent wrapping */
   align-items: center;
   margin: 0 auto;
+
   /* max-width:800px; */
   /* max-width: 380px; */
 }
@@ -1385,7 +1386,7 @@ margin: 0 auto;
   margin: 0 auto;
   display: flex;
   align-items: center;
-  gap:3vw;
+  gap:2vw;
 }
 
 .youtubelinker {
