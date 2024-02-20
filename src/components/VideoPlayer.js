@@ -11,7 +11,9 @@ const VideoPlayer = ({ location }) => {
   const startTimeParam = queryParams.get('start');
   const stopTimeParam = queryParams.get('stop');
   const loopParam = queryParams.get('loop') === 'true';
-  
+  const muteParam = queryParams.get('mute') === 'true';
+  const controlsParam = queryParams.get('controls') === 'true';
+
   const { featureOptions, proOptions } = useSiteMetadata();
   const { showBranding } = proOptions;
   const { showNav } = featureOptions;
@@ -21,6 +23,8 @@ const VideoPlayer = ({ location }) => {
   const [startTime, setStartTime] = useState(startTimeParam || "");
   const [stopTime, setStopTime] = useState(stopTimeParam || "");
   const [loop, setLoop] = useState(loopParam);
+  const [mute, setMute] = useState(muteParam);
+  const [controls, setControls] = useState(controlsParam);
   const [copied, setCopied] = useState(false);
   
   useEffect(() => {
@@ -41,7 +45,13 @@ const VideoPlayer = ({ location }) => {
   const handleInputChange = (event) => {
     const { name, value, type, checked } = event.target;
     if (type === 'checkbox') {
-      setLoop(checked);
+      if (name === 'mute') {
+        setMute(checked);
+      } else if (name === 'controls') {
+        setControls(checked);
+      } else {
+        setLoop(checked);
+      }
     } else {
       if (name === 'start') {
         setStartTime(value);
@@ -55,7 +65,7 @@ const VideoPlayer = ({ location }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    updateQueryString({ video: youtubelink, start: startTime, stop: stopTime, loop });
+    updateQueryString({ video: youtubelink, start: startTime, stop: stopTime, loop, mute, controls });
   };
 
   const handleReset = () => {
@@ -63,12 +73,14 @@ const VideoPlayer = ({ location }) => {
     setStartTime("");
     setStopTime("");
     setLoop(false);
-    updateQueryString({ video: "", start: "", stop: "", loop: false });
+    setMute(false);
+    setControls(false);
+    updateQueryString({ video: "", start: "", stop: "", loop: false, mute: false, controls: false });
   };
 
   const updateQueryString = (values) => {
-    const { video, start, stop, loop } = values;
-    const newUrl = `${window.location.pathname}?video=${encodeURIComponent(video)}&start=${encodeURIComponent(start)}&stop=${encodeURIComponent(stop)}&loop=${loop}`;
+    const { video, start, stop, loop, mute, controls } = values;
+    const newUrl = `${window.location.pathname}?video=${encodeURIComponent(video)}&start=${encodeURIComponent(start)}&stop=${encodeURIComponent(stop)}&loop=${loop}&mute=${mute}&controls=${controls}`;
     window.history.pushState({}, '', newUrl);
   };
 
@@ -119,10 +131,7 @@ const VideoPlayer = ({ location }) => {
           <div style={{ maxWidth: '1000px', margin: '0 auto', padding:'2vh 1vw 0 1vw', }}>
             <form className="youtubeform frontdrop" onSubmit={handleSubmit} id="youtubeform" name="youtubeform">
 
-        {/* Installed Viewers */}
-        {isRunningStandalone() && (
-    <>
-
+              {/* Existing form controls */}
               <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
                 <input
                   aria-label="Start Time"
@@ -162,10 +171,44 @@ const VideoPlayer = ({ location }) => {
                   />
                 </label>
               </div>
-              </>
-        )}
-              
-  <div style={{ display: 'flex', gap: '2vw', alignItems: 'center', width:'100%', margin:'0 auto', maxWidth:'700px' }}>
+
+              {/* Mute option */}
+              <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                <label htmlFor="mute-checkbox" style={{textAlign:'center', fontSize:'60%'}}>Mute:
+                  <input
+                    aria-label="Set to mute"
+                    id="mute-checkbox"
+                    className="youtubelinker"
+                    type="checkbox"
+                    name="mute"
+                    checked={mute}
+                    onChange={handleInputChange}
+                    disabled={!isVideoActive}
+                    style={{maxWidth:'50px'}}
+                  />
+                </label>
+              </div>
+
+              {/* Controls option */}
+              <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                <label htmlFor="controls-checkbox" style={{textAlign:'center', fontSize:'60%'}}>Controls:
+                  <input
+                    aria-label="Set to show controls"
+                    id="controls-checkbox"
+                    className="youtubelinker"
+                    type="checkbox"
+                    name="controls"
+                    checked={controls}
+                    onChange={handleInputChange}
+                    disabled={!isVideoActive}
+                    style={{maxWidth:'50px'}}
+                  />
+                </label>
+              </div>
+
+              {/* Rest of the form controls... */}
+              {/* Add your other form controls here */}
+
               <input
                 ref={inputElement}
                 id="youtubelink-input"
@@ -188,10 +231,11 @@ const VideoPlayer = ({ location }) => {
                   <use href="#share-icon"></use>
                 </svg>   {copied ? 'Copied Link' : 'Copy Link'}
               </button>
-</div>
 
-        {/* Installed Viewers */}
-        {isRunningStandalone() && (
+
+
+              {/* Installed Viewers */}
+        {!isRunningStandalone() && (
     <>
             <a title="Open YouTube" aria-label="Open YouTube" href="https://youtube.com">
               <ImYoutube2 style={{ fontSize: '50px', opacity:'.5' }} />
@@ -205,7 +249,8 @@ const VideoPlayer = ({ location }) => {
             </>
         )}
 
-        
+
+
             </form>
           </div>
         </div>
@@ -222,29 +267,29 @@ const VideoPlayer = ({ location }) => {
           <PageMenu />
         ) : ( "")}
 
-
-
         {/* ReactPlayer */}
-        <ReactPlayer
-          ref={playerRef}
-          allow="web-share"
-          style={{
-            position: 'relative', top: '0', margin: '0 auto 0 auto', zIndex: '1', overflow: 'hidden', width: '100vw', minHeight: '', height: '100%', background: 'transparent',
-            transition: 'all 1s ease-in-out',
-          }}
-          width="100%"
-          height="100%"
-          url={youtubelink}
-          playing={true}
-          controls={true}
-          playsinline
-          loop={loop}
-          config={{
-            youtube: {
-              playerVars: { showinfo: false, autoplay: false, controls: true, start: startTime || "0", end: stopTime || null, mute: false }
-            },
-          }}
-        />
+<ReactPlayer
+  ref={playerRef}
+  allow="web-share"
+  style={{
+    position: 'relative', top: '0', margin: '0 auto 0 auto', zIndex: '1', overflow: 'hidden', width: '100vw', minHeight: '', height: '100%', background: 'transparent',
+    transition: 'all 1s ease-in-out',
+  }}
+  width="100%"
+  height="100%"
+  url={youtubelink}
+  playing={true}
+  controls={controls} // Use controls state for controlling visibility of controls
+  playsinline
+  loop={loop}
+  muted={mute} // Use mute state for controlling mute
+  config={{
+    youtube: {
+      playerVars: { showinfo: false, autoplay: false, controls: controls ? 1 : 0, start: startTime || "0", end: stopTime || null, mute: false }
+    },
+  }}
+/>
+
       </div>
     </>
   );
