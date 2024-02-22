@@ -1315,6 +1315,24 @@ html:has body.youtube{position:fixed !important; overflow: hidden !important;}
   body.youtube .upbar 
   {display: none !important;}
 
+  .video-blocker {
+    content:"❮❮scroll";
+    position: fixed;
+    top: 90px;
+    left: 0;
+    width: 100vw;
+    height: 99%;
+    z-index: 3;
+    border:0px solid yellow !important;
+    display: block;
+    /* background: url('your-image-url.jpg') no-repeat center center; */
+    background:transparent;
+    background-size: cover;
+    
+}
+
+
+
 
   /* html, body.youtube {
     touch-action: manipulation;
@@ -1381,17 +1399,17 @@ margin: 0 auto;
   /* max-width: 380px; */
 }
 
-.frontdrop {
+/* .frontdrop {
   padding: 0;
   margin: 0 auto;
   display: flex;
   align-items: center;
   gap:2vw;
-}
+} */
 
 .youtubelinker {
   background: var(--theme-ui-colors-headerColor);
-  padding: 1vh 0.5vw;
+  padding: .2vh 0.5vw;
   /* min-width: 200px; */
   outline: 1px solid #999;
   border-radius: var(--theme-ui-colors-borderRadius);
