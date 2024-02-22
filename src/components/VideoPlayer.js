@@ -265,40 +265,15 @@ const VideoPlayer = ({ location }) => {
 
             {showPro ? (
 
-<div className="form-container controller font" style={{ position: 'relative', zIndex: '3', top: '0', height: 'auto', width: '100vw', margin: '0 auto', marginTop: showNav ? '0' : '0', transition: 'all 1s ease-in-out', background: 'var(--theme-ui-colors-headerColor)' }}>
+<div className=" font" style={{ position: 'relative', zIndex: '3', top: '0', height: 'auto', width: '100vw', margin: '0 auto', marginTop: showNav ? '0' : '0', transition: 'all 1s ease-in-out', background: 'var(--theme-ui-colors-headerColor)' }}>
 
         
 
 
-                <form className="youtubeform1 frontdrop1" onSubmit={handleSubmit} id="youtubeform" name="youtubeform" style={{display:'flex', justifyContent:'center', alignItems:'center', width:'100vw', margin:'0 auto', gap:'2vw', padding:'1vh 2vw' }}>
+                <form className="youtubeform1 frontdrop1" onSubmit={handleSubmit} id="youtubeform" name="youtubeform" style={{display:'flex', justifyContent:'center', flexWrap:'wrap', alignItems:'center', width:'100vw', margin:'0 auto', gap:'2vw', padding:'1vh 2vw' }}>
 
 
-<div id="bigbox" style={{ display: 'flex', flexDirection:'column', gap: '4px', alignItems: 'center', width:'100%', border:'0px solid red' }}>
-
-<div id="pastebox" style={{ display: 'flex', flexDirection:'row', gap: '10px', alignItems: 'center', width:'', margin:'0 auto', border:'0px solid red' }}>
-                            <input
-                                ref={inputElement}
-                                id="youtubelink-input"
-                                type="text"
-                                name="video"
-                                value={youtubelink}
-                                onChange={handleInputChange}
-                                style={{ padding: '.5vh 1vw', minWidth:'100px', width: '100%', maxWidth: '800px', fontSize: 'clamp(.8rem,1.5vw,2rem)', transition: 'all 1s ease-in-out' }}
-                                placeholder="Paste Link To Video"
-                                className="youtubelinker"
-                                aria-label="Paste Link To Video"
-                            />
-
-                            <button aria-label="Reset" type="reset" onClick={handleReset} disabled={!isVideoActive} style={{ color: '', fontSize: 'clamp(.8rem,1vw,1rem)', fontWeight: 'bold', textAlign: 'left', width: '20px', margin: '', opacity: isVideoActive ? 1 : 0.5 }}>
-                                Reset
-                            </button>
-
-                            <div id="copybutton" style={{ display: 'flex', flexDirection:'row', gap: '10px', alignItems: 'center' }}>
-<button aria-label="Create Link" onClick={handleCopyAndShareButtonClick} disabled={!isVideoActive} style={{ display: "flex", gap: '.5vw', justifyContent: "center", padding: ".5vh .8vw", width:'80px', maxHeight: "", margin: "0 auto", textAlign: 'center', fontSize: '14px', fontWeight: 'light', textShadow: '0 1px 0 #000', marginLeft:'', opacity: isVideoActive ? 1 : 0.5 }} className="button font print">
-{copied ? 'Link Copied' : 'Copy Link'}
-</button>
-</div>
-</div>
+<div id="bigbox" style={{ display: 'flex', flexFlow:'wrap', flexDirection:'', gap: '4px', alignItems: 'center', width:'100%', border:'0px solid red' }}>
 
 
 <div id="controls" style={{ display: 'flex', flexDirection:'row', gap: '2vw', alignItems: 'center', width:'' }}>
@@ -400,6 +375,35 @@ const VideoPlayer = ({ location }) => {
                             </div>
 
 </div>
+
+
+<div id="pastebox" style={{ display: 'flex', flexDirection:'row', gap: '10px', alignItems: 'center', width:'', margin:'0 auto', border:'0px solid red' }}>
+                            <input
+                                ref={inputElement}
+                                id="youtubelink-input"
+                                type="text"
+                                name="video"
+                                value={youtubelink}
+                                onChange={handleInputChange}
+                                style={{ padding: '.5vh 1vw', minWidth:'100px', width: '100%', maxWidth: '800px', fontSize: 'clamp(.8rem,1.5vw,2rem)', transition: 'all 1s ease-in-out' }}
+                                placeholder="Paste Link To Video"
+                                className="youtubelinker"
+                                aria-label="Paste Link To Video"
+                            />
+
+                            <button aria-label="Reset" type="reset" onClick={handleReset} disabled={!isVideoActive} style={{ color: '', fontSize: 'clamp(.8rem,1vw,1rem)', fontWeight: 'bold', textAlign: 'left', width: '20px', margin: '', opacity: isVideoActive ? 1 : 0.5 }}>
+                                Reset
+                            </button>
+
+                            <div id="copybutton" style={{ display: 'flex', flexDirection:'row', gap: '10px', alignItems: 'center' }}>
+<button aria-label="Create Link" onClick={handleCopyAndShareButtonClick} disabled={!isVideoActive} style={{ display: "flex", gap: '.5vw', justifyContent: "center", padding: ".5vh .8vw", width:'80px', maxHeight: "", margin: "0 auto", textAlign: 'center', fontSize: '14px', fontWeight: 'light', textShadow: '0 1px 0 #000', marginLeft:'', opacity: isVideoActive ? 1 : 0.5 }} className="button font print">
+{copied ? 'Link Copied' : 'Copy Link'}
+</button>
+</div>
+</div>
+
+
+
 
 </div>
 
