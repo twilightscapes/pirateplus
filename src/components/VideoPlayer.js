@@ -55,8 +55,17 @@ const VideoPlayer = ({ location }) => {
     const inputElement = useRef(null);
     const playerRef = useRef(null);
     const [youtubelink, setYoutubelink] = useState(videoUrlParam || "");
-    const [startTime, setStartTime] = useState(startTimeParam !== null && startTimeParam !== undefined ? startTimeParam : "");
-    const [stopTime, setStopTime] = useState(stopTimeParam !== null && stopTimeParam !== undefined ? stopTimeParam : "");
+    const [startTime, setStartTime] = useState(() => {
+        const parsedStartTime = parseFloat(startTimeParam);
+        return isNaN(parsedStartTime) ? "" : parsedStartTime.toFixed(2);
+    });
+    
+    const [stopTime, setStopTime] = useState(() => {
+        const parsedStopTime = parseFloat(stopTimeParam);
+        return isNaN(parsedStopTime) ? "" : parsedStopTime.toFixed(2);
+    });
+    
+    
     
     
     const [loop, setLoop] = useState(loopParam);
@@ -73,21 +82,25 @@ const VideoPlayer = ({ location }) => {
 
     const handleInputChange = (event) => {
         const { name, value, type, checked } = event.target;
-    
+        console.log("Input changed:", name, value); // Add this line to log the changed input and its value
+
         // Ensure start and stop values are correctly formatted to two decimal places
         let formattedValue = value.trim() !== '' && !isNaN(parseFloat(value)) ? parseFloat(value).toFixed(2) : '';
+        console.log("Formatted value:", formattedValue); // Add this line to log the formatted value
     
         if (type === 'checkbox') {
+            // Handle checkbox inputs
             if (name === 'mute') {
                 setMute(checked);
             } else if (name === 'controls') {
                 setControls(checked);
-            } else if (name === 'autoplay') { // Handle the autoplay checkbox
+            } else if (name === 'autoplay') {
                 setAutoplay(checked);
             } else {
                 setLoop(checked);
             }
         } else {
+            // Handle other inputs
             if (name === 'video') {
                 setYoutubelink(value);
             } else if (name === 'start') {
@@ -97,6 +110,8 @@ const VideoPlayer = ({ location }) => {
             }
         }
     };
+    
+
     
     
     
@@ -253,6 +268,17 @@ const VideoPlayer = ({ location }) => {
 
     const isVideoActive = youtubelink !== "";
 
+
+    useEffect(() => {
+        // Initialize start and stop time to empty string if they're NaN
+        if (isNaN(parseFloat(startTime))) {
+            setStartTime("");
+        }
+        if (isNaN(parseFloat(stopTime))) {
+            setStopTime("");
+        }
+    }, [startTime, stopTime]);
+
     useEffect(() => {
         setIsPlaying(!shouldPause && (loop || !stopTime || playerRef.current.getCurrentTime() < parseFloat(stopTime)));
     }, [loop, shouldPause, stopTime]);
@@ -273,13 +299,13 @@ const VideoPlayer = ({ location }) => {
                 <form className="youtubeform1 frontdrop1" onSubmit={handleSubmit} id="youtubeform" name="youtubeform" style={{display:'flex', justifyContent:'center', flexWrap:'wrap', alignItems:'center', width:'100vw', margin:'0 auto', gap:'2vw', padding:'1vh 2vw' }}>
 
 
-<div id="bigbox" style={{ display: 'flex', flexFlow:'wrap', flexDirection:'', gap: '4px', alignItems: 'center', width:'100%', border:'0px solid red' }}>
+<div id="bigbox" style={{ display: 'flex', flexFlow:'wrap', flexDirection:'', gap: '2vw', alignItems: 'center', width:'', border:'0px solid red' }}>
 
 
 <div id="controls" style={{ display: 'flex', flexDirection:'row', gap: '2vw', alignItems: 'center', width:'' }}>
 
 <div id="checkboxes" style={{ display: 'flex', flexDirection:'row', gap: '1.5vw', alignItems: 'center' }}>
-                                <label htmlFor="loop-checkbox" style={{textAlign:'center', fontSize:'60%', display:'flex', flexDirection:'column'}}>Loop:
+                                <label htmlFor="loop-checkbox" style={{textAlign:'center', fontSize:'60%', display:'flex', flexDirection:'column', alignItems:'center'}}>Loop:
                                     <input
                                         aria-label="Set to loop"
                                         id="loop-checkbox"
@@ -291,7 +317,7 @@ const VideoPlayer = ({ location }) => {
                                         style={{maxWidth:'50px'}}
                                     />
                                 </label>
-                                <label htmlFor="mute-checkbox" style={{textAlign:'center', fontSize:'60%', display:'flex', flexDirection:'column'}}>Mute:
+                                <label htmlFor="mute-checkbox" style={{textAlign:'center', fontSize:'60%', display:'flex', flexDirection:'column', alignItems:'center'}}>Mute:
                                     <input
                                         aria-label="Set to mute"
                                         id="mute-checkbox"
@@ -305,7 +331,7 @@ const VideoPlayer = ({ location }) => {
                                 </label>
 
                                 
-                                <label htmlFor="controls-checkbox" style={{textAlign:'center', fontSize:'50%', display:'flex', flexDirection:'column'}}>Controls:
+                                <label htmlFor="controls-checkbox" style={{textAlign:'center', fontSize:'50%', display:'flex', flexDirection:'column', alignItems:'center'}}>Controls:
                                     <input
                                         aria-label="Set to show controls"
                                         id="controls-checkbox"
@@ -319,7 +345,7 @@ const VideoPlayer = ({ location }) => {
                                 </label>
 
                             
-<label htmlFor="blocker-checkbox" style={{textAlign:'center', fontSize:'60%', display:'flex', flexDirection:'column'}}>Block
+                                <label htmlFor="blocker-checkbox" style={{textAlign:'center', fontSize:'60%', display:'flex', flexDirection:'column', alignItems:'center'}}>Block:
     <input
         aria-label="Block user interactions"
         id="blocker-checkbox"
@@ -327,16 +353,18 @@ const VideoPlayer = ({ location }) => {
         name="showBlocker"
         checked={showBlocker}
         onChange={handleBlockerChange}
+        disabled={!isVideoActive}
         style={{maxWidth:'50px'}}
     />
 </label>
 
-<label htmlFor="autoplayCheckbox" style={{textAlign:'center', fontSize:'50%', display:'flex', flexDirection:'column'}}>Autoplay
+<label htmlFor="autoplayCheckbox" style={{textAlign:'center', fontSize:'50%', display:'flex', flexDirection:'column', alignItems:'center'}}>Autoplay:
     <input
         type="checkbox"
         id="autoplayCheckbox"
         checked={autoplay}
         onChange={(e) => setAutoplay(e.target.checked)}
+        disabled={!isVideoActive}
     />
 </label>
 
@@ -377,7 +405,7 @@ const VideoPlayer = ({ location }) => {
 </div>
 
 
-<div id="pastebox" style={{ display: 'flex', flexDirection:'row', gap: '10px', alignItems: 'center', width:'', margin:'0 auto', border:'0px solid red' }}>
+<div id="pastebox" style={{ display: 'flex', flexDirection:'row', gap: '10px', alignItems: 'center', width:'', margin:'', border:'0px solid red' }}>
                             <input
                                 ref={inputElement}
                                 id="youtubelink-input"
@@ -635,7 +663,7 @@ const VideoPlayer = ({ location }) => {
     playsinline
     loop={loop}
     muted={mute} // Set muted prop based on the mute state
-    autoplay={autoplay} // Set autoplay prop based on the autoplay state
+    autoPlay={autoplay} // Change autoplay to autoPlay
     config={{
         youtube: {
             playerVars: { showinfo: false, autoplay: autoplay ? 1 : 0, controls: controls ? 1 : 0, mute: mute ? 1 : 0 } // Set mute and autoplay flags based on state
@@ -661,6 +689,7 @@ const VideoPlayer = ({ location }) => {
         }
     }}
 />
+
 
 
 
