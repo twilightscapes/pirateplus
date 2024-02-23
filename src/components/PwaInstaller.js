@@ -29,7 +29,7 @@ const PWAInstaller = () => {
 
   return (
     
-    <div id="pwabanner" style={{position:'relative', top:'0', display: isInstalled ? "none" : "flex",  alignItems:'center', fontSize: 'clamp(.9rem,2vw,1rem)', background:'var(--theme-ui-colors-siteColor)', color:'var(--theme-ui-colors-siteColorText)' }}>
+    <div id="pwabanner" style={{position:'fixed', bottom:'0', display: isInstalled ? "none" : "flex",  alignItems:'center', fontSize: 'clamp(.9rem,2vw,1rem)', background:'var(--theme-ui-colors-siteColor)', color:'var(--theme-ui-colors-siteColorText)', marginBottom:'10px', width:'99vw', zIndex:'20' }}>
 
       <button
         className="flag1 bug1"
@@ -76,7 +76,7 @@ const PWAInstaller = () => {
 
       {/* <div style={{fontSize:'60px', display:'grid', placeContent:'center', height:'60px', margin:'0 2vw', lineHeight:'100%'}}>&#x2620;</div>  */}
 
-                <div className="font" style={{display:'flex', alignItems:'center', gap:'1vw'}}>
+                <div className="font" style={{display:'flex', alignItems:'center', gap:'1vw', textAlign:'center', justifyContent:'center', margin:'0 auto', border:'0px solid blue', width:'100%', maxWidth:'70vw', marginRight:'15%'}}>
                 Save to your Home Screen" to install {companyname}'s free Web App
                 </div>
   
