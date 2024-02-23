@@ -487,7 +487,7 @@ const VideoPlayer = ({ location }) => {
 
 <div id="bigbox" style={{ display: 'flex', flexDirection:'column', gap: '4px', alignItems: 'center', width:'100%', border:'0px solid red' }}>
 
-<div id="pastebox" style={{ display: 'flex', flexDirection:'row', gap: '10px', alignItems: 'center', width:'70%', margin:'0 auto', border:'0px solid red' }}>
+<div id="pastebox" style={{ display: 'flex', flexDirection:'row', gap: '10px', alignItems: 'center', width:'60vw', margin:'0 auto', border:'0px solid red' }}>
                             <input
                                 ref={inputElement}
                                 id="youtubelink-input"

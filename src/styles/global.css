@@ -1318,7 +1318,7 @@ html:has body.youtube{position:fixed !important; overflow: hidden !important;}
   .video-blocker {
     content:"❮❮scroll";
     position: fixed;
-    top: 90px;
+    top: 60px;
     left: 0;
     width: 100vw;
     height: 99%;
@@ -1331,7 +1331,9 @@ html:has body.youtube{position:fixed !important; overflow: hidden !important;}
     
 }
 
-
+input {
+    font-size: 16px;
+}
 
 
   /* html, body.youtube {
