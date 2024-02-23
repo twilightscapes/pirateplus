@@ -302,7 +302,7 @@ const handleHideEditorChange = (event) => {
 
             {showPro ? (
 
-<div className="font" style={{ position: 'relative', zIndex: '3', top: '0', width: '100vw', margin: '0 auto', marginTop: showNav ? '0' : '0', transition: 'all 1s ease-in-out', height: hideEditor ? '0' : '0', 
+<div className="font" style={{ position: 'relative', zIndex: '3', top: '0', width: '100vw', margin: '0 auto', marginTop: showNav ? '0' : '0', transition: 'all 1s ease-in-out', height: hideEditor ? '0' : '50px', 
 // background: 'var(--theme-ui-colors-headerColor)',
  }}>
 
@@ -519,9 +519,9 @@ const handleHideEditorChange = (event) => {
 
 
 
-<div className=" font" style={{ position: 'relative', zIndex: '3', top: '0', width: '100vw', margin: '0 auto', marginTop: showNav ? '0' : '0', transition: 'all 1s ease-in-out', height: hideEditor ? 'auto' : '0',
-//  background: 'var(--theme-ui-colors-headerColor)',
-  }}>
+<div className="font" style={{ position: 'relative', zIndex: '3', top: '0', width: '100vw', margin: '0 auto', marginTop: showNav ? '0' : '', transition: 'all 1s ease-in-out', height: hideEditor ? '0' : '50px', 
+// background: 'var(--theme-ui-colors-headerColor)',
+ }}>
 
 <form 
 className="youtubeform1 frontdrop1" 
@@ -567,102 +567,11 @@ background: 'var(--theme-ui-colors-headerColor)',
 </div>
 
 
-<div id="controls" style={{ visibility:'hidden', height:'0', display: 'flex', flexDirection:'row', gap: '2vw', alignItems: 'center', width:'70%' }}>
 
-<div id="checkboxes" style={{visibility:'hidden', height:'0', display: 'flex', flexDirection:'row', gap: '1.5vw', alignItems: 'center' }}>
-                                <label title="Looping - Set video to loop" htmlFor="loop-checkbox" style={{textAlign:'center', fontSize:'60%', display:'flex', flexDirection:'column'}}>Loop:
-                                    <input
-                                        aria-label="Set to loop"
-                                        id="loop-checkbox"
-                                        type="checkbox"
-                                        name="loop"
-                                        checked={loop}
-                                        onChange={handleInputChange}
-                                        disabled={!isVideoActive}
-                                        style={{maxWidth:'50px'}}
-                                    />
-                                </label>
-                                <label title="Mute - Set video to mute - required for autoplay" htmlFor="mute-checkbox" style={{textAlign:'center', fontSize:'60%', display:'flex', flexDirection:'column'}}>Mute:
-                                    <input
-                                        aria-label="Set to mute"
-                                        id="mute-checkbox"
-                                        type="checkbox"
-                                        name="mute"
-                                        checked={mute}
-                                        onChange={handleInputChange}
-                                        disabled={!isVideoActive}
-                                        style={{maxWidth:'50px'}}
-                                    />
-                                </label>
 
-                                
-                                <label title="Show Player Controls - needs a refresh to see the change"
-                                        checked={controls} htmlFor="controls-checkbox" style={{textAlign:'center', fontSize:'50%', display:'flex', flexDirection:'column'}}>Controls:
-                                    <input
-                                        aria-label="Set to show controls"
-                                        id="controls-checkbox"
-                                        type="checkbox"
-                                        name="controls"
-                                        onChange={handleInputChange}
-                                        disabled={!isVideoActive}
-                                        style={{maxWidth:'50px'}}
-                                    />
-                                </label>
 
-<label title="User Interaction Blocker - Keep people from clicking on anything on the page. Note, view will not be able to play videos that are NOT set to mute and autoplay - USE WITH CAUTION" htmlFor="blocker-checkbox" style={{textAlign:'center', fontSize:'60%', display:'flex', flexDirection:'column'}}>Block
-    <input
-        aria-label="Block user interactions"
-        id="blocker-checkbox"
-        type="checkbox"
-        name="showBlocker"
-        checked={showBlocker}
-        onChange={handleBlockerChange}
-        style={{maxWidth:'50px'}}
-    />
-</label>
 
-<label title="AutoPlay - Set video automatically begin playing. Note, videos must be muted for autoplay to work" htmlFor="autoplayCheckbox" style={{textAlign:'center', fontSize:'50%', display:'flex', flexDirection:'column'}}>Autoplay
-    <input
-        type="checkbox"
-        id="autoplayCheckbox"
-        checked={autoplay}
-        onChange={(e) => setAutoplay(e.target.checked)}
-    />
-</label>
-                            </div>
 
-<div id="timers" style={{ display: 'flex', flexDirection:'row', gap: '10px', alignItems: 'center', width:'100%' }}>
-<input
-    aria-label="Start Time"
-    id="start-input"
-    className="youtubelinker"
-    type="text"
-    name="start"
-    title="Start Time - Set video start time"
-    value={startTime !== null ? parseFloat(startTime).toFixed(2) : ''}
-    onChange={handleInputChange}
-    onClick={handleStartFromPlayhead}
-    placeholder={startTime === null ? 'Start' : ''}
-    disabled={!isVideoActive}
-    style={{ maxWidth: '100px', fontSize: 'clamp(1rem,.8vw,1.3rem)', textAlign: 'center' }}
-/>
-<input
-    aria-label="Stop Time"
-    id="stop-input"
-    className="youtubelinker"
-    type="text"
-    name="stop"
-    title="Stop Time - Set video stop time"
-    value={stopTime !== null ? parseFloat(stopTime).toFixed(2) : ''}
-    onChange={handleInputChange}
-    onClick={handleEndFromPlayhead}
-    placeholder={stopTime === null ? 'Stop' : ''}
-    disabled={!isVideoActive}
-    style={{ maxWidth: '100px', fontSize: 'clamp(1rem,.8vw,1.4rem)', textAlign: 'center' }}
-/>
-                            </div>
-
-</div>
 
 </div>
 
