@@ -37,7 +37,8 @@
       "showResume": true,
       "showLocation": true,
       "showLegal": true,
-      "showConsent": true
+      "showConsent": true,
+      "showPWA": true
     },
     "titleTemplate": "%s",
     "title": "PIRATE SOCIAL",
