@@ -725,6 +725,10 @@ collections:
                     name: showConsent
                     label: Show Cookie Consent Banner
                     required: false
+                  - widget: boolean
+                    name: showPWA
+                    label: Show Web App Install Banner
+                    required: false
                   - widget: string
                     name: startUrl
                     label: the url of the page you want when your app is installed
