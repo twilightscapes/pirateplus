@@ -7,9 +7,6 @@ import PageMenu from "../components/PageMenu";
 
 const VideoPlayer = ({ location }) => {
     const queryParams = useMemo(() => new URLSearchParams(location.search), [location.search]);
-    
-    
-
     const proParam = queryParams.get('pro') === 'true';
     const videoUrlParam = queryParams.get('video');
     const startTimeParam = queryParams.get('start');
@@ -19,6 +16,17 @@ const VideoPlayer = ({ location }) => {
     const controlsParam = queryParams.get('controls') === 'true';
     const autoplayParam = queryParams.get('autoplay') === 'true'; 
     const [showPro, setShowPro] = useState(proParam || (typeof window !== 'undefined' && JSON.parse(localStorage.getItem('showPro'))) || false);
+    const [hideEditor, setHideEditor] = useState(false);
+
+
+    
+    useEffect(() => {
+        // Get the hideEditor value from the query string
+        const hideEditorParam = queryParams.get('hideEditor');
+    
+        // Set the hideEditor state based on the value from the query string
+        setHideEditor(hideEditorParam === 'true');
+    }, [queryParams]);
 
 
     useEffect(() => {
@@ -26,7 +34,36 @@ const VideoPlayer = ({ location }) => {
             localStorage.setItem('showPro', JSON.stringify(showPro));
         }
     }, [showPro, proParam, queryParams]); 
+
+    // Function to handle changes in the hideEditor checkbox
+const handleHideEditorChange = (event) => {
+    const checked = event.target.checked;
+    // setHideEditor(checked);
+    updateQueryString({ hideEditor: checked }); 
+};
     
+useEffect(() => {
+    // Function to parse query string parameters
+    /* eslint-disable no-useless-escape */
+    const getParameterByName = (name, url) => {
+      if (!url) url = window.location.href;
+      name = name.replace(/[\[\]]/g, '\\$&');
+      const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    };
+    /* eslint-enable no-useless-escape */
+
+    
+    // Get the value of hideEditor parameter from the query string
+    /* eslint-disable-next-line no-unused-vars */
+    const hideEditorParam = getParameterByName('hideEditor');
+
+    // Set hideEditor state based on the value from the query string
+    // setHideEditor(hideEditorParam === 'true');
+  }, []);
 
 
     useEffect(() => {
@@ -102,9 +139,6 @@ const VideoPlayer = ({ location }) => {
             }
         }
     };
-    
-
-    
     
     
     useEffect(() => {
@@ -233,43 +267,34 @@ useEffect(() => {
 
 
 
-    // const handleStartFromPlayhead = () => {
-    //     const currentTime = playerRef.current.getCurrentTime();
-    //     setStartTime(currentTime.toString());
-    // };
+const updateQueryString = (values) => {
+    const { video, start, stop, loop, mute, controls, showBlocker, autoplay, seoTitle, hideEditor } = values;
 
-    // const handleEndFromPlayhead = () => {
-    //     const currentTime = playerRef.current.getCurrentTime();
-    //     setStopTime(currentTime.toString());
-    // };
+    // Round start and stop values to two decimal places
+    const formattedStart = parseFloat(start).toFixed(2);
+    const formattedStop = parseFloat(stop).toFixed(2);
 
+    // Ensure autoplay and hideEditor have default values if undefined
+    const autoplayValue = autoplay !== undefined ? autoplay : false;
+    const hideEditorValue = hideEditor !== undefined ? hideEditor : false;
 
+    // Construct the base URL with mandatory parameters
+    let newUrl = `${window.location.pathname}?video=${encodeURIComponent(video)}&start=${encodeURIComponent(formattedStart)}&stop=${encodeURIComponent(formattedStop)}&loop=${loop}&mute=${mute}&controls=${controls}&autoplay=${autoplayValue}&hideEditor=${hideEditorValue}`;
 
+    // Add SEO title parameter if provided
+    if (seoTitle !== undefined) {
+        newUrl += `&seoTitle=${encodeURIComponent(seoTitle)}`;
+    }
 
+    // Add showBlocker parameter if provided
+    if (showBlocker !== undefined) {
+        newUrl += `&showBlocker=${showBlocker}`;
+    }
 
-    const updateQueryString = (values) => {
-        const { video, start, stop, loop, mute, controls, showBlocker, autoplay, seoTitle } = values;
-    
-        // Round start and stop values to two decimal places
-        const formattedStart = parseFloat(start).toFixed(2);
-        const formattedStop = parseFloat(stop).toFixed(2);
-    
-        // Construct the base URL with mandatory parameters
-        let newUrl = `${window.location.pathname}?video=${encodeURIComponent(video)}&start=${encodeURIComponent(formattedStart)}&stop=${encodeURIComponent(formattedStop)}&loop=${loop}&mute=${mute}&controls=${controls}&autoplay=${autoplay}`;
-    
-        // Add SEO title parameter if provided
-        if (seoTitle !== undefined) {
-            newUrl += `&seoTitle=${encodeURIComponent(seoTitle)}`;
-        }
-    
-        // Add showBlocker parameter if provided
-        if (showBlocker !== undefined) {
-            newUrl += `&showBlocker=${showBlocker}`;
-        }
-    
-        // Update the query string
-        window.history.pushState({}, '', newUrl);
-    };
+    // Update the query string
+    window.history.pushState({}, '', newUrl);
+};
+
     
     
     
@@ -321,18 +346,40 @@ useEffect(() => {
 
     return (
         <>
-              <div id="piratevideo" className='player-wrapper' style={{ display: 'grid', placeContent: '', width: '100vw', transition: 'all 1s ease-in-out' }}>
+              <div id="piratevideo" className='player-wrapper' style={{ display: 'grid', placeContent: '', height:'auto',  width: '100vw', transition: 'all 1s ease-in-out' }}>
 
 
 
             {showPro ? (
 
-<div className=" font" style={{ position: 'relative', zIndex: '3', top: '0', height: 'auto', width: '100vw', margin: '0 auto', marginTop: showNav ? '0' : '0', transition: 'all 1s ease-in-out', background: 'var(--theme-ui-colors-headerColor)' }}>
-
-        
+<div className=" font" style={{ position: 'relative', zIndex: '3', top: '0', width: '100vw', margin: '0 auto', marginTop: showNav ? '0' : '0', transition: 'all 1s ease-in-out', height: hideEditor ? '0' : '80px', background: 'var(--theme-ui-colors-headerColor)', }}>
 
 
-                <form className="youtubeform1 frontdrop1" onSubmit={handleSubmit} id="youtubeform" name="youtubeform" style={{display:'flex', justifyContent:'center', flexWrap:'wrap', alignItems:'center', width:'100vw', margin:'0 auto', gap:'2vw', padding:'1vh 2vw' }}>
+
+
+                <form 
+      className="youtubeform1 frontdrop1" 
+      onSubmit={handleSubmit}  
+      id="youtubeform" 
+      name="youtubeform" 
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        width: '100vw',
+        margin: '0 auto',
+        gap: '2vw',
+        padding: '1vh 2vw',
+        transform: hideEditor ? 'translateY(-100%)' : 'none',
+        transition: 'transform 0.3s ease-in-out',
+        background: 'var(--theme-ui-colors-headerColor)',
+        height: hideEditor ? 'auto' : '0'
+
+      }}
+    >
+
+
 
 
 <div id="bigbox" style={{ display: 'flex', flexFlow:'wrap', flexDirection:'', gap: '2vw', alignItems: 'center', width:'', border:'0px solid red' }}>
@@ -341,7 +388,6 @@ useEffect(() => {
 <div id="controls" style={{ display: 'flex', flexDirection:'row', gap: '2vw', alignItems: 'center', width:'' }}>
 
 <div id="checkboxes" style={{ display: 'flex', flexDirection:'row', gap: '1.5vw', alignItems: 'center' }}>
-
 
 <label  title="AutoPlay - Set video to automatically begin playing. NOTE: videos must be muted for autoplay to work" htmlFor="autoplayCheckbox" style={{textAlign:'center', fontSize:'50%', display:'flex', flexDirection:'column', alignItems:'center'}}>Autoplay:
     <input
@@ -398,7 +444,18 @@ useEffect(() => {
                                 </label>
 
                             
-                                <label  title="User Interaction Blocker - Keep people from clicking on anything on the page. Note, view will not be able to play videos that are NOT set to mute and autoplay - USE WITH CAUTION" htmlFor="blocker-checkbox"  style={{textAlign:'center', fontSize:'60%', display:'flex', flexDirection:'column', alignItems:'center'}}>Block:
+<label htmlFor="hide-editor-checkbox" style={{textAlign:'center', fontSize:'50%', display:'flex', flexDirection:'column', alignItems:'center'}}>Editor:
+<input
+    type="checkbox"
+    id="hide-editor-checkbox"
+    name="hideEditor"
+    className="youtubelinker"
+    checked={hideEditor}
+    onChange={handleHideEditorChange}
+/>
+</label>
+
+<label  title="User Interaction Blocker - Keep people from clicking on anything on the page. Note, view will not be able to play videos that are NOT set to mute and autoplay - USE WITH CAUTION" htmlFor="blocker-checkbox"  style={{textAlign:'center', fontSize:'60%', display:'flex', flexDirection:'column', alignItems:'center'}}>Block:
     <input
         aria-label="Block user interactions"
         id="blocker-checkbox"
@@ -497,13 +554,6 @@ useEffect(() => {
 
 </div>
 
-
-
-
-                            
-
-
-                            
 
                             {isRunningStandalone() && (
                             <div style={{position:'absolute', left:'20px', top:'40vh', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', gap:'2vh', width:'35px'}}>
@@ -661,14 +711,6 @@ useEffect(() => {
 </div>
 
 </div>
-
-
-
-
-                            
-
-
-                            
 
                             {isRunningStandalone() && (
                             <div style={{position:'absolute', left:'20px', top:'40vh', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', gap:'2vh', width:'35px'}}>
