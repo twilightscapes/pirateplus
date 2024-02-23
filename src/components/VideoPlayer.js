@@ -388,6 +388,7 @@ const VideoPlayer = ({ location }) => {
     className="youtubelinker"
     type="text"
     name="start"
+    title="Click to set Start Time"
     value={isNaN(parseFloat(startTime)) ? '' : parseFloat(startTime).toFixed(2)}
     onChange={handleInputChange}
     onClick={handleStartFromPlayhead}
@@ -401,6 +402,7 @@ const VideoPlayer = ({ location }) => {
     className="youtubelinker"
     type="text"
     name="stop"
+    title="Click to set Stop Time"
     value={isNaN(parseFloat(stopTime)) ? '' : parseFloat(stopTime).toFixed(2)}
     onChange={handleInputChange}
     onClick={handleEndFromPlayhead}
@@ -422,6 +424,7 @@ const VideoPlayer = ({ location }) => {
                                 id="youtubelink-input"
                                 type="text"
                                 name="video"
+                                title="Paste Video Link"
                                 value={youtubelink}
                                 onChange={handleInputChange}
                                 style={{ padding: '.5vh 1vw', minWidth:'100px', width: '100%', maxWidth: '800px', fontSize: 'clamp(.8rem,1.4vw,1rem)', transition: 'all 1s ease-in-out' }}
@@ -430,7 +433,7 @@ const VideoPlayer = ({ location }) => {
                                 aria-label="Paste Link To Video"
                             />
 
-                            <button aria-label="Reset" type="reset" onClick={handleReset} disabled={!isVideoActive} style={{ color: '', fontSize: 'clamp(.8rem,1vw,1rem)', fontWeight: 'bold', textAlign: 'left', width: '20px', margin: '', opacity: isVideoActive ? 1 : 0.5 }}>
+                            <button title="Reset to start over" aria-label="Reset" type="reset" onClick={handleReset} disabled={!isVideoActive} style={{ color: '', fontSize: 'clamp(.8rem,1vw,1rem)', fontWeight: 'bold', textAlign: 'left', width: '20px', margin: '', opacity: isVideoActive ? 1 : 0.5 }}>
                                 Reset
                             </button>
 
@@ -521,6 +524,7 @@ const VideoPlayer = ({ location }) => {
                                         id="loop-checkbox"
                                         type="checkbox"
                                         name="loop"
+                                        title="Looping - Set video to loop"
                                         checked={loop}
                                         onChange={handleInputChange}
                                         disabled={!isVideoActive}
@@ -533,6 +537,7 @@ const VideoPlayer = ({ location }) => {
                                         id="mute-checkbox"
                                         type="checkbox"
                                         name="mute"
+                                        title="Mute - Set video to mute - required for autoplay"
                                         checked={mute}
                                         onChange={handleInputChange}
                                         disabled={!isVideoActive}
@@ -547,6 +552,7 @@ const VideoPlayer = ({ location }) => {
                                         id="controls-checkbox"
                                         type="checkbox"
                                         name="controls"
+                                        title="Show Player Controls - needs a refresh to see the change"
                                         checked={controls}
                                         onChange={handleInputChange}
                                         disabled={!isVideoActive}
@@ -561,6 +567,7 @@ const VideoPlayer = ({ location }) => {
         id="blocker-checkbox"
         type="checkbox"
         name="showBlocker"
+        title="User Interaction Blocker - Keep people from clicking on anything on the page. Note, view will not be able to play videos that are NOT set to mute and autoplay - USE WITH CAUTION"
         checked={showBlocker}
         onChange={handleBlockerChange}
         style={{maxWidth:'50px'}}
@@ -571,6 +578,7 @@ const VideoPlayer = ({ location }) => {
     <input
         type="checkbox"
         id="autoplayCheckbox"
+        title="AutoPlay - Set video automatically begin playing. Note, videos must be muted for autoplay to work"
         checked={autoplay}
         onChange={(e) => setAutoplay(e.target.checked)}
     />
@@ -586,6 +594,7 @@ const VideoPlayer = ({ location }) => {
     className="youtubelinker"
     type="text"
     name="start"
+    title="Start Time - Set video start time"
     value={startTime !== null ? parseFloat(startTime).toFixed(2) : ''}
     onChange={handleInputChange}
     onClick={handleStartFromPlayhead}
@@ -599,6 +608,7 @@ const VideoPlayer = ({ location }) => {
     className="youtubelinker"
     type="text"
     name="stop"
+    title="Stop Time - Set video stop time"
     value={stopTime !== null ? parseFloat(stopTime).toFixed(2) : ''}
     onChange={handleInputChange}
     onClick={handleEndFromPlayhead}
