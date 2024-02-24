@@ -23,7 +23,7 @@ const VideoPage = ({ location }) => {
 const SeoWrapper = ({ location }) => {
   const queryParams = new URLSearchParams(location.search);
   const videoUrlParam = queryParams.get('video');
-  const seoTitle = queryParams.get('seoTitle') || "Play Video ▶"; // Use the seoTitle from query params or default value
+  const seoTitle = queryParams.get('seoTitle') || "Play Video ☠"; // Use the seoTitle from query params or default value
 
   // Function to extract video ID from YouTube URL
   const extractVideoId = (url) => {

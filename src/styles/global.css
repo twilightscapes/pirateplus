@@ -1310,10 +1310,12 @@ html:has body.youtube{position:fixed !important; overflow: hidden !important;}
   body.youtube #header,
   body.youtube footer,
   body.youtube #menu,
-  body.youtube #gobacker,
+  /* body.youtube #gobacker, */
   body.youtube #menuicon,
   body.youtube .upbar 
   {display: none !important;}
+
+  body.youtube #gobacker{top:10% !important; right:5px !important;}
 
 .blocked-video::before{
   content:"Pirate Video Pro";
@@ -1351,11 +1353,9 @@ html:has body.youtube{position:fixed !important; overflow: hidden !important;}
     background-size: cover;  
 } */
 
-
-input {
-    font-size: 16px !important;
-}
-
+/* SAFARI INPUT ZOOM FIX */
+input {font-size: 16px !important;}
+/* SAFARI INPUT ZOOM FIX */
 
   /* html, body.youtube {
     touch-action: manipulation;

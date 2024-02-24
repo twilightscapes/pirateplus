@@ -335,7 +335,7 @@ const handleHideEditorChange = (event) => {
 
 <div id="checkboxes" style={{ display: 'flex', flexDirection:'row', gap: '10px', alignItems: 'center' }}>
 
-<label  title="AutoPlay - Set video to automatically begin playing. NOTE: videos must be muted for autoplay to work" htmlFor="autoplayCheckbox" style={{textAlign:'center', fontSize:'50%', display:'flex', flexDirection:'column', alignItems:'center'}}>Autoplay:
+<label  title="AutoPlay - Set video to automatically begin playing. NOTE: videos must be muted for autoplay to work" htmlFor="autoplayCheckbox" style={{textAlign:'center', fontSize:'50%', display:'flex', flexDirection:'column', alignItems:'center', opacity: 'isVideoActive ? 1 : 0.5'}}>Autoplay:
     <input
         type="checkbox"
         id="autoplayCheckbox"
@@ -346,7 +346,7 @@ const handleHideEditorChange = (event) => {
     />
 </label>
 
-                                <label htmlFor="loop-checkbox" style={{textAlign:'center', fontSize:'60%', display:'flex', flexDirection:'column', alignItems:'center'}}>Loop:
+                                <label htmlFor="loop-checkbox" style={{textAlign:'center', fontSize:'60%', display:'flex', flexDirection:'column', alignItems:'center', opacity: 'isVideoActive ? 1 : 0.5'}}>Loop:
                                     <input
                                         aria-label="Set to loop"
                                         id="loop-checkbox"
@@ -359,7 +359,7 @@ const handleHideEditorChange = (event) => {
                                         style={{maxWidth:'50px'}}
                                     />
                                 </label>
-                                <label htmlFor="mute-checkbox" style={{textAlign:'center', fontSize:'60%', display:'flex', flexDirection:'column', alignItems:'center'}}>Mute:
+                                <label htmlFor="mute-checkbox" style={{textAlign:'center', fontSize:'60%', display:'flex', flexDirection:'column', alignItems:'center', opacity: 'isVideoActive ? 1 : 0.5'}}>Mute:
                                     <input
                                         aria-label="Set to mute"
                                         id="mute-checkbox"
@@ -374,7 +374,7 @@ const handleHideEditorChange = (event) => {
                                 </label>
 
                                 
-                                <label htmlFor="controls-checkbox" style={{textAlign:'center', fontSize:'50%', display:'flex', flexDirection:'column', alignItems:'center'}}>Controls:
+                                <label htmlFor="controls-checkbox" style={{textAlign:'center', fontSize:'50%', display:'flex', flexDirection:'column', alignItems:'center', opacity: 'isVideoActive ? 1 : 0.5'}}>Controls:
                                     <input
                                         aria-label="Set to show controls"
                                         id="controls-checkbox"
@@ -388,7 +388,7 @@ const handleHideEditorChange = (event) => {
                                     />
                                 </label>
 
-<label htmlFor="hide-editor-checkbox" style={{textAlign:'center', fontSize:'50%', display:'flex', flexDirection:'column', alignItems:'center'}}>Editor:
+{/* <label htmlFor="hide-editor-checkbox" style={{textAlign:'center', fontSize:'50%', display:'flex', flexDirection:'column', alignItems:'center'}}>Editor:
 <input
     type="checkbox"
     id="hide-editor-checkbox"
@@ -398,9 +398,9 @@ const handleHideEditorChange = (event) => {
     disabled={!!videoUrlParam}
     onChange={handleHideEditorChange}
 />
-</label>
+</label> */}
 
-<label  title="User Interaction Blocker - Keep people from clicking on anything on the page. Note, view will not be able to play videos that are NOT set to mute and autoplay - USE WITH CAUTION" htmlFor="blocker-checkbox"  style={{textAlign:'center', fontSize:'60%', display:'flex', flexDirection:'column', alignItems:'center'}}>Block:
+<label  title="User Interaction Blocker - Keep people from clicking on anything on the page. Note, view will not be able to play videos that are NOT set to mute and autoplay - USE WITH CAUTION" htmlFor="blocker-checkbox"  style={{textAlign:'center', fontSize:'60%', display:'flex', flexDirection:'column', alignItems:'center', opacity: 'isVideoActive ? 1 : 0.5'}}>Block:
     <input
         aria-label="Block user interactions"
         id="blocker-checkbox"
@@ -461,6 +461,7 @@ const handleHideEditorChange = (event) => {
                         style={{ padding: '.5vh 1vw', minWidth:'100px', width: '100%', maxWidth: '800px', fontSize: 'clamp(.8rem,1.4vw,1rem)', transition: 'all 1s ease-in-out' }}
                         aria-label="Video Title"
                         className="youtubelinker"
+                        disabled={!isVideoActive}
                     />
                     
                             <input
