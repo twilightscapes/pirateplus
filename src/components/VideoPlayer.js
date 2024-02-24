@@ -316,12 +316,12 @@ const handleHideEditorChange = (event) => {
         justifyContent: 'center',
         flexWrap: 'wrap',
         alignItems: 'center',
-        width: '100vw',
+        width: '100w',
         margin: '0 auto',
         gap: '2vw',
-        padding: '1vh 2vw',
+        padding: '4px 20px',
         transform: hideEditor ? 'translateY(-100%)' : 'none',
-        transition: 'transform 0.3s ease-in-out',
+        transition: 'transform 0.5s ease-in-out',
         background: 'var(--theme-ui-colors-headerColor)',
         // height: hideEditor ? '0' : 'auto'
 
@@ -333,7 +333,7 @@ const handleHideEditorChange = (event) => {
 
 <div id="controls" style={{ display: 'flex', flexDirection:'row', gap: '2vw', alignItems: 'center', width:'' }}>
 
-<div id="checkboxes" style={{ display: 'flex', flexDirection:'row', gap: '1.5vw', alignItems: 'center' }}>
+<div id="checkboxes" style={{ display: 'flex', flexDirection:'row', gap: '10px', alignItems: 'center' }}>
 
 <label  title="AutoPlay - Set video to automatically begin playing. NOTE: videos must be muted for autoplay to work" htmlFor="autoplayCheckbox" style={{textAlign:'center', fontSize:'50%', display:'flex', flexDirection:'column', alignItems:'center'}}>Autoplay:
     <input
@@ -415,7 +415,7 @@ const handleHideEditorChange = (event) => {
 </label>
                 </div>
 
-<div id="timers" style={{ display: 'flex', flexDirection:'row', gap: '10px', alignItems: 'center', width:'100%' }}>
+<div id="timers" style={{ display: 'flex', flexDirection:'row', gap: '15px', alignItems: 'center', width:'100%', marginLeft:'15px' }}>
 <input
     aria-label="Start Time"
     id="start-input"
@@ -428,7 +428,7 @@ const handleHideEditorChange = (event) => {
     onClick={handleStartFromPlayhead} 
     placeholder={!startTime && 'Start Time'} 
     disabled={!isVideoActive}
-    style={{ maxWidth: '100px', fontSize: 'clamp(1rem,.8vw,1.3rem)', textAlign: 'center' }}
+    style={{ maxWidth: '60px', fontSize: 'clamp(.7rem,.6vw,1rem)', textAlign: 'center' }}
 />
 <input
     aria-label="Stop Time"
@@ -442,7 +442,7 @@ const handleHideEditorChange = (event) => {
     onClick={handleEndFromPlayhead} 
     placeholder={!stopTime && 'Stop Time'} 
     disabled={!isVideoActive}
-    style={{ maxWidth: '100px', fontSize: 'clamp(1rem,.8vw,1.4rem)', textAlign: 'center' }}
+    style={{ maxWidth: '60px', fontSize: 'clamp(.7rem,.6vw,1rem)', textAlign: 'center' }}
 />
 
 </div>
@@ -471,7 +471,7 @@ const handleHideEditorChange = (event) => {
                                 title="Paste Video Link"
                                 value={youtubelink}
                                 onChange={handleInputChange}
-                                style={{ padding: '.5vh 1vw', minWidth:'100px', width: '100%', maxWidth: '800px', fontSize: 'clamp(.8rem,1.4vw,1rem)', transition: 'all 1s ease-in-out' }}
+                                style={{ padding: '5px 1vw', minWidth:'100px', width: '100%', maxWidth: '800px', fontSize: 'clamp(.6rem,1vw,1rem)', transition: 'all 1s ease-in-out' }}
                                 placeholder="Paste Link To Video"
                                 className="youtubelinker"
                                 aria-label="Paste Link To Video"
@@ -482,7 +482,7 @@ const handleHideEditorChange = (event) => {
                             </button>
 
                             <div id="copybutton" style={{ display: 'flex', flexDirection:'row', gap: '10px', alignItems: 'center' }}>
-<button aria-label="Create Link" onClick={handleCopyAndShareButtonClick} disabled={!isVideoActive} style={{ display: "flex", gap: '.5vw', justifyContent: "center", padding: ".5vh .8vw", width:'80px', maxHeight: "", margin: "0 auto", textAlign: 'center', fontSize: '14px', fontWeight: 'light', textShadow: '0 1px 0 #000', marginLeft:'', opacity: isVideoActive ? 1 : 0.5 }} className="button font print">
+<button aria-label="Create Link" onClick={handleCopyAndShareButtonClick} disabled={!isVideoActive} style={{ display: "flex", gap: '.5vw', justifyContent: "center", padding: ".2vh .4vw", width:'50px', maxHeight: "", margin: "0 auto", textAlign: 'center', fontSize: '14px', fontWeight: 'light', textShadow: '0 1px 0 #444', marginLeft:'15px', opacity: 'isVideoActive ? 1 : 0.5',  }} className="button font print">
 {copied ? 'Link Copied' : 'Copy Link'}
 </button>
 </div>
