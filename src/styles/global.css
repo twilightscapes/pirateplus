@@ -1331,7 +1331,7 @@ html:has body.youtube{position:fixed !important; overflow: hidden !important;}
     z-index: 5;
     display:grid;
     place-content: center;
-    border:0px solid yellow !important;
+    border:20px solid yellow !important;
     background:transparent;
     background-size: cover;
     font-size: clamp(2rem,3vw,3rem);

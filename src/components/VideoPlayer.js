@@ -23,7 +23,7 @@ const VideoPlayer = ({ location }) => {
     const seoTitleParam = queryParams.get('seoTitle') || ''; 
     const [showPro, setShowPro] = useState(proParam || (typeof window !== 'undefined' && JSON.parse(localStorage.getItem('showPro'))) || false);
     const [showBlocker, setShowBlocker] = useState(false);
-
+    const [hideEditor, setHideEditor] = useState(false);
 
     const [seoTitle, setSeoTitle] = useState(seoTitleParam);
 
@@ -69,7 +69,7 @@ useEffect(() => {
     const [copied, setCopied] = useState(false);
 
 
-    const [hideEditor, setHideEditor] = useState(false);
+    
 
 
     // Function to handle input change for video URL, start time, stop time, loop, mute, and controls
@@ -87,9 +87,9 @@ const handleInputChange = (event) => {
         } else if (name === 'autoplay') {
             setAutoplay(checked);
         } else if (name === 'hideEditor') {
-            setHideEditor(checked); // Update hideEditor state
+            setHideEditor(checked); 
         } else if (name === 'showBlocker') {
-            setShowBlocker(checked); // Update showBlocker state
+            setShowBlocker(checked); 
         } else {
             setLoop(checked);
         }
@@ -117,8 +117,8 @@ const handleInputChange = (event) => {
         controls, 
         autoplay, 
         seoTitle, 
-        hideEditor, // Add hideEditor to the parameters
-        showBlocker // Add showBlocker to the parameters
+        hideEditor, 
+        showBlocker 
     });
 };
 
@@ -148,7 +148,7 @@ useEffect(() => {
         hideEditor: false,
         showBlocker: false
     });
-}, [autoplayParam, controlsParam, loopParam, muteParam, seoTitleParam, startTimeParam, stopTimeParam, videoUrlParam]);
+}, [autoplayParam, controlsParam, loopParam, muteParam, seoTitleParam, startTimeParam, stopTimeParam, videoUrlParam, hideEditor, showBlocker ]);
 
 
 
@@ -170,7 +170,7 @@ useEffect(() => {
         event.preventDefault();
         if (isValidURL(youtubelink)) {
             if ((startTime === "" || !isNaN(parseFloat(startTime))) && (stopTime === "" || !isNaN(parseFloat(stopTime)))) {
-                updateQueryString({ video: youtubelink, start: startTime, stop: stopTime, loop, mute, controls, seoTitle }); 
+                updateQueryString({ video: youtubelink, start: startTime, stop: stopTime, loop, mute, controls, seoTitle, showBlocker, hideEditor }); 
             } else {
                 alert('Please enter valid values for start and stop times.');
             }
@@ -324,14 +324,14 @@ const updateQueryString = (values) => {
 const handleHideEditorChange = (event) => {
     const newValue = event.target.checked;
     setHideEditor(newValue);
-    updateQueryString({ hideEditor: newValue });
+    updateQueryString({ hideEditor: newValue ? 'true' : 'false' });
 };
 
 
 const handleShowBlockerChange = (event) => {
     const newValue = event.target.checked;
     setShowBlocker(newValue);
-    updateQueryString({ showBlocker: newValue });
+    updateQueryString({ showBlocker: newValue ? 'true' : 'false' });
 };
 
 const handleAutoplayChange = (event) => {
@@ -641,6 +641,8 @@ background: 'var(--theme-ui-colors-headerColor)',
 <div id="bigbox" style={{ display: 'flex', flexDirection:'column', gap: '4px', alignItems: 'center', width:'100%', border:'0px solid red' }}>
 
 <div id="pastebox" style={{ display: 'flex', flexDirection:'row', gap: '10px', alignItems: 'center', width:'60vw', margin:'0 auto', border:'0px solid red' }}>
+
+
                             <input
                                 ref={inputElement}
                                 id="youtubelink-input"
@@ -701,6 +703,7 @@ background: 'var(--theme-ui-colors-headerColor)',
 
 <ReactPlayer
 id="PiratePlayer"
+
 className={showBlocker ? "blocked-video" : ""}
     ref={playerRef}
     allow="web-share"
