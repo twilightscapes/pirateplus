@@ -52,7 +52,9 @@ const VideoPlayer = ({ location }) => {
     });
     const [loop, setLoop] = useState(loopParam);
     const [mute, setMute] = useState(muteParam);
-    const [autoplay, setAutoplay] = useState(autoplayParam === 'true');
+
+    const [autoplay, setAutoplay] = useState(autoplayParam);
+
     const [controls, setControls] = useState(controlsParam !== undefined ? JSON.parse(controlsParam) : true);
     const [copied, setCopied] = useState(false);
 
@@ -105,11 +107,12 @@ const VideoPlayer = ({ location }) => {
             loop, 
             mute, 
             controls, 
-            autoplay, 
+            autoplay, // Here, autoplay is already a boolean value
             seoTitle, 
             hideEditor, 
             showBlocker 
         });
+        
     };
 
     // Effect to initialize query parameters when the component mounts
@@ -180,42 +183,57 @@ const VideoPlayer = ({ location }) => {
     };
 
     // Function to copy URL to clipboard
-    const handleCopyAndShareButtonClick = async () => {
-        // Construct the query parameters
-        const queryParamsObject = {
-            video: youtubelink,
-            start: startTime,
-            stop: stopTime,
-            loop,
-            mute,
-            controls,
-            autoplay,
-            seoTitle,
-            hideEditor,
-            showBlocker,
-        };
+// Function to copy URL to clipboard
+// Function to copy URL to clipboard
+// Function to copy URL to clipboard
+const handleCopyAndShareButtonClick = async () => {
+    // Retrieve autoplay value from query parameters
+    const autoplayQueryParam = queryParams.get('autoplay') === 'true';
 
-        // Remove any undefined or empty parameters
-        Object.keys(queryParamsObject).forEach(key => {
-            if (queryParamsObject[key] === undefined || queryParamsObject[key] === '') {
-                delete queryParamsObject[key];
-            }
-        });
-
-        // Update the query string
-        const newParams = new URLSearchParams(queryParamsObject);
-
-        // Construct the URL
-        const newUrl = `${window.location.origin}${window.location.pathname}?${newParams.toString()}`;
-
-        // Copy the URL to clipboard
-        navigator.clipboard.writeText(newUrl)
-            .then(() => {
-                setCopied(true);
-                setTimeout(() => setCopied(false), 2000);
-            })
-            .catch((error) => console.error("Error copying to clipboard:", error));
+    // Construct the query parameters
+    const queryParamsObject = {
+        video: youtubelink,
+        start: startTime,
+        stop: stopTime,
+        loop,
+        mute,
+        controls,
+        autoplay: autoplayQueryParam, // Use the retrieved autoplay value
+        seoTitle,
+        hideEditor,
+        showBlocker,
     };
+
+    // Remove any undefined or empty parameters
+    Object.keys(queryParamsObject).forEach(key => {
+        if (queryParamsObject[key] === undefined || queryParamsObject[key] === '') {
+            delete queryParamsObject[key];
+        }
+    });
+
+    // Update the query string
+    const newParams = new URLSearchParams(queryParamsObject);
+
+    // Construct the URL
+    const newUrl = `${window.location.origin}${window.location.pathname}?${newParams.toString()}`;
+
+    // Copy the URL to clipboard
+    navigator.clipboard.writeText(newUrl)
+        .then(() => {
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+        })
+        .catch((error) => console.error("Error copying to clipboard:", error));
+};
+
+
+
+
+
+
+
+
+
 
     // Function to handle starting the video from the playhead position
     const handleStartFromPlayhead = () => {
@@ -230,30 +248,34 @@ const VideoPlayer = ({ location }) => {
     };
 
     // Function to update query string based on provided values
-    const updateQueryString = (values) => {
-        const { video, start, stop, loop, mute, controls, autoplay, seoTitle, hideEditor, showBlocker } = values;
+const updateQueryString = (values) => {
+    const { video, start, stop, loop, mute, controls, autoplay, seoTitle, hideEditor, showBlocker } = values;
 
-        // Format start and stop values only if they are not NaN
-        const formattedStart = isNaN(parseFloat(start)) ? "" : parseFloat(start).toFixed(2);
-        const formattedStop = isNaN(parseFloat(stop)) ? "" : parseFloat(stop).toFixed(2);
+    // Format start and stop values only if they are not NaN
+    const formattedStart = isNaN(parseFloat(start)) ? "" : parseFloat(start).toFixed(2);
+    const formattedStop = isNaN(parseFloat(stop)) ? "" : parseFloat(stop).toFixed(2);
 
-        // Construct the base URL with mandatory parameters
-        let newUrl = `${window.location.pathname}?video=${encodeURIComponent(video)}&start=${encodeURIComponent(formattedStart)}&stop=${encodeURIComponent(formattedStop)}&loop=${loop}&mute=${mute}&controls=${controls}&autoplay=${autoplay}`;
+    // Convert autoplay to string
+    const autoplayValue = autoplay ? 'true' : 'false';
 
-        if (seoTitle !== undefined) {
-            newUrl += `&seoTitle=${encodeURIComponent(seoTitle)}`;
-        }
+    // Construct the base URL with mandatory parameters
+    let newUrl = `${window.location.pathname}?video=${encodeURIComponent(video)}&start=${encodeURIComponent(formattedStart)}&stop=${encodeURIComponent(formattedStop)}&loop=${loop}&mute=${mute}&controls=${controls}&autoplay=${autoplayValue}`;
 
-        if (hideEditor !== undefined) {
-            newUrl += `&hideEditor=${hideEditor}`;
-        }
+    if (seoTitle !== undefined) {
+        newUrl += `&seoTitle=${encodeURIComponent(seoTitle)}`;
+    }
 
-        if (showBlocker !== undefined) {
-            newUrl += `&showBlocker=${showBlocker}`;
-        }
+    if (hideEditor !== undefined) {
+        newUrl += `&hideEditor=${hideEditor ? 'true' : 'false'}`;
+    }
 
-        window.history.pushState({}, '', newUrl);
-    };
+    if (showBlocker !== undefined) {
+        newUrl += `&showBlocker=${showBlocker ? 'true' : 'false'}`;
+    }
+
+    window.history.pushState({}, '', newUrl);
+};
+
 
     // Function to handle hide editor change
     const handleHideEditorChange = (event) => {
@@ -269,12 +291,15 @@ const VideoPlayer = ({ location }) => {
         updateQueryString({ showBlocker: newValue ? 'true' : 'false' });
     };
 
-    // Function to handle autoplay change
-    const handleAutoplayChange = (event) => {
-        const newValue = event.target.checked;
-        setAutoplay(newValue);
-        updateQueryString({ autoplay: newValue ? 'true' : 'false' });
-    };
+
+// Function to handle autoplay change
+const handleAutoplayChange = (event) => {
+    const newValue = event.target.checked;
+    setAutoplay(newValue);
+    // Update query string with new autoplay value
+    updateQueryString({ autoplay: newValue }); // Update query string with new autoplay value
+};
+
 
     // Function to check if URL is valid
     const isValidURL = (url) => {
@@ -343,13 +368,13 @@ const VideoPlayer = ({ location }) => {
 
 <label  title="AutoPlay - Set video to automatically begin playing. NOTE: videos must be muted for autoplay to work" htmlFor="autoplayCheckbox" style={{textAlign:'center', fontSize:'50%', display:'flex', flexDirection:'column', alignItems:'center', opacity: 'isVideoActive() ? 1 : 0.5' }}>Autoplay:
 <input
-        type="checkbox"
-        id="autoplay-checkbox"
-        className="youtubelinker"
-        checked={autoplay}
-        onChange={handleAutoplayChange}
-        disabled={!isVideoActive}
-    />
+    type="checkbox"
+    id="autoplay-checkbox"
+    className="youtubelinker"
+    checked={autoplay}
+    onChange={handleAutoplayChange} 
+    disabled={!isVideoActive}
+/>
 </label>
 
                                 <label htmlFor="loop-checkbox" style={{textAlign:'center', fontSize:'60%', display:'flex', flexDirection:'column', alignItems:'center', opacity: 'isVideoActive() ? 1 : 0.5'}}>Loop:
@@ -634,9 +659,11 @@ background: 'var(--theme-ui-colors-headerColor)',
 ""
 )}
 
+
+<div className={showBlocker ? "blocked-video" : ""}></div>
 <ReactPlayer
     id="PiratePlayer"
-    className={showBlocker ? "blocked-video" : ""}
+    // className={showBlocker ? "blocked-video" : ""}
     ref={playerRef}
     allow="web-share"
     style={{

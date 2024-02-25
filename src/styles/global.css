@@ -1321,10 +1321,10 @@ html:has body.youtube{position:fixed !important; overflow: hidden !important;}
     body.youtube #PiratePlayer {top:110px !important;}
   }
 
-.blocked-video::before{
+#PiratePlayer .blocked-video::before{
   content:"Pirate Video Pro";
     position: fixed;
-    top: 60px;
+    /* top: 60px; */
     left: 0;
     width: 100vw;
     height: 99%;
