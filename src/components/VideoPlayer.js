@@ -70,7 +70,12 @@ useEffect(() => {
 
 
     
-
+    // Effect to update showBlocker state based on query string
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        const showBlockerParam = params.get('showBlocker');
+        setShowBlocker(showBlockerParam === 'true');
+    }, []);
 
     // Function to handle input change for video URL, start time, stop time, loop, mute, and controls
 // Function to handle input change for video URL, start time, stop time, loop, mute, and controls
@@ -130,10 +135,24 @@ const handleInputChange = (event) => {
 
 
 // Effect to initialize query parameters when the component mounts
+// Effect to initialize query parameters when the component mounts
+// Effect to initialize query parameters when the component mounts
+// Effect to initialize query parameters when the component mounts
 useEffect(() => {
     // Update autoplay if present in query parameters
     if (autoplayParam !== undefined) {
         setAutoplay(autoplayParam === 'true');
+    }
+    // Declare hideEditorParam and showBlockerParam variables
+    const hideEditorParam = queryParams.get('hideEditor');
+    const showBlockerParam = queryParams.get('showBlocker');
+    // Update hideEditor if present in query parameters
+    if (hideEditorParam !== null) {
+        setHideEditor(hideEditorParam === 'true');
+    }
+    // Update showBlocker if present in query parameters
+    if (showBlockerParam !== null) {
+        setShowBlocker(showBlockerParam === 'true');
     }
     // Update query parameters with default values
     updateQueryString({
@@ -145,10 +164,13 @@ useEffect(() => {
         controls: controlsParam,
         autoplay: autoplayParam === undefined ? false : autoplayParam,
         seoTitle: seoTitleParam,
-        hideEditor: false,
-        showBlocker: false
+        hideEditor: hideEditorParam === null ? false : hideEditorParam === 'true',
+        showBlocker: showBlockerParam === null ? false : showBlockerParam === 'true',
     });
-}, [autoplayParam, controlsParam, loopParam, muteParam, seoTitleParam, startTimeParam, stopTimeParam, videoUrlParam, hideEditor, showBlocker ]);
+}, [autoplayParam, controlsParam, startTimeParam, stopTimeParam, loopParam, muteParam, seoTitleParam, videoUrlParam, queryParams]);
+
+
+
 
 
 
@@ -702,9 +724,8 @@ background: 'var(--theme-ui-colors-headerColor)',
 )}
 
 <ReactPlayer
-id="PiratePlayer"
-
-className={showBlocker ? "blocked-video" : ""}
+    id="PiratePlayer"
+    className={showBlocker ? "blocked-video" : ""}
     ref={playerRef}
     allow="web-share"
     style={{
@@ -727,7 +748,7 @@ className={showBlocker ? "blocked-video" : ""}
     playsinline
     loop={loop}
     mute={mute}
-    autoPlay={autoplay}
+    autoPlay={autoplay} // This should be 'autoplay' instead of 'autoPlay'
     volume={mute ? 0 : 1} // Set volume to 0 if muted, 1 otherwise
     onStart={() => console.log('onStart')}
     onPause={() => setIsPlaying(false)}
@@ -759,6 +780,8 @@ className={showBlocker ? "blocked-video" : ""}
     }}
 >
 </ReactPlayer>
+
+
             </div>
         </>
     );
