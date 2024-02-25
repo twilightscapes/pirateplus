@@ -21,11 +21,11 @@ const VideoPlayer = ({ location }) => {
     const [shouldHideEditor, setShouldHideEditor] = useState(false); // New state to track if editor should hide
 
 // Function to handle hideEditor checkbox change
-const handleHideEditorChange = (event) => {
-    const checked = event.target.checked;
-    setHideEditor(checked); // Update hideEditor state
-    updateQueryString({ hideEditor: checked }); // Update query string
-};
+// const handleHideEditorChange = (event) => {
+//     const checked = event.target.checked;
+//     setHideEditor(checked); // Update hideEditor state
+//     updateQueryString({ hideEditor: checked }); // Update query string
+// };
 
     // Effect to initialize hideEditor state based on query parameter
     useEffect(() => {
