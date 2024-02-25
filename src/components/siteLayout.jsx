@@ -15,7 +15,7 @@ import GoBack from "../components/goBack"
 import { ModalRoutingContext } from 'gatsby-plugin-modal-routing-4'
 import Menu from "../components/menu"
 import { BiLeftArrow } from "react-icons/bi"
-import Consent from "../components/Consent"
+// import Consent from "../components/Consent"
 import defaultColors from "../../static/data/default-colors.json";
 import userStyles from "../../static/data/userStyles.json"
 import Switch from "../components/Switch"
@@ -64,7 +64,9 @@ const Layout = ({ children }) => {
   const { dicSearch, dicPirate, dicGoBack } = language;
   const { showNav, showNav2 } = navOptions
   const { showfooter, showSwipe, showSearch } = featureOptions
-  const { showModals, showBranding, showConsent, showPWA } = proOptions
+  const { showModals, showBranding,
+    //  showConsent, 
+     showPWA } = proOptions
 
   const { companyname } = useSiteMetadata()
   const { iconimage } = useSiteMetadata()
@@ -255,11 +257,13 @@ const Layout = ({ children }) => {
 
 
 
-      {showConsent ? (
-        <div style={{display:'flex', placeContent:'', position:'absolute', width:'100vw', margin:'0 auto', height:'100%', top:'50%', left:'', right:'', zIndex:'2', border:'0px solid blue'}}><Consent /></div>
+      {/* {showConsent ? (
+        <div style={{display:'flex', placeContent:'', position:'absolute', width:'100vw', margin:'0 auto', height:'100%', top:'50%', left:'', right:'', zIndex:'2', border:'0px solid blue'}}>
+          <Consent />
+          </div>
       ) : (
         ""
-      )}
+      )} */}
 
 
 

@@ -21,11 +21,11 @@ const VideoPlayer = ({ location }) => {
     const [shouldHideEditor, setShouldHideEditor] = useState(false); // New state to track if editor should hide
 
 // Function to handle hideEditor checkbox change
-// const handleHideEditorChange = (event) => {
-//     const checked = event.target.checked;
-//     setHideEditor(checked); // Update hideEditor state
-//     updateQueryString({ hideEditor: checked }); // Update query string
-// };
+const handleHideEditorChange = (event) => {
+    const checked = event.target.checked;
+    // setHideEditor(checked); // Update hideEditor state
+    updateQueryString({ hideEditor: checked }); // Update query string
+};
 
     // Effect to initialize hideEditor state based on query parameter
     useEffect(() => {
@@ -64,27 +64,18 @@ const VideoPlayer = ({ location }) => {
     const [loop, setLoop] = useState(loopParam);
     const [mute, setMute] = useState(muteParam);
     const [autoplay, setAutoplay] = useState(autoplayParam);
-    const [controls, setControls] = useState(controlsParam !== undefined ? controlsParam : false || startTimeParam !== undefined || stopTimeParam !== undefined);
+    const [controls, setControls] = useState(controlsParam !== undefined ? JSON.parse(controlsParam) : true);
+
     const [copied, setCopied] = useState(false);
     const [showBlocker, setShowBlocker] = useState(queryParams.get('showBlocker') === 'true');
     const [seoTitle, setSeoTitle] = useState('');
 
     // Function to handle change in SEO title input
-    const handleSeoTitleChange = (event) => {
-        setSeoTitle(event.target.value);
-    };
+    // const handleSeoTitleChange = (event) => {
+    //     setSeoTitle(event.target.value);
+    // };
 
-    // const getParameterByName = (name, url) => {
-    //     /* eslint-disable no-useless-escape */
-    //     if (!url) url = window.location.href;
-    //     name = name.replace(/[\[\]]/g, '\\$&');
-    //     const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-    //       results = regex.exec(url);
-    //     if (!results) return null;
-    //     if (!results[2]) return '';
-    //     return decodeURIComponent(results[2].replace(/\+/g, ' '));
-    //   };
-/* eslint-enable no-useless-escape */
+
     // Function to handle input change for video URL, start time, stop time, loop, mute, and controls
     const handleInputChange = (event) => {
         const { name, value, type, checked } = event.target;
@@ -106,6 +97,7 @@ const VideoPlayer = ({ location }) => {
                 setYoutubelink(value);
                 // Set autoplay to true when the video link is changed
                 setAutoplay(true);
+                setControls(true);
             } else if (name === 'start') {
                 setStartTime(formattedValue);
             } else if (name === 'stop') {
@@ -114,7 +106,7 @@ const VideoPlayer = ({ location }) => {
         }
     };
     
-    
+
 
     // Effect to handle invalid start and stop times
     useEffect(() => {
@@ -171,6 +163,9 @@ const VideoPlayer = ({ location }) => {
                 .catch((error) => console.error("Error copying to clipboard:", error));
         }
     };
+
+
+    
     
     // Function to handle share button click
     const handleShareButtonClick = () => {
@@ -232,29 +227,30 @@ const VideoPlayer = ({ location }) => {
         setStopTime(currentTime.toString());
     };
 
-    // Function to update query string based on provided values
-    const updateQueryString = (values) => {
-        const { video, start, stop, loop, mute, controls, showBlocker, autoplay, seoTitle, hideEditor } = values;
+// Function to update query string based on provided values
+// Function to update query string based on provided values
+const updateQueryString = (values) => {
+    const { video, start, stop, loop, mute, controls, showBlocker, autoplay, seoTitle, hideEditor } = values;
 
-        const formattedStart = parseFloat(start).toFixed(2);
-        const formattedStop = parseFloat(stop).toFixed(2);
+    const formattedStart = parseFloat(start).toFixed(2);
+    const formattedStop = parseFloat(stop).toFixed(2);
+
+    // Construct the base URL with mandatory parameters
+    let newUrl = `${window.location.pathname}?video=${encodeURIComponent(video)}&start=${encodeURIComponent(formattedStart)}&stop=${encodeURIComponent(formattedStop)}&loop=${loop}&mute=${mute}&controls=${controls}&autoplay=${autoplay}&hideEditor=${hideEditor}`;
+
+    if (seoTitle !== undefined) {
+        newUrl += `&seoTitle=${encodeURIComponent(seoTitle)}`; // Include seoTitle in the query string
+    }
+
+    if (showBlocker !== undefined) {
+        newUrl += `&showBlocker=${showBlocker}`;
+    }
+
+    window.history.pushState({}, '', newUrl);
+};
 
 
-        const autoplayValue = autoplay !== undefined ? autoplay : false;
-        const hideEditorValue = hideEditor !== undefined ? hideEditor : false;
 
-        // Construct the base URL with mandatory parameters
-        let newUrl = `${window.location.pathname}?video=${encodeURIComponent(video)}&start=${encodeURIComponent(formattedStart)}&stop=${encodeURIComponent(formattedStop)}&loop=${loop}&mute=${mute}&controls=${controls}&autoplay=${autoplayValue}&hideEditor=${hideEditorValue}`;
-
-        if (seoTitle !== undefined) {
-            newUrl += `&seoTitle=${encodeURIComponent(seoTitle)}`;
-        }
-
-        if (showBlocker !== undefined) {
-            newUrl += `&showBlocker=${showBlocker}`;
-        }
-        window.history.pushState({}, '', newUrl);
-    };
 
     // Function to check if URL is valid
     const isValidURL = (url) => {
@@ -333,7 +329,7 @@ const VideoPlayer = ({ location }) => {
 
 <div id="controls" style={{ display: 'flex', flexDirection:'row', gap: '2vw', alignItems: 'center', width:'' }}>
 
-<div id="checkboxes" style={{ display: 'flex', flexDirection:'row', gap: '10px', alignItems: 'center', padding:'3px 10px', background:'rgba(0,0,0,.3)', outline:'1px solid #333', borderRadius:'5px' }}>
+<div id="checkboxes" style={{ display: 'flex', flexDirection:'row', gap: '10px', alignItems: 'center', padding:'0 10px 5px 10px', background:'rgba(0,0,0,.3)', outline:'1px solid #333', borderRadius:'5px', opacity: 'isVideoActive ? 1 : 0.5' }}>
 
 <label  title="AutoPlay - Set video to automatically begin playing. NOTE: videos must be muted for autoplay to work" htmlFor="autoplayCheckbox" style={{textAlign:'center', fontSize:'50%', display:'flex', flexDirection:'column', alignItems:'center', opacity: 'isVideoActive ? 1 : 0.5'}}>Autoplay:
     <input
@@ -387,18 +383,20 @@ const VideoPlayer = ({ location }) => {
                                         style={{maxWidth:'50px'}}
                                     />
                                 </label>
+                </div>
 
-{/* <label htmlFor="hide-editor-checkbox" style={{textAlign:'center', fontSize:'50%', display:'flex', flexDirection:'column', alignItems:'center'}}>Editor:
+<div style={{ display: 'flex', flexDirection:'row', gap: '10px', alignItems: 'center', padding:'0 3px 5px 3px', background:'rgba(0,0,0,.3)', outline:'1px solid #333', borderRadius:'5px' }}>
+<label htmlFor="hide-editor-checkbox" style={{textAlign:'center', fontSize:'50%', display:'flex', flexDirection:'column', alignItems:'center'}}>Editor:
 <input
     type="checkbox"
     id="hide-editor-checkbox"
     name="hideEditor"
     className="youtubelinker"
     checked={hideEditor}
-    disabled={!!videoUrlParam}
+    disabled={!isVideoActive}
     onChange={handleHideEditorChange}
 />
-</label> */}
+</label>
 
 <label  title="User Interaction Blocker - Keep people from clicking on anything on the page. Note, view will not be able to play videos that are NOT set to mute and autoplay - USE WITH CAUTION" htmlFor="blocker-checkbox"  style={{textAlign:'center', fontSize:'60%', display:'flex', flexDirection:'column', alignItems:'center', opacity: 'isVideoActive ? 1 : 0.5'}}>Block:
     <input
@@ -413,9 +411,11 @@ const VideoPlayer = ({ location }) => {
         style={{maxWidth:'50px'}}
     />
 </label>
-                </div>
+</div>
 
-<div id="timers" style={{ display: 'flex', flexDirection:'row', gap: '15px', alignItems: 'center', width:'100%', marginLeft:'15px' }}>
+
+
+<div id="timers" style={{ display: 'flex', flexDirection:'row', gap: '10px', alignItems: 'center', width:'100%', marginLeft:'' }}>
 <input
     aria-label="Start Time"
     id="start-input"
@@ -428,7 +428,7 @@ const VideoPlayer = ({ location }) => {
     onClick={handleStartFromPlayhead} 
     placeholder={!startTime && 'Start'} 
     disabled={!isVideoActive}
-    style={{ maxWidth: '70px', fontSize: 'clamp(.7rem,.6vw,1rem)', textAlign: 'center' }}
+    style={{ maxWidth: '60px', fontSize: 'clamp(.7rem,.6vw,1rem)', textAlign: 'center' }}
 />
 <input
     aria-label="Stop Time"
@@ -442,7 +442,7 @@ const VideoPlayer = ({ location }) => {
     onClick={handleEndFromPlayhead} 
     placeholder={!stopTime && 'Stop'} 
     disabled={!isVideoActive}
-    style={{ maxWidth: '70px', fontSize: 'clamp(.7rem,.6vw,1rem)', textAlign: 'center' }}
+    style={{ maxWidth: '60px', fontSize: 'clamp(.7rem,.6vw,1rem)', textAlign: 'center' }}
 />
 
 </div>
@@ -450,20 +450,21 @@ const VideoPlayer = ({ location }) => {
 </div>
 
 
-<div id="pastebox" style={{ display: 'flex', flexDirection:'row', gap: '20px', alignItems: 'center', width:'', margin:'', border:'0px solid red' }}>
 
-                    <input
-                        type="text"
-                        name="seoTitle" 
-                        title="Enter Video Title"
-                        value={seoTitle}
-                        onChange={handleSeoTitleChange} 
-                        placeholder="Video Title" 
-                        style={{ padding: '.2vh .4vw', minWidth:'160px', width: '100%', maxWidth: '800px', fontSize: 'clamp(.8rem,1.4vw,1rem)', transition: 'all 1s ease-in-out' }}
-                        aria-label="Enter Video Title"
-                        className="youtubelinker"
-                        disabled={!isVideoActive}
-                    />
+<div id="pastebox" style={{ display: 'flex', flexDirection:'row', gap: '2vw', alignItems: 'center', width:'', margin:'', border:'0px solid red' }}>
+
+<input
+    type="text"
+    name="seoTitle" 
+    title="Enter Video Title"
+    value={seoTitle}
+    onChange={(e) => setSeoTitle(e.target.value)} // Add this onChange handler
+    placeholder="Video Title" 
+    style={{ padding: '.2vh .4vw', minWidth:'160px', width: '100%', maxWidth: '800px', fontSize: 'clamp(.8rem,1.4vw,1rem)', transition: 'all 1s ease-in-out' }}
+    aria-label="Enter Video Title"
+    className="youtubelinker"
+    disabled={!isVideoActive}
+/>
                     
                             <input
                                 ref={inputElement}
@@ -482,23 +483,16 @@ const VideoPlayer = ({ location }) => {
 
 <div style={{display: 'flex', flexDirection:'row', gap: '20px', alignItems: 'center', padding:'3px 10px', background:'rgba(0,0,0,.3)', outline:'1px solid #333', borderRadius:'var(--theme-ui-colors-borderRadius)'}}>
 
-<button title="Reset to start over" aria-label="Reset" type="reset" onClick={handleReset} disabled={!isVideoActive} style={{ color: '', fontSize: 'clamp(.8rem,1vw,1rem)', fontWeight: 'bold', textAlign: 'left', width: '20px', margin: '', opacity: isVideoActive ? 1 : 0.5 }}>
-                                Reset
-                            </button>
+<button title="Reset to start over" aria-label="Reset" type="reset" onClick={handleReset} disabled={!isVideoActive} style={{ color: '', fontSize: 'clamp(.8rem,1vw,1rem)', fontWeight: 'bold', textAlign: 'left', width: '15px', margin: '0 10px 0 0', opacity: isVideoActive ? 1 : 0.5 }}>Reset</button>
 
-                            <div id="copybutton" style={{ display: 'flex', flexDirection:'row', gap: '10px', alignItems: 'center' }}>
-<button aria-label="Create Link" onClick={handleCopyAndShareButtonClick} disabled={!isVideoActive} style={{ display: "flex", gap: '.5vw', justifyContent: "center", padding: ".6vh 1vw", width:'50px', maxHeight: "", margin: "0 auto", textAlign: 'center', fontSize: '14px', fontWeight: 'light', textShadow: '0 1px 0 #444', marginLeft:'15px', opacity: 'isVideoActive ? 1 : 0.5',  }} className="button font print">
-{copied ? 'Link Copied' : 'Set Link'}
+<button aria-label="Create Link" onClick={handleCopyAndShareButtonClick} disabled={!isVideoActive} style={{ display: "flex", gap: '.5vw', justifyContent: "center", padding: ".6vh .2vw", width:'100%', minWidth:'85px', maxHeight: "", margin: "0 auto", textAlign: 'center', fontSize: '14px', fontWeight: 'light', textShadow: '0 1px 0 #444', marginLeft:'15px', opacity: 'isVideoActive ? 1 : 0.5',  }} className="button font print">
+{copied ? 'Link Copied' : 'Copy Link'}
 </button>
 
 </div>
-                            
 
 
 
-
-
-</div>
 </div>
 
 </div>
@@ -649,14 +643,14 @@ className={showBlocker ? "blocked-video" : ""}
     loop={loop}
     mute={mute}
     autoPlay={autoplay}
-    volume={mute ? false : true} // Set volume to 0 if muted, 1 otherwise
+    volume={mute ? 0 : 1} // Set volume to 0 if muted, 1 otherwise
     onStart={() => console.log('onStart')}
     onPause={() => setIsPlaying(false)}
     onEnded={() => setIsPlaying(false)}
     onPlay={() => setIsPlaying(true)}
     config={{
         youtube: {
-            playerVars: { showinfo: false, autoplay: autoplay ? true : false, controls: controls ? true: false, mute: mute ? true : false } 
+            playerVars: { showinfo: false, autoplay: autoplay ? 1 : 0, controls: controls ? 1 : 0, mute: mute ? 1 : 0 } 
         },
     }}
     onReady={() => {
