@@ -1317,6 +1317,10 @@ html:has body.youtube{position:fixed !important; overflow: hidden !important;}
 
   body.youtube #gobacker{top:10% !important; right:5px !important;}
 
+  @media(max-width:48rem) {
+    body.youtube #PiratePlayer {top:110px !important;}
+  }
+
 .blocked-video::before{
   content:"Pirate Video Pro";
     position: fixed;
