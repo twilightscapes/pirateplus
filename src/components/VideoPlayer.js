@@ -1,48 +1,45 @@
-import React, { useState, useRef, useEffect, useMemo } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import ReactPlayer from 'react-player/lazy';
 import { TfiYoutube } from "react-icons/tfi";
 import { FaTwitch, FaFacebookSquare } from "react-icons/fa";
 import useSiteMetadata from "../hooks/SiteMetadata";
 import PageMenu from "../components/PageMenu";
-
+// import { navigate } from 'gatsby';
 const VideoPlayer = ({ location }) => {
     // State initialization
-    const queryParams = useMemo(() => new URLSearchParams(location.search), [location.search]);
+    const [queryParams] = useState(new URLSearchParams(location.search));
     const proParam = queryParams.get('pro') === 'true';
     const videoUrlParam = queryParams.get('video');
     const startTimeParam = queryParams.get('start');
     const stopTimeParam = queryParams.get('stop');
+
     const loopParam = queryParams.get('loop') === 'true';
     const muteParam = queryParams.get('mute') === 'true';
     const controlsParam = queryParams.get('controls') === 'true';
+
+
+
     const autoplayParam = queryParams.get('autoplay') === 'true'; 
+    const seoTitleParam = queryParams.get('seoTitle') || ''; 
     const [showPro, setShowPro] = useState(proParam || (typeof window !== 'undefined' && JSON.parse(localStorage.getItem('showPro'))) || false);
-    const [hideEditor, setHideEditor] = useState(queryParams.get('hideEditor') === 'true');
-    const [shouldHideEditor, setShouldHideEditor] = useState(false); // New state to track if editor should hide
+    const [showBlocker, setShowBlocker] = useState(false);
 
-// Function to handle hideEditor checkbox change
-const handleHideEditorChange = (event) => {
-    const checked = event.target.checked;
-    // setHideEditor(checked); // Update hideEditor state
-    updateQueryString({ hideEditor: checked }); // Update query string
-};
 
-    // Effect to initialize hideEditor state based on query parameter
-    useEffect(() => {
-        const hideEditorParam = queryParams.get('hideEditor');
-        setHideEditor(hideEditorParam === 'true');
-    }, [queryParams]);
+    const [seoTitle, setSeoTitle] = useState(seoTitleParam);
+
+    
 
     // Effect to update localStorage and showPro state
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            localStorage.setItem('showPro', JSON.stringify(showPro));
-            const storedShowPro = JSON.parse(localStorage.getItem('showPro'));
-            const storedShowBlocker = queryParams.get('showBlocker') === 'true';
-            setShowPro(storedShowPro !== null ? storedShowPro : proParam);
-            setShowBlocker(storedShowBlocker);
-        }
-    }, [showPro, proParam, queryParams]);
+useEffect(() => {
+    if (typeof window !== 'undefined') {
+        localStorage.setItem('showPro', JSON.stringify(showPro));
+        const storedShowPro = JSON.parse(localStorage.getItem('showPro'));
+        setShowPro(storedShowPro !== null ? storedShowPro : proParam);
+    }
+}, [showPro, proParam, queryParams]);
+
+
+
 
     // Additional state and variables initialization
     const [shouldPause, setShouldPause] = useState(false);
@@ -63,49 +60,99 @@ const handleHideEditorChange = (event) => {
     });
     const [loop, setLoop] = useState(loopParam);
     const [mute, setMute] = useState(muteParam);
-    const [autoplay, setAutoplay] = useState(autoplayParam);
+
+    const [autoplay, setAutoplay] = useState(autoplayParam === 'true');
+// const [autoplay, setAutoplay] = useState(false); 
+    // const [autoplay, setAutoplay] = useState(autoplayParam);
+
     const [controls, setControls] = useState(controlsParam !== undefined ? JSON.parse(controlsParam) : true);
-
     const [copied, setCopied] = useState(false);
-    const [showBlocker, setShowBlocker] = useState(queryParams.get('showBlocker') === 'true');
-    const [seoTitle, setSeoTitle] = useState('');
 
-    // Function to handle change in SEO title input
-    // const handleSeoTitleChange = (event) => {
-    //     setSeoTitle(event.target.value);
-    // };
+
+    const [hideEditor, setHideEditor] = useState(false);
 
 
     // Function to handle input change for video URL, start time, stop time, loop, mute, and controls
-    const handleInputChange = (event) => {
-        const { name, value, type, checked } = event.target;
-    
-        let formattedValue = value.trim() !== '' && !isNaN(parseFloat(value)) ? parseFloat(value).toFixed(2) : '';
-    
-        if (type === 'checkbox') {
-            if (name === 'mute') {
-                setMute(checked);
-            } else if (name === 'controls') {
-                setControls(checked);
-            } else if (name === 'autoplay') {
-                setAutoplay(checked);
-            } else {
-                setLoop(checked);
-            }
+// Function to handle input change for video URL, start time, stop time, loop, mute, and controls
+const handleInputChange = (event) => {
+    const { name, value, type, checked } = event.target;
+
+    let formattedValue = value.trim() !== '' && !isNaN(parseFloat(value)) ? parseFloat(value).toFixed(2) : '';
+
+    if (type === 'checkbox') {
+        if (name === 'mute') {
+            setMute(checked);
+        } else if (name === 'controls') {
+            setControls(checked);
+        } else if (name === 'autoplay') {
+            setAutoplay(checked);
+        } else if (name === 'hideEditor') {
+            setHideEditor(checked); // Update hideEditor state
+        } else if (name === 'showBlocker') {
+            setShowBlocker(checked); // Update showBlocker state
         } else {
-            if (name === 'video') {
-                setYoutubelink(value);
-                // Set autoplay to true when the video link is changed
-                setAutoplay(true);
-                setControls(true);
-            } else if (name === 'start') {
-                setStartTime(formattedValue);
-            } else if (name === 'stop') {
-                setStopTime(formattedValue);
-            }
+            setLoop(checked);
         }
-    };
-    
+    } else {
+        if (name === 'video') {
+            setYoutubelink(value);
+            setAutoplay(true);
+            setControls(true);
+        } else if (name === 'start') {
+            setStartTime(formattedValue);
+        } else if (name === 'stop') {
+            setStopTime(formattedValue);
+        } else if (name === 'seoTitle') {
+            setSeoTitle(value);
+        }
+    }
+
+    // Update query string with all parameters
+    updateQueryString({ 
+        video: youtubelink, 
+        start: startTime, 
+        stop: stopTime, 
+        loop, 
+        mute, 
+        controls, 
+        autoplay, 
+        seoTitle, 
+        hideEditor, // Add hideEditor to the parameters
+        showBlocker // Add showBlocker to the parameters
+    });
+};
+
+
+
+
+
+
+
+
+// Effect to initialize query parameters when the component mounts
+useEffect(() => {
+    // Update autoplay if present in query parameters
+    if (autoplayParam !== undefined) {
+        setAutoplay(autoplayParam === 'true');
+    }
+    // Update query parameters with default values
+    updateQueryString({
+        video: videoUrlParam,
+        start: startTimeParam,
+        stop: stopTimeParam,
+        loop: loopParam,
+        mute: muteParam,
+        controls: controlsParam,
+        autoplay: autoplayParam === undefined ? false : autoplayParam,
+        seoTitle: seoTitleParam,
+        hideEditor: false,
+        showBlocker: false
+    });
+}, [autoplayParam, controlsParam, loopParam, muteParam, seoTitleParam, startTimeParam, stopTimeParam, videoUrlParam]);
+
+
+
+
 
 
     // Effect to handle invalid start and stop times
@@ -144,76 +191,85 @@ const handleHideEditorChange = (event) => {
     };
 
     // Function to copy URL to clipboard
-    const copyToClipboard = () => {
-        if (typeof window !== 'undefined') {
-            const newUrl = new URL(window.location.href);
-            newUrl.searchParams.set('video', youtubelink || '');
-            newUrl.searchParams.set('start', startTime || '');
-            newUrl.searchParams.set('stop', stopTime || '');
-            newUrl.searchParams.set('loop', loop || '');
-            newUrl.searchParams.set('mute', mute ? 'true' : 'false'); 
-            newUrl.searchParams.set('controls', controls ? 'true' : 'false');
-            newUrl.searchParams.set('showBlocker', showBlocker ? 'true' : 'false');
-            newUrl.searchParams.set('autoplay', autoplay ? 'true' : 'false'); 
-            navigator.clipboard.writeText(newUrl.toString())
-                .then(() => {
-                    setCopied(true);
-                    setTimeout(() => setCopied(false), 2000);
-                })
-                .catch((error) => console.error("Error copying to clipboard:", error));
-        }
-    };
+    // const copyToClipboard = () => {
+    //     if (typeof window !== 'undefined') {
+    //         const newUrl = new URL(window.location.href);
+    //         newUrl.searchParams.set('video', youtubelink || '');
+    //         newUrl.searchParams.set('start', startTime || '');
+    //         newUrl.searchParams.set('stop', stopTime || '');
+    //         newUrl.searchParams.set('loop', loop || '');
+    //         newUrl.searchParams.set('mute', mute ? 'true' : 'false'); 
+    //         newUrl.searchParams.set('controls', controls ? 'true' : 'false');
+    //         newUrl.searchParams.set('autoplay', autoplay ? 'true' : 'false'); 
+    //         navigator.clipboard.writeText(newUrl.toString())
+    //             .then(() => {
+    //                 setCopied(true);
+    //                 setTimeout(() => setCopied(false), 2000);
+    //             })
+    //             .catch((error) => console.error("Error copying to clipboard:", error));
+    //     }
+    // };
 
-
-    
-    
     // Function to handle share button click
-    const handleShareButtonClick = () => {
-        if (typeof window !== 'undefined') {
-            if (navigator.share) {
-                navigator.share({
-                    title: 'PIRATE',
-                    url: window.location.href
-                }).then(() => {
-                    console.log('Thanks for being a Pirate!');
-                })
-                    .catch(console.error);
-            }
-        }
+    // const handleShareButtonClick = () => {
+    //     if (typeof window !== 'undefined') {
+    //         if (navigator.share) {
+    //             navigator.share({
+    //                 title: 'PIRATE',
+    //                 url: window.location.href
+    //             }).then(() => {
+    //                 console.log('Thanks for being a Pirate!');
+    //             })
+    //                 .catch(console.error);
+    //         }
+    //     }
+    // };
+
+// Function to handle copy and share button click
+const handleCopyAndShareButtonClick = async () => {
+    // Construct the query parameters
+    const queryParamsObject = {
+        video: youtubelink,
+        start: startTime,
+        stop: stopTime,
+        loop,
+        mute,
+        controls,
+        autoplay,
+        seoTitle,
+        hideEditor,
+        showBlocker,
     };
 
-    // Function to handle copy and share button click
-    const handleCopyAndShareButtonClick = () => {
-        // Set the state to indicate that the editor should be hidden
-        setShouldHideEditor(true);
-
-        // Construct the query parameters
-        const queryParams = new URLSearchParams();
-        queryParams.set('video', youtubelink);
-        queryParams.set('loop', loop);
-        queryParams.set('mute', mute);
-        queryParams.set('controls', controls);
-        queryParams.set('showBlocker', queryParams.get('showBlocker') || showBlocker);
-    
-        if (startTime) {
-            queryParams.set('start', startTime);
+    // Remove any undefined or empty parameters
+    Object.keys(queryParamsObject).forEach(key => {
+        if (queryParamsObject[key] === undefined || queryParamsObject[key] === '') {
+            delete queryParamsObject[key];
         }
-        if (stopTime) {
-            queryParams.set('stop', stopTime);
-        }
+    });
 
-        const url = `${window.location.pathname}?${queryParams.toString()}`;
-        copyToClipboard(url);
-        handleShareButtonClick();
-    };
+    // Update the query string
+    const newParams = new URLSearchParams(queryParamsObject);
 
-    // Effect to update the query string based on the state variable
-    useEffect(() => {
-        if (shouldHideEditor) {
-            // Update the query string to hide the editor
-            updateQueryString({ hideEditor: true });
-        }
-    }, [shouldHideEditor]);
+    // Construct the URL
+    const newUrl = `${window.location.origin}${window.location.pathname}?${newParams.toString()}`;
+
+    // Copy the URL to clipboard
+    navigator.clipboard.writeText(newUrl)
+        .then(() => {
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+        })
+        .catch((error) => console.error("Error copying to clipboard:", error));
+};
+
+
+
+
+
+
+
+
 
     // Function to handle starting the video from the playhead position
     const handleStartFromPlayhead = () => {
@@ -227,19 +283,32 @@ const handleHideEditorChange = (event) => {
         setStopTime(currentTime.toString());
     };
 
+
+
+
+
+
+
+    // Function to update query string based on provided values
+// Function to update query string based on provided values
 // Function to update query string based on provided values
 // Function to update query string based on provided values
 const updateQueryString = (values) => {
-    const { video, start, stop, loop, mute, controls, showBlocker, autoplay, seoTitle, hideEditor } = values;
+    const { video, start, stop, loop, mute, controls, autoplay, seoTitle, hideEditor, showBlocker } = values;
 
-    const formattedStart = parseFloat(start).toFixed(2);
-    const formattedStop = parseFloat(stop).toFixed(2);
+    // Format start and stop values only if they are not NaN
+    const formattedStart = isNaN(parseFloat(start)) ? "" : parseFloat(start).toFixed(2);
+    const formattedStop = isNaN(parseFloat(stop)) ? "" : parseFloat(stop).toFixed(2);
 
     // Construct the base URL with mandatory parameters
-    let newUrl = `${window.location.pathname}?video=${encodeURIComponent(video)}&start=${encodeURIComponent(formattedStart)}&stop=${encodeURIComponent(formattedStop)}&loop=${loop}&mute=${mute}&controls=${controls}&autoplay=${autoplay}&hideEditor=${hideEditor}`;
+    let newUrl = `${window.location.pathname}?video=${encodeURIComponent(video)}&start=${encodeURIComponent(formattedStart)}&stop=${encodeURIComponent(formattedStop)}&loop=${loop}&mute=${mute}&controls=${controls}&autoplay=${autoplay}`;
 
     if (seoTitle !== undefined) {
-        newUrl += `&seoTitle=${encodeURIComponent(seoTitle)}`; // Include seoTitle in the query string
+        newUrl += `&seoTitle=${encodeURIComponent(seoTitle)}`;
+    }
+
+    if (hideEditor !== undefined) {
+        newUrl += `&hideEditor=${hideEditor}`;
     }
 
     if (showBlocker !== undefined) {
@@ -247,6 +316,28 @@ const updateQueryString = (values) => {
     }
 
     window.history.pushState({}, '', newUrl);
+};
+
+
+
+
+const handleHideEditorChange = (event) => {
+    const newValue = event.target.checked;
+    setHideEditor(newValue);
+    updateQueryString({ hideEditor: newValue });
+};
+
+
+const handleShowBlockerChange = (event) => {
+    const newValue = event.target.checked;
+    setShowBlocker(newValue);
+    updateQueryString({ showBlocker: newValue });
+};
+
+const handleAutoplayChange = (event) => {
+    const newValue = event.target.checked;
+    setAutoplay(newValue);
+    updateQueryString({ autoplay: newValue ? 'true' : 'false' });
 };
 
 
@@ -266,21 +357,6 @@ const updateQueryString = (values) => {
         return false;
     }
 
-    // Function to handle blocker checkbox change
-    const handleBlockerChange = (event) => {
-        const checked = event.target.checked;
-        setShowBlocker(checked);
-        if (checked) {
-            updateQueryString({ showBlocker: checked });
-        } else {
-            const updatedQueryParams = new URLSearchParams(location.search);
-            updatedQueryParams.delete('showBlocker');
-            const newQueryString = updatedQueryParams.toString();
-            const newUrl = `${window.location.pathname}${newQueryString ? `?${newQueryString}` : ''}`;
-            window.history.pushState({}, '', newUrl);
-        }
-    };
-
     // Check if a video is active
     const isVideoActive = youtubelink !== "";
 
@@ -298,7 +374,8 @@ const updateQueryString = (values) => {
 
             {showPro ? (
 
-<div className="font" style={{ position: 'relative', zIndex: '3', top: '0', width: '100vw', margin: '0 auto', marginTop: showNav ? '0' : '0', transition: 'all 1s ease-in-out', height: hideEditor ? '0' : '50px', 
+<div className="font" style={{ position: 'relative', zIndex: '3', top: '0', width: '100vw', margin: '0 auto', marginTop: showNav ? '0' : '0', transition: 'all 1s ease-in-out',
+//  height: hideEditor ? '0' : '50px', 
 // background: 'var(--theme-ui-colors-headerColor)',
  }}>
 
@@ -316,7 +393,7 @@ const updateQueryString = (values) => {
         margin: '0 auto',
         gap: '2vw',
         padding: '4px 20px',
-        transform: hideEditor ? 'translateY(-100%)' : 'none',
+        // transform: hideEditor ? 'translateY(-100%)' : 'none',
         transition: 'transform 0.5s ease-in-out',
         background: 'var(--theme-ui-colors-headerColor)',
         // height: hideEditor ? '0' : 'auto'
@@ -332,12 +409,12 @@ const updateQueryString = (values) => {
 <div id="checkboxes" style={{ display: 'flex', flexDirection:'row', gap: '10px', alignItems: 'center', padding:'0 10px 5px 10px', background:'rgba(0,0,0,.3)', outline:'1px solid #333', borderRadius:'5px', opacity: 'isVideoActive ? 1 : 0.5' }}>
 
 <label  title="AutoPlay - Set video to automatically begin playing. NOTE: videos must be muted for autoplay to work" htmlFor="autoplayCheckbox" style={{textAlign:'center', fontSize:'50%', display:'flex', flexDirection:'column', alignItems:'center', opacity: 'isVideoActive ? 1 : 0.5'}}>Autoplay:
-    <input
+<input
         type="checkbox"
-        id="autoplayCheckbox"
+        id="autoplay-checkbox"
         className="youtubelinker"
         checked={autoplay}
-        onChange={(e) => setAutoplay(e.target.checked)}
+        onChange={handleAutoplayChange}
         disabled={!isVideoActive}
     />
 </label>
@@ -392,9 +469,12 @@ const updateQueryString = (values) => {
     id="hide-editor-checkbox"
     name="hideEditor"
     className="youtubelinker"
-    checked={hideEditor}
+
     disabled={!isVideoActive}
-    onChange={handleHideEditorChange}
+
+    onChange={handleHideEditorChange} checked={hideEditor}
+    // checked={hideEditor}
+    // onChange={handleHideEditorInputChange}
 />
 </label>
 
@@ -405,8 +485,9 @@ const updateQueryString = (values) => {
         type="checkbox"
         className="youtubelinker"
         name="showBlocker"
-        checked={showBlocker}
-        onChange={handleBlockerChange}
+        // checked={showBlocker}
+        // onChange={handleBlockerChange}
+        onChange={handleShowBlockerChange} checked={showBlocker}
         disabled={!isVideoActive}
         style={{maxWidth:'50px'}}
     />
@@ -530,7 +611,8 @@ const updateQueryString = (values) => {
 
 
 
-<div className="font" style={{ position: 'relative', zIndex: '3', top: '0', width: '100vw', margin: '0 auto', marginTop: showNav ? '0' : '', transition: 'all 1s ease-in-out', height: hideEditor ? '0' : '50px', 
+<div className="font" style={{ position: 'relative', zIndex: '3', top: '0', width: '100vw', margin: '0 auto', marginTop: showNav ? '0' : '', transition: 'all 1s ease-in-out', 
+// height: hideEditor ? '0' : '50px', 
 // background: 'var(--theme-ui-colors-headerColor)',
  }}>
 
@@ -548,7 +630,7 @@ width: '100vw',
 margin: '0 auto',
 gap: '2vw',
 padding: '1vh 2vw',
-transform: hideEditor ? 'translateY(-100%)' : 'none',
+// transform: hideEditor ? 'translateY(-100%)' : 'none',
 transition: 'transform 0.3s ease-in-out',
 background: 'var(--theme-ui-colors-headerColor)',
 // height: hideEditor ? 'auto' : '0'
