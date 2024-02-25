@@ -473,7 +473,7 @@ const handleHideEditorChange = (event) => {
                                 title="Paste Video Link"
                                 value={youtubelink}
                                 onChange={handleInputChange}
-                                style={{ padding: '.2vh .4vw', minWidth:'100px', width: '100%', maxWidth: '800px', fontSize: 'clamp(.6rem,1vw,1rem)', transition: 'all 1s ease-in-out' }}
+                                style={{ padding: '.2vh .4vw', minWidth:'100px', width: '100%', maxWidth: '800px', fontSize: 'clamp(.6rem,1vw,1rem)', transition: 'all 1s ease-in-out', outline:'1px solid' }}
                                 placeholder="Paste Link"
                                 className="youtubelinker"
                                 aria-label="Paste Link To Video"
