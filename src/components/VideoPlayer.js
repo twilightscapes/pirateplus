@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useMemo } from "react";
 import ReactPlayer from 'react-player/lazy';
-import { ImYoutube2 } from "react-icons/im";
+import { TfiYoutube } from "react-icons/tfi";
 import { FaTwitch, FaFacebookSquare } from "react-icons/fa";
 import useSiteMetadata from "../hooks/SiteMetadata";
 import PageMenu from "../components/PageMenu";
@@ -510,7 +510,7 @@ const handleHideEditorChange = (event) => {
 
 
                                     <a title="Open YouTube" aria-label="Open YouTube" href="https://youtube.com">
-                                        <ImYoutube2 style={{ fontSize: '30px', opacity:'.8' }} />
+                                        <TfiYoutube style={{ fontSize: '30px', opacity:'.8' }} />
                                     </a>
                                     <a title="Open Facebook" aria-label="Open Facebook" href="https://www.facebook.com/watch/">
                                         <FaFacebookSquare style={{ fontSize: '30px', opacity:'.8' }} />
@@ -595,7 +595,7 @@ background: 'var(--theme-ui-colors-headerColor)',
                             {isRunningStandalone() && (
                             <div style={{position:'absolute', left:'20px', top:'40vh', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', gap:'2vh', width:'35px'}}>
                                     <a title="Open YouTube" aria-label="Open YouTube" href="https://youtube.com">
-                                        <ImYoutube2 style={{ fontSize: '40px', opacity:'.5' }} />
+                                        <TfiYoutube style={{ fontSize: '30px', opacity:'.5' }} />
                                     </a>
                                     <a title="Open Facebook" aria-label="Open Facebook" href="https://www.facebook.com/watch/">
                                         <FaFacebookSquare style={{ fontSize: '30px', opacity:'.5' }} />
