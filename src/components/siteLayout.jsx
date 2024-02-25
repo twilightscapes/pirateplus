@@ -253,9 +253,10 @@ const Layout = ({ children }) => {
         ""
       )}
 
+
+
       {showConsent ? (
-        
-        <div style={{display:'flex', placeContent:'', position:'absolute', width:'100vw', margin:'0 auto', height:'100%', top:'50%', left:'', right:'', zIndex:'5', border:'0px solid blue'}}><Consent /></div>
+        <div style={{display:'flex', placeContent:'', position:'absolute', width:'100vw', margin:'0 auto', height:'100%', top:'50%', left:'', right:'', zIndex:'2', border:'0px solid blue'}}><Consent /></div>
       ) : (
         ""
       )}

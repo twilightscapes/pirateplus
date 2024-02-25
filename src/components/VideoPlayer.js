@@ -503,8 +503,8 @@ const VideoPlayer = ({ location }) => {
 
 </div>
 
-                            {!isRunningStandalone() && (
-                            <div style={{position:'absolute', left:'0', top:'50vh', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', gap:'2vh', width:'55px',padding:'3px 10px', background:'rgba(0,0,0,.3)', outline:'1px solid #333', borderRadius:'var(--theme-ui-colors-borderRadius)'}}>
+                            {isRunningStandalone() && (
+                            <div style={{position:'absolute', left:'0', top:'50vh', zIndex:'2', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', gap:'2vh', width:'55px',padding:'3px 10px', background:'rgba(0,0,0,.3)', outline:'1px solid #333', borderRadius:'var(--theme-ui-colors-borderRadius)'}}>
 
 
 
@@ -592,19 +592,23 @@ background: 'var(--theme-ui-colors-headerColor)',
 
 </div>
 
-                            {isRunningStandalone() && (
-                            <div style={{position:'absolute', left:'20px', top:'40vh', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', gap:'2vh', width:'35px'}}>
+{isRunningStandalone() && (
+                            <div style={{position:'absolute', left:'0', top:'50vh', zIndex:'2', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', gap:'2vh', width:'55px',padding:'3px 10px', background:'rgba(0,0,0,.3)', outline:'1px solid #333', borderRadius:'var(--theme-ui-colors-borderRadius)'}}>
+
+
+
+
                                     <a title="Open YouTube" aria-label="Open YouTube" href="https://youtube.com">
-                                        <TfiYoutube style={{ fontSize: '30px', opacity:'.5' }} />
+                                        <TfiYoutube style={{ fontSize: '30px', opacity:'.8' }} />
                                     </a>
                                     <a title="Open Facebook" aria-label="Open Facebook" href="https://www.facebook.com/watch/">
-                                        <FaFacebookSquare style={{ fontSize: '30px', opacity:'.5' }} />
+                                        <FaFacebookSquare style={{ fontSize: '30px', opacity:'.8' }} />
                                     </a>
                                     <a title="Open Twitch" aria-label="Open Twitch" href="https://www.twitch.tv/directory">
-                                        <FaTwitch style={{ fontSize: '30px', opacity:'.5' }} />
+                                        <FaTwitch style={{ fontSize: '30px', opacity:'.8' }} />
                                     </a>
                                 </div>
-                              )}
+                             )}
                         
                     
                     </form>
