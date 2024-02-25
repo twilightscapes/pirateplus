@@ -333,7 +333,7 @@ const handleHideEditorChange = (event) => {
 
 <div id="controls" style={{ display: 'flex', flexDirection:'row', gap: '2vw', alignItems: 'center', width:'' }}>
 
-<div id="checkboxes" style={{ display: 'flex', flexDirection:'row', gap: '10px', alignItems: 'center' }}>
+<div id="checkboxes" style={{ display: 'flex', flexDirection:'row', gap: '10px', alignItems: 'center', padding:'3px 10px', background:'rgba(0,0,0,.3)', outline:'1px solid #333', borderRadius:'5px' }}>
 
 <label  title="AutoPlay - Set video to automatically begin playing. NOTE: videos must be muted for autoplay to work" htmlFor="autoplayCheckbox" style={{textAlign:'center', fontSize:'50%', display:'flex', flexDirection:'column', alignItems:'center', opacity: 'isVideoActive ? 1 : 0.5'}}>Autoplay:
     <input
@@ -426,9 +426,9 @@ const handleHideEditorChange = (event) => {
     value={isNaN(parseFloat(startTime)) ? '' : parseFloat(startTime).toFixed(2)}
     onChange={handleInputChange}
     onClick={handleStartFromPlayhead} 
-    placeholder={!startTime && 'Start Time'} 
+    placeholder={!startTime && 'Start'} 
     disabled={!isVideoActive}
-    style={{ maxWidth: '60px', fontSize: 'clamp(.7rem,.6vw,1rem)', textAlign: 'center' }}
+    style={{ maxWidth: '70px', fontSize: 'clamp(.7rem,.6vw,1rem)', textAlign: 'center' }}
 />
 <input
     aria-label="Stop Time"
@@ -440,9 +440,9 @@ const handleHideEditorChange = (event) => {
     value={isNaN(parseFloat(stopTime)) ? '' : parseFloat(stopTime).toFixed(2)}
     onChange={handleInputChange}
     onClick={handleEndFromPlayhead} 
-    placeholder={!stopTime && 'Stop Time'} 
+    placeholder={!stopTime && 'Stop'} 
     disabled={!isVideoActive}
-    style={{ maxWidth: '60px', fontSize: 'clamp(.7rem,.6vw,1rem)', textAlign: 'center' }}
+    style={{ maxWidth: '70px', fontSize: 'clamp(.7rem,.6vw,1rem)', textAlign: 'center' }}
 />
 
 </div>
@@ -450,16 +450,17 @@ const handleHideEditorChange = (event) => {
 </div>
 
 
-<div id="pastebox" style={{ display: 'flex', flexDirection:'row', gap: '10px', alignItems: 'center', width:'', margin:'', border:'0px solid red' }}>
+<div id="pastebox" style={{ display: 'flex', flexDirection:'row', gap: '20px', alignItems: 'center', width:'', margin:'', border:'0px solid red' }}>
 
                     <input
                         type="text"
                         name="seoTitle" 
+                        title="Enter Video Title"
                         value={seoTitle}
                         onChange={handleSeoTitleChange} 
                         placeholder="Video Title" 
-                        style={{ padding: '.5vh 1vw', minWidth:'100px', width: '100%', maxWidth: '800px', fontSize: 'clamp(.8rem,1.4vw,1rem)', transition: 'all 1s ease-in-out' }}
-                        aria-label="Video Title"
+                        style={{ padding: '.2vh .4vw', minWidth:'160px', width: '100%', maxWidth: '800px', fontSize: 'clamp(.8rem,1.4vw,1rem)', transition: 'all 1s ease-in-out' }}
+                        aria-label="Enter Video Title"
                         className="youtubelinker"
                         disabled={!isVideoActive}
                     />
@@ -472,20 +473,31 @@ const handleHideEditorChange = (event) => {
                                 title="Paste Video Link"
                                 value={youtubelink}
                                 onChange={handleInputChange}
-                                style={{ padding: '5px 1vw', minWidth:'100px', width: '100%', maxWidth: '800px', fontSize: 'clamp(.6rem,1vw,1rem)', transition: 'all 1s ease-in-out' }}
-                                placeholder="Paste Link To Video"
+                                style={{ padding: '.2vh .4vw', minWidth:'100px', width: '100%', maxWidth: '800px', fontSize: 'clamp(.6rem,1vw,1rem)', transition: 'all 1s ease-in-out' }}
+                                placeholder="Paste Link"
                                 className="youtubelinker"
                                 aria-label="Paste Link To Video"
                             />
 
-                            <button title="Reset to start over" aria-label="Reset" type="reset" onClick={handleReset} disabled={!isVideoActive} style={{ color: '', fontSize: 'clamp(.8rem,1vw,1rem)', fontWeight: 'bold', textAlign: 'left', width: '20px', margin: '', opacity: isVideoActive ? 1 : 0.5 }}>
+
+<div style={{display: 'flex', flexDirection:'row', gap: '20px', alignItems: 'center', padding:'3px 10px', background:'rgba(0,0,0,.3)', outline:'1px solid #333', borderRadius:'var(--theme-ui-colors-borderRadius)'}}>
+
+<button title="Reset to start over" aria-label="Reset" type="reset" onClick={handleReset} disabled={!isVideoActive} style={{ color: '', fontSize: 'clamp(.8rem,1vw,1rem)', fontWeight: 'bold', textAlign: 'left', width: '20px', margin: '', opacity: isVideoActive ? 1 : 0.5 }}>
                                 Reset
                             </button>
 
                             <div id="copybutton" style={{ display: 'flex', flexDirection:'row', gap: '10px', alignItems: 'center' }}>
-<button aria-label="Create Link" onClick={handleCopyAndShareButtonClick} disabled={!isVideoActive} style={{ display: "flex", gap: '.5vw', justifyContent: "center", padding: ".2vh .4vw", width:'50px', maxHeight: "", margin: "0 auto", textAlign: 'center', fontSize: '14px', fontWeight: 'light', textShadow: '0 1px 0 #444', marginLeft:'15px', opacity: 'isVideoActive ? 1 : 0.5',  }} className="button font print">
-{copied ? 'Link Copied' : 'Copy Link'}
+<button aria-label="Create Link" onClick={handleCopyAndShareButtonClick} disabled={!isVideoActive} style={{ display: "flex", gap: '.5vw', justifyContent: "center", padding: ".6vh 1vw", width:'50px', maxHeight: "", margin: "0 auto", textAlign: 'center', fontSize: '14px', fontWeight: 'light', textShadow: '0 1px 0 #444', marginLeft:'15px', opacity: 'isVideoActive ? 1 : 0.5',  }} className="button font print">
+{copied ? 'Link Copied' : 'Set Link'}
 </button>
+
+</div>
+                            
+
+
+
+
+
 </div>
 </div>
 
