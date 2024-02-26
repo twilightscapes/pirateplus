@@ -4,8 +4,8 @@ import { graphql, Link } from "gatsby"
 import Layout from "../components/siteLayout";
 import { Helmet } from "react-helmet";
 import HomePosts from "../components/HomePosts";
-import Seo from "../components/seo";
-import { getSrc } from "gatsby-plugin-image";
+// import Seo from "../components/seo";
+// import { getSrc } from "gatsby-plugin-image";
 import useSiteMetadata from "../hooks/SiteMetadata";
 import { GatsbyImage } from "gatsby-plugin-image"
 import Social from "../components/social"
@@ -34,7 +34,7 @@ const HomePage = ({ data, location }) => {
 
   
   const { markdownRemark } = data;
-  const { frontmatter, html, excerpt } = markdownRemark;
+  const { frontmatter, html } = markdownRemark;
 
   const FrontImage = frontmatter.featuredImage
   ? frontmatter.featuredImage.childImageSharp.gatsbyImageData
@@ -426,11 +426,11 @@ display:'flex', justifyContent:'center', maxHeight:'80px !important', height:'15
         <body id="body" className="homepage" />
       </Helmet>
 
-      <Seo
+      {/* <Seo
         title={frontmatter.title}
         description={frontmatter.description ? frontmatter.description : excerpt}
         image={frontmatter.featuredImage ? getSrc(frontmatter.featuredImage) : null}
-      />
+      /> */}
 
 
 
