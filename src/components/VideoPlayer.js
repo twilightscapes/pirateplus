@@ -332,7 +332,7 @@ const handleAutoplayChange = (event) => {
 
             {showPro ? (
 
-<div className="font" style={{ position: 'relative', zIndex: '3', top: '0', width: '100vw', margin: '0 auto', marginTop: showNav ? '0' : '0', transition: 'all 1s ease-in-out',
+<div className="font" style={{ position: 'relative', zIndex: '3', top: '0', width: '100vw', margin: '0 auto', transition: 'all 1s ease-in-out', marginTop: showNav ? '0' : '0'
 //  height: hideEditor ? '0' : '50px', 
 // background: 'var(--theme-ui-colors-headerColor)',
  }}>
@@ -362,22 +362,30 @@ const handleAutoplayChange = (event) => {
 <div id="bigbox" style={{ display: 'flex', flexFlow:'wrap', flexDirection:'', gap: '2vw', alignItems: 'center', width:'', border:'0px solid red' }}>
 
 
-<div id="controls" style={{ display: 'flex', flexDirection:'row', gap: '2vw', alignItems: 'center', width:'' }}>
+<div id="controls" style={{
+  display: 'flex',
+  flexDirection: 'row',
+  gap: '4vw',
+  alignItems: 'center',
+  width: '', 
+  transition: 'opacity 1s ease-in-out',
+  opacity: isVideoActive ? 1 : 0.2 
+}}>
 
-<div id="checkboxes" style={{ display: 'flex', flexDirection:'row', gap: '5px', alignItems: 'center', padding:'0 10px 5px 10px', background:'rgba(0,0,0,.3)', outline:'1px solid #333', borderRadius:'5px', opacity: 'isVideoActive() ? 1 : 0.5' }}>
+<div id="checkboxes" style={{ display: 'flex', flexDirection:'row', gap: '5px', alignItems: 'center', padding:'0 10px 5px 10px', justifyContent:'center', background:'rgba(0,0,0,.3)', outline:'1px solid #333', borderRadius:'5px',  }}>
 
-<label  title="AutoPlay - Set video to automatically begin playing. NOTE: videos must be muted for autoplay to work" htmlFor="autoplayCheckbox" style={{textAlign:'center', fontSize:'50%', display:'flex', flexDirection:'column', alignItems:'center', opacity: 'isVideoActive() ? 1 : 0.5' }}>Autoplay:
-<input
-    type="checkbox"
-    id="autoplay-checkbox"
-    className="youtubelinker"
-    checked={autoplay}
-    onChange={handleAutoplayChange} 
-    disabled={!isVideoActive}
-/>
+<label title="AutoPlay - Set video to automatically begin playing. NOTE: videos must be muted for autoplay to work" htmlFor="autoplayCheckbox" style={{textAlign:'center', fontSize:'50%', display:'flex', flexDirection:'column', alignItems:'center', opacity: isVideoActive ? 1 : 0.5 }}>Autoplay:
+    <input
+        type="checkbox"
+        id="autoplay-checkbox"
+        className="youtubelinker"
+        checked={autoplay}
+        onChange={handleAutoplayChange} 
+        disabled={!isVideoActive}
+    />
 </label>
 
-                                <label htmlFor="loop-checkbox" style={{textAlign:'center', fontSize:'60%', display:'flex', flexDirection:'column', alignItems:'center', opacity: 'isVideoActive() ? 1 : 0.5'}}>Loop:
+                                <label htmlFor="loop-checkbox" style={{textAlign:'center', fontSize:'60%', display:'flex', flexDirection:'column', alignItems:'center', opacity: isVideoActive ? 1 : 0.5}}>Loop:
                                     <input
                                         aria-label="Set to loop"
                                         id="loop-checkbox"
@@ -390,22 +398,23 @@ const handleAutoplayChange = (event) => {
                                         style={{maxWidth:'50px'}}
                                     />
                                 </label>
-                                <label htmlFor="mute-checkbox" style={{textAlign:'center', fontSize:'60%', display:'flex', flexDirection:'column', alignItems:'center', opacity: 'isVideoActive() ? 1 : 0.5'}}>Mute:
-                                    <input
-                                        aria-label="Set to mute"
-                                        id="mute-checkbox"
-                                        type="checkbox"
-                                        name="mute"
-                                        checked={mute}
-                                        className="youtubelinker"
-                                        onChange={handleInputChange}
-                                        disabled={!isVideoActive}
-                                        style={{maxWidth:'50px'}}
-                                    />
+                                <label htmlFor="mute-checkbox" style={{textAlign:'center', fontSize:'60%', display:'flex', flexDirection:'column', alignItems:'center', opacity: isVideoActive ? 1 : 0.5}}>Mute:
+    <input
+    aria-label="Set to mute"
+    id="mute-checkbox"
+    type="checkbox"
+    name="mute"
+    checked={mute}
+    className="youtubelinker"
+    onChange={handleInputChange}
+    disabled={!isVideoActive}
+    style={{maxWidth:'50px'}}
+    {...(mute ? { mute: 'true' } : {})}
+/>
                                 </label>
 
                                 
-                                <label htmlFor="controls-checkbox" style={{textAlign:'center', fontSize:'50%', display:'flex', flexDirection:'column', alignItems:'center', opacity: 'isVideoActive() ? 1 : 0.5'}}>Controls:
+                                <label htmlFor="controls-checkbox" style={{textAlign:'center', fontSize:'50%', display:'flex', flexDirection:'column', alignItems:'center', opacity: isVideoActive ? 1 : 0.5}}>Controls:
                                     <input
                                         aria-label="Set to show controls"
                                         id="controls-checkbox"
@@ -420,7 +429,7 @@ const handleAutoplayChange = (event) => {
                                 </label>
                 </div>
 
-<div style={{ display: 'flex', flexDirection:'row', gap: '10px', alignItems: 'center', padding:'0 3px 5px 3px', background:'rgba(0,0,0,.3)', outline:'1px solid #333', borderRadius:'5px' }}>
+<div style={{ display: 'none', flexDirection:'row', gap: '10px', alignItems: 'center', padding:'0 3px 5px 3px', background:'rgba(0,0,0,.3)', outline:'1px solid #333', borderRadius:'5px' }}>
 <label htmlFor="hide-editor-checkbox" style={{textAlign:'center', fontSize:'50%', display:'flex', flexDirection:'column', alignItems:'center'}}>Editor:
 <input
     type="checkbox"
@@ -436,7 +445,7 @@ const handleAutoplayChange = (event) => {
 />
 </label>
 
-<label  title="User Interaction Blocker - Keep people from clicking on anything on the page. Note, view will not be able to play videos that are NOT set to mute and autoplay - USE WITH CAUTION" htmlFor="blocker-checkbox"  style={{textAlign:'center', fontSize:'60%', display:'flex', flexDirection:'column', alignItems:'center', opacity: 'isVideoActive() ? 1 : 0.5'}}>Block:
+<label  title="User Interaction Blocker - Keep people from clicking on anything on the page. Note, view will not be able to play videos that are NOT set to mute and autoplay - USE WITH CAUTION" htmlFor="blocker-checkbox"  style={{textAlign:'center', fontSize:'60%', display:'flex', flexDirection:'column', alignItems:'center', opacity: 'isVideoActive ? 1 : 0.5'}}>Block:
     <input
         aria-label="Block user interactions"
         id="blocker-checkbox"
@@ -467,7 +476,7 @@ const handleAutoplayChange = (event) => {
     onClick={handleStartFromPlayhead} 
     placeholder={!startTime && 'Start'} 
     disabled={!isVideoActive}
-    style={{ maxWidth: '60px', fontSize: 'clamp(.7rem,.6vw,1rem)', textAlign: 'center' }}
+    style={{ maxWidth: '100px', fontSize: 'clamp(.7rem,.6vw,1rem)', textAlign: 'center' }}
 />
 <input
     aria-label="Stop Time"
@@ -481,7 +490,7 @@ const handleAutoplayChange = (event) => {
     onClick={handleEndFromPlayhead} 
     placeholder={!stopTime && 'Stop'} 
     disabled={!isVideoActive}
-    style={{ maxWidth: '60px', fontSize: 'clamp(.7rem,.6vw,1rem)', textAlign: 'center' }}
+    style={{ maxWidth: '100px', fontSize: 'clamp(.7rem,.6vw,1rem)', textAlign: 'center' }}
 />
 
 </div>
@@ -499,7 +508,7 @@ const handleAutoplayChange = (event) => {
     value={seoTitle}
     onChange={(e) => setSeoTitle(e.target.value)} // Add this onChange handler
     placeholder="Video Title" 
-    style={{ padding: '.2vh .4vw', minWidth:'140px', width: '100%', maxWidth: '800px', fontSize: 'clamp(.8rem,1.4vw,1rem)', transition: 'all 1s ease-in-out' }}
+    style={{ padding: '.2vh .4vw', minWidth:'140px', width: '100%', maxWidth: '800px', fontSize: 'clamp(.8rem,1.4vw,1rem)', transition: 'all 1s ease-in-out', opacity: isVideoActive ? 1 : 0.2 }}
     aria-label="Enter Video Title"
     className="youtubelinker"
     disabled={!isVideoActive}
@@ -522,9 +531,9 @@ const handleAutoplayChange = (event) => {
 
 <div style={{display: 'flex', flexDirection:'row', gap: '20px', alignItems: 'center', padding:'3px 10px', background:'rgba(0,0,0,.3)', outline:'1px solid #333', borderRadius:'var(--theme-ui-colors-borderRadius)'}}>
 
-<button title="Reset to start over" aria-label="Reset" type="reset" onClick={handleReset} disabled={!isVideoActive} style={{ color: '', fontSize: 'clamp(.8rem,1vw,1rem)', fontWeight: 'bold', textAlign: 'left', width: '15px', margin: '0 10px 0 0', opacity: 'isVideoActive() ? 1 : 0.5' }}>Reset</button>
+<button title="Reset to start over" aria-label="Reset" type="reset" onClick={handleReset} disabled={!isVideoActive} style={{ color: '', fontSize: 'clamp(.8rem,1vw,1rem)', fontWeight: 'bold', textAlign: 'left', width: '15px', margin: '0 10px 0 0', opacity: isVideoActive ? 1 : 0.2 }}>Reset</button>
 
-<button aria-label="Create Link" onClick={handleCopyAndShareButtonClick} disabled={!isVideoActive} style={{ display: "flex", gap: '.5vw', justifyContent: "center", padding: ".6vh .2vw", width:'100%', minWidth:'60px', maxHeight: "", margin: "0 auto", textAlign: 'center', fontSize: '14px', fontWeight: 'light', textShadow: '0 1px 0 #444', marginLeft:'15px', opacity: 'isVideoActive() ? 1 : 0.5' }} className="button font print">
+<button aria-label="Create Link" onClick={handleCopyAndShareButtonClick} disabled={!isVideoActive} style={{ display: "flex", gap: '.5vw', justifyContent: "center", padding: ".6vh .2vw", width:'100%', minWidth:'60px', maxHeight: "", margin: "0 auto", textAlign: 'center', fontSize: '14px', fontWeight: 'light', textShadow: '0 1px 0 #444', marginLeft:'15px', opacity: isVideoActive ? 1 : 0.2 }} className="button font print">
 {copied ? 'Link Copied' : 'Copy Link'}
 </button>
 
@@ -536,7 +545,7 @@ const handleAutoplayChange = (event) => {
 
 </div>
 
-                            {isRunningStandalone() && (
+                            {!isRunningStandalone() && (
                             <div style={{position:'absolute', left:'0', top:'50vh', zIndex:'2', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', gap:'2vh', width:'55px',padding:'3px 10px', background:'rgba(0,0,0,.3)', outline:'1px solid #333', borderRadius:'var(--theme-ui-colors-borderRadius)'}}>
 
 
@@ -614,7 +623,7 @@ background: 'var(--theme-ui-colors-headerColor)',
                                 aria-label="Paste Link To Video"
                             />
 
-                            <button aria-label="Reset" type="reset" onClick={handleReset} disabled={!isVideoActive} style={{ color: '', fontSize: 'clamp(.8rem,1vw,1rem)', fontWeight: 'bold', textAlign: 'left', width: '20px', margin: '', opacity: 'isVideoActive() ? 1 : 0.5' }}>
+                            <button aria-label="Reset" type="reset" onClick={handleReset} disabled={!isVideoActive} style={{ color: '', fontSize: 'clamp(.8rem,1vw,1rem)', fontWeight: 'bold', textAlign: 'left', width: '20px', margin: '', opacity: isVideoActive ? 1 : 0.5 }}>
                                 Reset
                             </button>
 </div>
@@ -633,7 +642,8 @@ background: 'var(--theme-ui-colors-headerColor)',
                     
                     </form>
 
-                    {isRunningStandalone() && (
+
+                    {!isRunningStandalone() && (
                             <div style={{position:'absolute', left:'0', top:'50vh', zIndex:'2', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', gap:'2vh', width:'55px',padding:'3px 10px', background:'rgba(0,0,0,.3)', outline:'1px solid #333', borderRadius:'var(--theme-ui-colors-borderRadius)'}}>
 
 
@@ -662,10 +672,9 @@ background: 'var(--theme-ui-colors-headerColor)',
 )}
 
 
-<div className={showBlocker ? "blocked-video" : ""}></div>
+{/* <div className={showBlocker ? "blocked-video" : ""}></div> */}
 <ReactPlayer
     id="PiratePlayer"
-    // className={showBlocker ? "blocked-video" : ""}
     ref={playerRef}
     allow="web-share"
     style={{
@@ -687,9 +696,9 @@ background: 'var(--theme-ui-colors-headerColor)',
     controls={controls}
     playsinline
     loop={loop}
-    mute={mute}
-    autoPlay={autoplay} // This should be 'autoplay' instead of 'autoPlay'
-    volume={mute ? 0 : 1} // Set volume to 0 if muted, 1 otherwise
+    muted={mute} // Use muted instead of mute
+    volume={mute ? 0 : 1}
+    autoPlay={autoplay}
     onStart={() => console.log('onStart')}
     onPause={() => setIsPlaying(false)}
     onEnded={() => setIsPlaying(false)}
@@ -718,8 +727,8 @@ background: 'var(--theme-ui-colors-headerColor)',
             }
         }
     }}
->
-</ReactPlayer>
+/>
+
 
 
             </div>
