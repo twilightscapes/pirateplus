@@ -569,7 +569,7 @@ const handleAutoplayChange = (event) => {
 
 
 
-<div className="font" style={{ position: 'relative', zIndex: '3', top: '0', width: '100vw', margin: '0 auto', marginTop: showNav ? '0' : '', transition: 'all 1s ease-in-out', 
+<div className="font" style={{display:'none', position: 'relative', zIndex: '3', top: '0', width: '100vw', margin: '0 auto', marginTop: showNav ? '0' : '', transition: 'all 1s ease-in-out', 
 // height: hideEditor ? '0' : '50px', 
 // background: 'var(--theme-ui-colors-headerColor)',
  }}>
@@ -628,7 +628,12 @@ background: 'var(--theme-ui-colors-headerColor)',
 
 </div>
 
-{isRunningStandalone() && (
+
+                        
+                    
+                    </form>
+
+                    {isRunningStandalone() && (
                             <div style={{position:'absolute', left:'0', top:'50vh', zIndex:'2', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', gap:'2vh', width:'55px',padding:'3px 10px', background:'rgba(0,0,0,.3)', outline:'1px solid #333', borderRadius:'var(--theme-ui-colors-borderRadius)'}}>
 
 
@@ -645,9 +650,6 @@ background: 'var(--theme-ui-colors-headerColor)',
                                     </a>
                                 </div>
                              )}
-                        
-                    
-                    </form>
 
                     </div>
       

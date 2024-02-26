@@ -1310,12 +1310,12 @@ html:has body.youtube{position:fixed !important; overflow: hidden !important;}
   body.youtube #header,
   body.youtube footer,
   body.youtube #menu,
-  /* body.youtube #gobacker, */
+  body.youtube #gobacker,
   body.youtube #menuicon,
   body.youtube .upbar 
   {display: none !important;}
 
-  body.youtube #gobacker{top:14% !important; right:5px !important;}
+  /* body.youtube #gobacker{top:14% !important; right:5px !important;} */
 
   @media(max-width:48rem) {
     body.youtube #PiratePlayer {top:60px !important;}
