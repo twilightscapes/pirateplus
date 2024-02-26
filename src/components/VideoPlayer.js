@@ -364,7 +364,7 @@ const handleAutoplayChange = (event) => {
 
 <div id="controls" style={{ display: 'flex', flexDirection:'row', gap: '2vw', alignItems: 'center', width:'' }}>
 
-<div id="checkboxes" style={{ display: 'flex', flexDirection:'row', gap: '10px', alignItems: 'center', padding:'0 10px 5px 10px', background:'rgba(0,0,0,.3)', outline:'1px solid #333', borderRadius:'5px', opacity: 'isVideoActive() ? 1 : 0.5' }}>
+<div id="checkboxes" style={{ display: 'flex', flexDirection:'row', gap: '5px', alignItems: 'center', padding:'0 10px 5px 10px', background:'rgba(0,0,0,.3)', outline:'1px solid #333', borderRadius:'5px', opacity: 'isVideoActive() ? 1 : 0.5' }}>
 
 <label  title="AutoPlay - Set video to automatically begin playing. NOTE: videos must be muted for autoplay to work" htmlFor="autoplayCheckbox" style={{textAlign:'center', fontSize:'50%', display:'flex', flexDirection:'column', alignItems:'center', opacity: 'isVideoActive() ? 1 : 0.5' }}>Autoplay:
 <input
@@ -499,7 +499,7 @@ const handleAutoplayChange = (event) => {
     value={seoTitle}
     onChange={(e) => setSeoTitle(e.target.value)} // Add this onChange handler
     placeholder="Video Title" 
-    style={{ padding: '.2vh .4vw', minWidth:'160px', width: '100%', maxWidth: '800px', fontSize: 'clamp(.8rem,1.4vw,1rem)', transition: 'all 1s ease-in-out' }}
+    style={{ padding: '.2vh .4vw', minWidth:'140px', width: '100%', maxWidth: '800px', fontSize: 'clamp(.8rem,1.4vw,1rem)', transition: 'all 1s ease-in-out' }}
     aria-label="Enter Video Title"
     className="youtubelinker"
     disabled={!isVideoActive}
@@ -513,7 +513,7 @@ const handleAutoplayChange = (event) => {
                                 title="Paste Video Link"
                                 value={youtubelink}
                                 onChange={handleInputChange}
-                                style={{ padding: '.2vh .4vw', minWidth:'100px', width: '100%', maxWidth: '800px', fontSize: 'clamp(.6rem,1vw,1rem)', transition: 'all 1s ease-in-out', outline:'1px solid' }}
+                                style={{ padding: '.2vh .4vw', minWidth:'85px', width: '100%', maxWidth: '800px', fontSize: 'clamp(.6rem,1vw,1rem)', transition: 'all 1s ease-in-out', outline:'1px solid' }}
                                 placeholder="Paste Link"
                                 className="youtubelinker"
                                 aria-label="Paste Link To Video"
@@ -524,7 +524,7 @@ const handleAutoplayChange = (event) => {
 
 <button title="Reset to start over" aria-label="Reset" type="reset" onClick={handleReset} disabled={!isVideoActive} style={{ color: '', fontSize: 'clamp(.8rem,1vw,1rem)', fontWeight: 'bold', textAlign: 'left', width: '15px', margin: '0 10px 0 0', opacity: 'isVideoActive() ? 1 : 0.5' }}>Reset</button>
 
-<button aria-label="Create Link" onClick={handleCopyAndShareButtonClick} disabled={!isVideoActive} style={{ display: "flex", gap: '.5vw', justifyContent: "center", padding: ".6vh .2vw", width:'100%', minWidth:'85px', maxHeight: "", margin: "0 auto", textAlign: 'center', fontSize: '14px', fontWeight: 'light', textShadow: '0 1px 0 #444', marginLeft:'15px', opacity: 'isVideoActive() ? 1 : 0.5' }} className="button font print">
+<button aria-label="Create Link" onClick={handleCopyAndShareButtonClick} disabled={!isVideoActive} style={{ display: "flex", gap: '.5vw', justifyContent: "center", padding: ".6vh .2vw", width:'100%', minWidth:'60px', maxHeight: "", margin: "0 auto", textAlign: 'center', fontSize: '14px', fontWeight: 'light', textShadow: '0 1px 0 #444', marginLeft:'15px', opacity: 'isVideoActive() ? 1 : 0.5' }} className="button font print">
 {copied ? 'Link Copied' : 'Copy Link'}
 </button>
 
