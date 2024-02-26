@@ -19,6 +19,9 @@ const VideoPlayer = ({ location }) => {
 
     const autoplayParam = queryParams.get('autoplay') === 'true'; 
     const seoTitleParam = queryParams.get('seoTitle') || ''; 
+    
+    const [customImage, setCustomImage] = useState("");
+
     const [showPro, setShowPro] = useState(proParam || (typeof window !== 'undefined' && JSON.parse(localStorage.getItem('showPro'))) || false);
     const [showBlocker, setShowBlocker] = useState(false);
     const [hideEditor, setHideEditor] = useState(false);
@@ -32,6 +35,9 @@ const VideoPlayer = ({ location }) => {
             setShowPro(storedShowPro !== null ? storedShowPro : proParam);
         }
     }, [showPro, proParam, queryParams]);
+
+
+
 
     // Additional state and variables initialization
     const [shouldPause, setShouldPause] = useState(false);
@@ -68,9 +74,9 @@ const VideoPlayer = ({ location }) => {
     // Function to handle input change for video URL, start time, stop time, loop, mute, and controls
     const handleInputChange = (event) => {
         const { name, value, type, checked } = event.target;
-
+    
         let formattedValue = value.trim() !== '' && !isNaN(parseFloat(value)) ? parseFloat(value).toFixed(2) : '';
-
+    
         if (type === 'checkbox') {
             if (name === 'mute') {
                 setMute(checked);
@@ -98,7 +104,7 @@ const VideoPlayer = ({ location }) => {
                 setSeoTitle(value);
             }
         }
-
+    
         // Update query string with all parameters
         updateQueryString({ 
             video: youtubelink, 
@@ -112,8 +118,9 @@ const VideoPlayer = ({ location }) => {
             hideEditor, 
             showBlocker 
         });
-        
     };
+    
+
 
     // Effect to initialize query parameters when the component mounts
     useEffect(() => {
@@ -235,6 +242,7 @@ const handleCopyAndShareButtonClick = async () => {
 
 
 
+
     // Function to handle starting the video from the playhead position
     const handleStartFromPlayhead = () => {
         const currentTime = playerRef.current.getCurrentTime();
@@ -248,33 +256,34 @@ const handleCopyAndShareButtonClick = async () => {
     };
 
     // Function to update query string based on provided values
-const updateQueryString = (values) => {
-    const { video, start, stop, loop, mute, controls, autoplay, seoTitle, hideEditor, showBlocker } = values;
-
-    // Format start and stop values only if they are not NaN
-    const formattedStart = isNaN(parseFloat(start)) ? "" : parseFloat(start).toFixed(2);
-    const formattedStop = isNaN(parseFloat(stop)) ? "" : parseFloat(stop).toFixed(2);
-
-    // Convert autoplay to string
-    const autoplayValue = autoplay ? 'true' : 'false';
-
-    // Construct the base URL with mandatory parameters
-    let newUrl = `${window.location.pathname}?video=${encodeURIComponent(video)}&start=${encodeURIComponent(formattedStart)}&stop=${encodeURIComponent(formattedStop)}&loop=${loop}&mute=${mute}&controls=${controls}&autoplay=${autoplayValue}`;
-
-    if (seoTitle !== undefined) {
-        newUrl += `&seoTitle=${encodeURIComponent(seoTitle)}`;
-    }
-
-    if (hideEditor !== undefined) {
-        newUrl += `&hideEditor=${hideEditor ? 'true' : 'false'}`;
-    }
-
-    if (showBlocker !== undefined) {
-        newUrl += `&showBlocker=${showBlocker ? 'true' : 'false'}`;
-    }
-
-    window.history.pushState({}, '', newUrl);
-};
+    const updateQueryString = (values) => {
+        const { video, start, stop, loop, mute, controls, autoplay, seoTitle, hideEditor, showBlocker } = values;
+    
+        // Format start and stop values only if they are not NaN
+        const formattedStart = isNaN(parseFloat(start)) ? "" : parseFloat(start).toFixed(2);
+        const formattedStop = isNaN(parseFloat(stop)) ? "" : parseFloat(stop).toFixed(2);
+    
+        // Convert autoplay to string
+        const autoplayValue = autoplay ? 'true' : 'false';
+    
+        // Construct the base URL with mandatory parameters
+        let newUrl = `${window.location.pathname}?video=${encodeURIComponent(video)}&start=${encodeURIComponent(formattedStart)}&stop=${encodeURIComponent(formattedStop)}&loop=${loop}&mute=${mute}&controls=${controls}&autoplay=${autoplayValue}`;
+    
+        if (seoTitle !== undefined) {
+            newUrl += `&seoTitle=${encodeURIComponent(seoTitle)}`;
+        }
+    
+        if (hideEditor !== undefined) {
+            newUrl += `&hideEditor=${hideEditor ? 'true' : 'false'}`;
+        }
+    
+        if (showBlocker !== undefined) {
+            newUrl += `&showBlocker=${showBlocker ? 'true' : 'false'}`;
+        }
+    
+        window.history.pushState({}, '', newUrl);
+    };
+    
 
 
     // Function to handle hide editor change
@@ -283,6 +292,7 @@ const updateQueryString = (values) => {
         setHideEditor(newValue);
         updateQueryString({ hideEditor: newValue ? 'true' : 'false' });
     };
+    
 
     // Function to handle show blocker change
     const handleShowBlockerChange = (event) => {
@@ -299,6 +309,7 @@ const handleAutoplayChange = (event) => {
     // Update query string with new autoplay value
     updateQueryString({ autoplay: newValue }); // Update query string with new autoplay value
 };
+
 
 
     // Function to check if URL is valid
@@ -459,6 +470,9 @@ const handleAutoplayChange = (event) => {
         style={{maxWidth:'50px'}}
     />
 </label>
+
+
+
 </div>
 
 
@@ -513,6 +527,7 @@ const handleAutoplayChange = (event) => {
     className="youtubelinker"
     disabled={!isVideoActive}
 />
+
                     
                             <input
                                 ref={inputElement}
