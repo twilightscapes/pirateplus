@@ -29,10 +29,12 @@ const SeoWrapper = ({ location }) => {
     if (!url) {
       return null;
     }
+    /* eslint-disable no-useless-escape */
     const regExp = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
     const match = url.match(regExp);
     const videoId = match ? match[1] : null;
     return videoId;
+    /* eslint-disable no-useless-escape */
   };
 
   // Extract video ID
@@ -42,7 +44,7 @@ const SeoWrapper = ({ location }) => {
     <Seo
       title={seoTitleParam}
       description="Pirate: revolutionizing the web"
-      image={customImageParam || (videoId ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg` : null)}
+      image={customImageParam || (videoId ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg` : 'https://pirateyoutube.com/assets/default-og-image.webp')}
     />
   );
 };

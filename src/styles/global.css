@@ -1315,7 +1315,7 @@ html:has body.youtube{position:fixed !important; overflow: hidden !important;}
   body.youtube .upbar 
   {display: none !important;}
 
-  body.youtube .public{display: none !important;}
+  /* body.youtube .public{display: none !important;} */
 
   /* body.youtube #gobacker{top:14% !important; right:5px !important;} */
 
