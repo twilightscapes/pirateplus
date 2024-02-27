@@ -263,7 +263,7 @@ const handleCopyAndShareButtonClick = async () => {
             }
           }
 
-
+          
 };
 
 
@@ -412,11 +412,11 @@ const handleAutoplayChange = (event) => {
   gap: '4vw',
   alignItems: 'center',
   width: '', 
-  transition: 'opacity 1s ease-in-out',
+  transition: 'opacity .5s ease-in-out',
   opacity: isVideoActive ? 1 : 0.5 
 }}>
 
-<div id="checkboxes" style={{ display: 'flex', flexDirection:'row', gap: '5px', alignItems: 'center', padding:'0 10px 5px 10px', justifyContent:'center', background:'rgba(0,0,0,.2)', outline:'1px solid #777', borderRadius:'var(--theme-ui-colors-borderRadius)', fontSize:'clamp(.5rem,1vw,1rem)'  }}>
+<div id="checkboxes" style={{ display: 'flex', flexDirection:'row', gap: '5px', alignItems: 'center', padding:'0 10px 5px 10px', justifyContent:'center', background:'rgba(0,0,0,.2)', outline:'1px solid #777', borderRadius:'var(--theme-ui-colors-borderRadius)', fontSize:'clamp(.5rem,1.6vw,1rem)'  }}>
 
 <label title="AutoPlay - Set video to automatically begin playing. NOTE: videos must be muted for autoplay to work" htmlFor="autoplayCheckbox" style={{textAlign:'center', fontSize:'', display:'flex', flexDirection:'column', alignItems:'center', opacity: isVideoActive ? 1 : 0.5 }}>Autoplay:
     <input
