@@ -4,7 +4,7 @@ const { createFilePath } = require(`gatsby-source-filesystem`);
 exports.createPages = async ({ actions, graphql, reporter }) => {
   const { createPage } = actions;
 
-  const blogList = path.resolve(`./src/templates/blog-list.js`);
+  // const blogList = path.resolve(`./src/templates/blog-list.js`);
 
   const result = await graphql(`
     {
@@ -107,14 +107,14 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   //   });
   // });
 
-  // // Create home page with context including homecount
-  // createPage({
-  //   path: "/",
-  //   component: path.resolve("./src/templates/index-page.js"),
-  //   context: {
-  //     homecount: 2, // Set the appropriate value for homecount
-  //   },
-  // });
+  // Create home page with context including homecount
+  createPage({
+    path: "/",
+    component: path.resolve("./src/templates/index-page.js"),
+    context: {
+      homecount: 2, // Set the appropriate value for homecount
+    },
+  });
 
   const categoryTemplate = path.resolve(`./src/templates/category.js`);
   categories.forEach((category) => {
