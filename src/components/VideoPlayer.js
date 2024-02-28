@@ -510,7 +510,7 @@ const handleAutoplayChange = (event) => {
 
 
 
-<div id="timers" style={{ display: 'flex', flexDirection:'row', gap: '10px', alignItems: 'center', width:'100%', marginLeft:'', opacity: isVideoActive ? 1 : 0.5  }}>
+<div id="timers" style={{ display: 'flex', flexDirection:'row', gap: '10px', alignItems: 'center', width:'100%', marginLeft:'',}}>
 <input
     aria-label="Start Time"
     id="start-input"

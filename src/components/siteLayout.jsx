@@ -185,7 +185,7 @@ const Layout = ({ children }) => {
       <div className={`upbar button ${showBackToTop ? 'visible' : ''}`}
         style={{
           position: 'fixed',
-          bottom: '20px',
+          bottom: '80px',
           zIndex: '60',
           left: '',
           right: '1vw',
@@ -201,7 +201,7 @@ const Layout = ({ children }) => {
           textShadow: '0 1px 1px rgba(0, 0, 0, .7)',
           fontSize: '',
           verticalAlign: 'center',
-          transform: showBackToTop ? 'translateY(0)' : 'translateY(200%)',
+          transform: showBackToTop ? 'translateY(0)' : 'translateY(300%)',
         }}
       >
         <AnchorLink
