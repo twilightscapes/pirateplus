@@ -111,9 +111,9 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   createPage({
     path: "/",
     component: path.resolve("./src/templates/index-page.js"),
-    context: {
-      homecount: 2, // Set the appropriate value for homecount
-    },
+    // context: {
+    //   homecount: 2, // Set the appropriate value for homecount
+    // },
   });
 
   const categoryTemplate = path.resolve(`./src/templates/category.js`);
