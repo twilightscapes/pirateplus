@@ -445,16 +445,16 @@ const handleAutoplayChange = (event) => {
 <div id="controls" style={{
   display: 'flex',
   flexDirection: 'row',
-  gap: '4vw',
+  gap: '2vw',
   alignItems: 'center',
   width: '', 
   transition: 'opacity .5s ease-in-out',
   opacity: isVideoActive ? 1 : 0.5 
 }}>
 
-<div id="checkboxes" style={{ display: 'flex', flexDirection:'row', gap: '5px', alignItems: 'center', padding:'0 10px 5px 10px', justifyContent:'center', background:'rgba(0,0,0,.2)', outline:'1px solid #777', borderRadius:'var(--theme-ui-colors-borderRadius)', fontSize:'clamp(.5rem,1.2vw,1rem)'  }}>
+<div id="checkboxes" style={{ display: 'flex', flexDirection:'row', gap: '5px', alignItems: 'center', padding:'0 5px 5px 10px', justifyContent:'center', background:'rgba(0,0,0,.2)', outline:'1px solid #777', borderRadius:'var(--theme-ui-colors-borderRadius)', fontSize:'clamp(.5rem,1.2vw,1rem)'  }}>
 
-<label title="AutoPlay - Set video to automatically begin playing. NOTE: videos must be muted for autoplay to work" htmlFor="autoplayCheckbox" style={{textAlign:'center', fontSize:'60%', display:'flex', flexDirection:'column', alignItems:'center', opacity: isVideoActive ? 1 : 0.5 }}>Autoplay:
+<label title="AutoPlay - Set video to automatically begin playing. NOTE: videos must be muted for autoplay to work" htmlFor="autoplayCheckbox" style={{textAlign:'center', fontSize:'80%', display:'flex', flexDirection:'column', alignItems:'center', opacity: isVideoActive ? 1 : 0.5 }}>Autoplay:
     <input
         type="checkbox"
         id="autoplay-checkbox"
@@ -522,24 +522,13 @@ const handleAutoplayChange = (event) => {
     // onChange={handleHideEditorInputChange}
 />
 </label>
-                </div>
+                
 
 {/* <div style={{ display: 'flex', flexDirection:'row', gap: '10px', alignItems: 'center', padding:'0 3px 5px 3px', background:'rgba(0,0,0,.2)', outline:'1px solid #333', borderRadius:'5px' }}> */}
 
 
 
-<input
-    type="text"
-    name="seoTitle" 
-    title="Enter Video Title"
-    value={seoTitle}
-    onChange={(e) => setSeoTitle(e.target.value)} // Add this onChange handler
-    placeholder="Video Title" 
-    style={{ padding: '.5vh .4vw', minWidth:'100px', width: '100%', maxWidth: '800px', fontSize: 'clamp(.8rem,1.4vw,1rem)', background:'rgba(0,0,0,.2)', transition: 'all 1s ease-in-out' }}
-    aria-label="Enter Video Title"
-    className="youtubelinker"
-    disabled={!isVideoActive}
-/>
+</div>
 
 {/* <label  title="User Interaction Blocker - Keep people from clicking on anything on the page. Note, view will not be able to play videos that are NOT set to mute and autoplay - USE WITH CAUTION" htmlFor="blocker-checkbox"  style={{textAlign:'center', fontSize:'60%', display:'none', flexDirection:'column', alignItems:'center', opacity: 'isVideoActive ? 1 : 0.5'}}>Block:
     <input
@@ -560,9 +549,20 @@ const handleAutoplayChange = (event) => {
 
 {/* </div> */}
 
+<input
+    type="text"
+    name="seoTitle" 
+    title="Enter Video Title"
+    value={seoTitle}
+    onChange={(e) => setSeoTitle(e.target.value)} // Add this onChange handler
+    placeholder="Video Title" 
+    style={{ padding: '.4vh .3vw', minWidth:'110px', width: '100%', maxWidth: '800px', textAlign:'center', fontSize: 'clamp(.8rem,1.4vw,1rem)', background:'rgba(0,0,0,.2)', transition: 'all 1s ease-in-out' }}
+    aria-label="Enter Video Title"
+    className="youtubelinker"
+    disabled={!isVideoActive}
+/>
 
-
-<div id="timers" style={{ display: 'flex', flexDirection:'row', gap: '10px', alignItems: 'center', width:'100%', marginLeft:'',}}>
+<div id="timers" style={{ display: 'flex', flexDirection:'row', gap: '2vw', alignItems: 'center', width:'100%', marginLeft:'',}}>
 <input
     aria-label="Start Time"
     id="start-input"
@@ -575,7 +575,7 @@ const handleAutoplayChange = (event) => {
     onClick={handleStartFromPlayhead} 
     placeholder={!startTime && 'Start'} 
     disabled={!isVideoActive}
-    style={{ maxWidth: '70px', fontSize: 'clamp(.7rem,.6vw,1rem)', textAlign: 'center',background:'rgba(0,0,0,.3)' }}
+    style={{ maxWidth: '60px', fontSize: 'clamp(.7rem,.6vw,1rem)', textAlign: 'center',background:'rgba(0,0,0,.3)' }}
 />
 <input
     aria-label="Stop Time"
@@ -589,7 +589,7 @@ const handleAutoplayChange = (event) => {
     onClick={handleEndFromPlayhead} 
     placeholder={!stopTime && 'Stop'} 
     disabled={!isVideoActive}
-    style={{ maxWidth: '70px', fontSize: 'clamp(.7rem,.6vw,1rem)', textAlign:'center',background:'rgba(0,0,0,.3)' }}
+    style={{ maxWidth: '60px', fontSize: 'clamp(.7rem,.6vw,1rem)', textAlign:'center',background:'rgba(0,0,0,.3)' }}
 />
 
 </div>
@@ -611,7 +611,7 @@ const handleAutoplayChange = (event) => {
                 value={customImage}
                 onChange={handleCustomImageChange}
                 placeholder="Image URL" 
-                style={{ padding: '.5vh .4vw', minWidth:'100px', width: '100%', maxWidth: '800px', fontSize: 'clamp(.8rem,1.4vw,1rem)', background:'rgba(0,0,0,.2)', transition: 'all 1s ease-in-out', opacity: isVideoActive ? 1 : 0.5 }}
+                style={{ padding: '.5vh .2vw', minWidth:'75px', width: '100%', maxWidth: '800px', fontSize: 'clamp(.8rem,1.4vw,1rem)', textAlign:'center',  background:'rgba(0,0,0,.2)', transition: 'all 1s ease-in-out', opacity: isVideoActive ? 1 : 0.5 }}
                 aria-label="Custom Image Url"
                 className="youtubelinker"
                 disabled={!isVideoActive}
@@ -626,7 +626,7 @@ const handleAutoplayChange = (event) => {
                                 title="Paste Video Link"
                                 value={youtubelink}
                                 onChange={handleInputChange}
-                                style={{ padding: '.5vh .4vw', minWidth:'85px', width: '100%', maxWidth: '500px', fontSize: 'clamp(.6rem,1vw,1rem)', transition: 'all 1s ease-in-out', background:'rgba(0,0,0,.4)', outline:'0px solid #333', border:'1px solid var(--theme-ui-colors-siteColor)' }}
+                                style={{ padding: '.5vh .2vw', minWidth:'75px', width: '100%', maxWidth: '500px', textAlign:'center', fontSize: 'clamp(.6rem,1vw,1rem)', transition: 'all 1s ease-in-out', background:'rgba(0,0,0,.4)', outline:'1px solid #999', border:'' }}
                                 placeholder="Paste Link"
                                 className="youtubelinker"
                                 aria-label="Paste Link To Video"

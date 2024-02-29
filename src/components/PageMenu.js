@@ -77,7 +77,7 @@ const MenuComponent = () => {
               <br /><br />
               And it's completely FREE!
               <br />
-              <Link to="/about" state={{ modal: true }} className="button print" style={{ display: "flex", justifyContent: "center", padding: "1vh .5vw", maxWidth: "250px", margin: "30px auto", border:'1px solid #ff0000' }}>Learn About PIRATE</Link>
+              <Link to="/about" state={{ modal: true }} className="button print" style={{ display: "flex", justifyContent: "center", padding: "1vh .5vw", maxWidth: "250px", margin: "30px auto", border:'1px solid #ff0000' }}>About PIRATE</Link>
             </div>
           </div>
           <div className="flexcheek mob2 print" style={{ position: "", top: "", minWidth: "25vw", overflow: "", marginBottom: "", paddingTop: "", borderRadius: "var(--theme-ui-colors-borderRadius)" }}>
