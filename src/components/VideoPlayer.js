@@ -20,7 +20,7 @@ const VideoPlayer = ({ location }) => {
     const autoplayParam = queryParams.get('autoplay') === 'true'; 
     const seoTitleParam = queryParams.get('seoTitle') || ''; 
     
-    const [customImage, setCustomImage] = useState("");
+    // const [customImage, setCustomImage] = useState("");
 
     const [showPro, setShowPro] = useState(proParam || (typeof window !== 'undefined' && JSON.parse(localStorage.getItem('showPro'))) || false);
     const [showBlocker, setShowBlocker] = useState(false);
@@ -113,7 +113,7 @@ const VideoPlayer = ({ location }) => {
             loop, 
             mute, 
             controls, 
-            autoplay, 
+            autoplay, // Here, autoplay is already a boolean value
             seoTitle, 
             hideEditor, 
             showBlocker 
@@ -229,9 +229,9 @@ const handleCopyAndShareButtonClick = async () => {
         loop,
         mute,
         controls,
-        autoplay: autoplayQueryParam, 
+        autoplay: autoplayQueryParam, // Use the retrieved autoplay value
         seoTitle,
-        hideEditor:true,
+        hideEditor,
         showBlocker,
     };
 
