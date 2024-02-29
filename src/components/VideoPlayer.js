@@ -767,7 +767,7 @@ background: 'var(--theme-ui-colors-headerColor)',
 
 
 
-{!showBranding ? (
+{showBranding ? (
 <>
 {showPro ? (
     ""
