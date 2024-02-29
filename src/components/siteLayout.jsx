@@ -113,15 +113,7 @@ const Layout = ({ children }) => {
 )}
 </ModalRoutingContext.Consumer>
 
-{showPWA ? (
-<>
-{!isRunningStandalone() && (
-<PwaInstaller />
-)}
-</>
-  ) : (
-''
-)}
+
 
       <header className="header" style={{ display: 'block', height: showNav ? '60px' : '0' }}>
 
@@ -180,8 +172,9 @@ const Layout = ({ children }) => {
 
 
 
-      <main id="top" name="top">
+      <main id="top" name="top" style={{height:'',}}>
         {children}
+
       <div className={`upbar button ${showBackToTop ? 'visible' : ''}`}
         style={{
           position: 'fixed',
@@ -220,8 +213,19 @@ const Layout = ({ children }) => {
           </div>
         </AnchorLink>
       </div>
+
+      {showPWA ? (
+<>
+{!isRunningStandalone() && (
+<PwaInstaller />
+)}
+</>
+  ) : (
+''
+)}
       </main>
 
+      
       {showfooter ? (
     <Footer />
       ) : (
