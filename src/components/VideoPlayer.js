@@ -25,7 +25,7 @@ const VideoPlayer = ({ location }) => {
     const [showPro, setShowPro] = useState(proParam || (typeof window !== 'undefined' && JSON.parse(localStorage.getItem('showPro'))) || false);
     const [showBlocker, setShowBlocker] = useState(false);
 
-    const [hideEditor, setHideEditor] = useState(false); // Initialize to true
+    const [hideEditor, setHideEditor] = useState(true); // Initialize to true
 
     // const [hideEditor, setHideEditor] = useState(true); // Default value set to true
 
@@ -53,7 +53,7 @@ const handleCustomImageChange = (event) => {
     }, [showPro, proParam, queryParams]);
 
 
-
+    
 
     // Additional state and variables initialization
     const [shouldPause, setShouldPause] = useState(false);
@@ -214,35 +214,11 @@ const handleCustomImageChange = (event) => {
 
 
 // Function to copy URL to clipboard
+// Function to copy URL to clipboard
 const handleCopyAndShareButtonClick = async () => {
-    // Retrieve autoplay value from query parameters
-    const autoplayQueryParam = queryParams.get('autoplay') === 'true';
-
-    if (typeof window !== 'undefined') {
-        if (navigator.share) { 
-          navigator.share({
-            title: 'PIRATE',
-            url: window.location.href
-          }).then(() => {
-            console.log('Thanks for being a Pirate!');
-          })
-          .catch(console.error);
-        }
-      }
-
-    // Construct the query parameters
+    // Construct the query parameters object with only the customImage value
     const queryParamsObject = {
-        video: youtubelink,
-        start: startTime,
-        stop: stopTime,
-        loop,
-        mute,
-        controls,
-        autoplay: autoplayQueryParam, // Use the retrieved autoplay value
-        seoTitle,
-        hideEditor,
-        showBlocker,
-        customImage, // Include customImage parameter
+        customImage: customImage,
     };
 
     // Remove any undefined or empty parameters
@@ -267,18 +243,19 @@ const handleCopyAndShareButtonClick = async () => {
         .catch((error) => console.error("Error copying to clipboard:", error));
 
 
-        if (typeof window !== 'undefined') {
-            if (navigator.share) { 
-              navigator.share({
+    if (typeof window !== 'undefined') {
+        if (navigator.share) { 
+            navigator.share({
                 title: 'PIRATE',
                 url: window.location.href
-              }).then(() => {
+            }).then(() => {
                 console.log('Thanks for being a Pirate!');
-              })
-              .catch(console.error);
-            }
-          }  
+            })
+            .catch(console.error);
+        }
+    }  
 };
+
 
 
 
