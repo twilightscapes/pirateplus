@@ -763,11 +763,18 @@ background: 'var(--theme-ui-colors-headerColor)',
                              )}
 
                     </div>
-      
     )}
 
-{showBranding || !showPro ? (
-<PageMenu />
+
+
+{!showBranding ? (
+<>
+{showPro ? (
+    ""
+    ) : (
+        <PageMenu />
+        )}
+</>
 ) : (
 ""
 )}
