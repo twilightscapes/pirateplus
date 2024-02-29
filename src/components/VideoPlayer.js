@@ -20,11 +20,30 @@ const VideoPlayer = ({ location }) => {
     const autoplayParam = queryParams.get('autoplay') === 'true'; 
     const seoTitleParam = queryParams.get('seoTitle') || ''; 
     
-    // const [customImage, setCustomImage] = useState("");
+    const [customImage, setCustomImage] = useState("");
 
     const [showPro, setShowPro] = useState(proParam || (typeof window !== 'undefined' && JSON.parse(localStorage.getItem('showPro'))) || false);
     const [showBlocker, setShowBlocker] = useState(false);
     const [hideEditor, setHideEditor] = useState(false);
+
+    // const [hideEditor, setHideEditor] = useState(true); // Default value set to true
+
+    // Function to update hideEditor state
+    // const toggleHideEditor = () => {
+    //   setHideEditor((prevHideEditor) => !prevHideEditor);
+    // };
+
+
+// Function to handle changes in the custom image URL input
+const handleCustomImageChange = (event) => {
+    const { value } = event.target;
+    setCustomImage(value);
+
+    // Update query string with custom image URL
+    updateQueryString({ customImage: value });
+};
+
+
     const [seoTitle, setSeoTitle] = useState(seoTitleParam);
     
     // Effect to update localStorage and showPro state
@@ -205,6 +224,7 @@ const VideoPlayer = ({ location }) => {
 
     // Function to copy URL to clipboard
 
+// Function to copy URL to clipboard
 const handleCopyAndShareButtonClick = async () => {
     // Retrieve autoplay value from query parameters
     const autoplayQueryParam = queryParams.get('autoplay') === 'true';
@@ -233,6 +253,7 @@ const handleCopyAndShareButtonClick = async () => {
         seoTitle,
         hideEditor,
         showBlocker,
+        customImage, // Include customImage parameter
     };
 
     // Remove any undefined or empty parameters
@@ -267,10 +288,9 @@ const handleCopyAndShareButtonClick = async () => {
               })
               .catch(console.error);
             }
-          }
-
-          
+          }  
 };
+
 
 
 
@@ -301,6 +321,8 @@ const handleCopyAndShareButtonClick = async () => {
 const updateQueryString = (values) => {
     // This function does nothing to prevent updating the query string
 };
+
+
 
     // Function to update query string based on provided values
     // const updateQueryString = (values) => {
@@ -342,11 +364,11 @@ const updateQueryString = (values) => {
     
 
     // Function to handle show blocker change
-    const handleShowBlockerChange = (event) => {
-        const newValue = event.target.checked;
-        setShowBlocker(newValue);
-        updateQueryString({ showBlocker: newValue ? 'true' : 'false' });
-    };
+    // const handleShowBlockerChange = (event) => {
+    //     const newValue = event.target.checked;
+    //     setShowBlocker(newValue);
+    //     updateQueryString({ showBlocker: newValue ? 'true' : 'false' });
+    // };
 
 
 // Function to handle autoplay change
@@ -361,7 +383,7 @@ const handleAutoplayChange = (event) => {
 
     // Function to check if URL is valid
     const isValidURL = (url) => {
-        const urlPattern = /^(ftp|http|https):\/\/[^ "]+$/;
+        const urlPattern = /^(|http|https):\/\/[^ "]+$/;
         return urlPattern.test(url);
     };
 
@@ -390,7 +412,7 @@ const handleAutoplayChange = (event) => {
 
             {showPro ? (
 
-<div className="font" style={{ position: 'relative', zIndex: '3', top: '0', width: '100vw', margin: '0 auto', transition: 'all 1s ease-in-out', marginTop: showNav ? '0' : '0', 
+<div className="font" style={{ position: 'relative', zIndex: '3', top: '0', width: '100vw', margin: '0 auto', transition: 'all 1s ease-in-out', marginTop: showNav ? '0' : '0',
 //  height: hideEditor ? '0' : '50px', 
 // background: 'var(--theme-ui-colors-headerColor)',
  }}>
@@ -403,12 +425,12 @@ const handleAutoplayChange = (event) => {
       style={{
         display: 'flex',
         justifyContent: 'center',
-        flexWrap: 'wrap',
+        flexWrap: '',
         alignItems: 'center',
-        width: '100w',
         margin: '0 auto',
         gap: '2vw',
         padding: '4px 20px',
+        width: '100%',
         // transform: hideEditor ? 'translateY(-100%)' : 'none',
         transition: 'transform 0.5s ease-in-out',
         background: 'var(--theme-ui-colors-headerColor)',
@@ -417,7 +439,7 @@ const handleAutoplayChange = (event) => {
       }}
     >
 
-<div id="bigbox" style={{ display: 'flex', flexFlow:'wrap', flexDirection:'', gap: '2vw', alignItems: 'center', width:'', border:'0px solid red' }}>
+<div id="bigbox" style={{ display: 'flex', flexFlow:'', flexDirection:'', gap: '2vw', alignItems: 'center', width:'', border:'0px solid red' }}>
 
 
 <div id="controls" style={{
@@ -432,7 +454,7 @@ const handleAutoplayChange = (event) => {
 
 <div id="checkboxes" style={{ display: 'flex', flexDirection:'row', gap: '5px', alignItems: 'center', padding:'0 10px 5px 10px', justifyContent:'center', background:'rgba(0,0,0,.2)', outline:'1px solid #777', borderRadius:'var(--theme-ui-colors-borderRadius)', fontSize:'clamp(.5rem,1.2vw,1rem)'  }}>
 
-<label title="AutoPlay - Set video to automatically begin playing. NOTE: videos must be muted for autoplay to work" htmlFor="autoplayCheckbox" style={{textAlign:'center', fontSize:'', display:'flex', flexDirection:'column', alignItems:'center', opacity: isVideoActive ? 1 : 0.5 }}>Autoplay:
+<label title="AutoPlay - Set video to automatically begin playing. NOTE: videos must be muted for autoplay to work" htmlFor="autoplayCheckbox" style={{textAlign:'center', fontSize:'60%', display:'flex', flexDirection:'column', alignItems:'center', opacity: isVideoActive ? 1 : 0.5 }}>Autoplay:
     <input
         type="checkbox"
         id="autoplay-checkbox"
@@ -443,7 +465,7 @@ const handleAutoplayChange = (event) => {
     />
 </label>
 
-                                <label htmlFor="loop-checkbox" style={{textAlign:'center', fontSize:'', display:'flex', flexDirection:'column', alignItems:'center', opacity: isVideoActive ? 1 : 0.5}}>Loop:
+                                <label htmlFor="loop-checkbox" style={{textAlign:'center', fontSize:'85%', display:'flex', flexDirection:'column', alignItems:'center', opacity: isVideoActive ? 1 : 0.5}}>Loop:
                                     <input
                                         aria-label="Set to loop"
                                         id="loop-checkbox"
@@ -456,7 +478,7 @@ const handleAutoplayChange = (event) => {
                                         style={{maxWidth:'50px'}}
                                     />
                                 </label>
-                                <label htmlFor="mute-checkbox" style={{textAlign:'center', fontSize:'', display:'flex', flexDirection:'column', alignItems:'center', opacity: isVideoActive ? 1 : 0.5}}>Mute:
+                                <label htmlFor="mute-checkbox" style={{textAlign:'center', fontSize:'85%', display:'flex', flexDirection:'column', alignItems:'center', opacity: isVideoActive ? 1 : 0.5}}>Mute:
     <input
     aria-label="Set to mute"
     id="mute-checkbox"
@@ -472,7 +494,7 @@ const handleAutoplayChange = (event) => {
                                 </label>
 
                                 
-                                <label htmlFor="controls-checkbox" style={{textAlign:'center', fontSize:'', display:'flex', flexDirection:'column', alignItems:'center', opacity: isVideoActive ? 1 : 0.5}}>Controls:
+                                <label htmlFor="controls-checkbox" style={{textAlign:'center', fontSize:'85%', display:'flex', flexDirection:'column', alignItems:'center', opacity: isVideoActive ? 1 : 0.5}}>Controls:
                                     <input
                                         aria-label="Set to show controls"
                                         id="controls-checkbox"
@@ -485,10 +507,8 @@ const handleAutoplayChange = (event) => {
                                         style={{maxWidth:'50px'}}
                                     />
                                 </label>
-                </div>
 
-<div style={{ display: 'none', flexDirection:'row', gap: '10px', alignItems: 'center', padding:'0 3px 5px 3px', background:'rgba(0,0,0,.2)', outline:'1px solid #333', borderRadius:'5px' }}>
-<label htmlFor="hide-editor-checkbox" style={{textAlign:'center', fontSize:'50%', display:'flex', flexDirection:'column', alignItems:'center'}}>Editor:
+<label htmlFor="hide-editor-checkbox" style={{textAlign:'center', fontSize:'85%', display:'flex', flexDirection:'column', alignItems:'center', opacity: isVideoActive ? 1 : 0.5}}>Editor:
 <input
     type="checkbox"
     id="hide-editor-checkbox"
@@ -502,25 +522,43 @@ const handleAutoplayChange = (event) => {
     // onChange={handleHideEditorInputChange}
 />
 </label>
+                </div>
 
-<label  title="User Interaction Blocker - Keep people from clicking on anything on the page. Note, view will not be able to play videos that are NOT set to mute and autoplay - USE WITH CAUTION" htmlFor="blocker-checkbox"  style={{textAlign:'center', fontSize:'60%', display:'flex', flexDirection:'column', alignItems:'center', opacity: 'isVideoActive ? 1 : 0.5'}}>Block:
+{/* <div style={{ display: 'flex', flexDirection:'row', gap: '10px', alignItems: 'center', padding:'0 3px 5px 3px', background:'rgba(0,0,0,.2)', outline:'1px solid #333', borderRadius:'5px' }}> */}
+
+
+
+<input
+    type="text"
+    name="seoTitle" 
+    title="Enter Video Title"
+    value={seoTitle}
+    onChange={(e) => setSeoTitle(e.target.value)} // Add this onChange handler
+    placeholder="Video Title" 
+    style={{ padding: '.5vh .4vw', minWidth:'100px', width: '100%', maxWidth: '800px', fontSize: 'clamp(.8rem,1.4vw,1rem)', background:'rgba(0,0,0,.2)', transition: 'all 1s ease-in-out' }}
+    aria-label="Enter Video Title"
+    className="youtubelinker"
+    disabled={!isVideoActive}
+/>
+
+{/* <label  title="User Interaction Blocker - Keep people from clicking on anything on the page. Note, view will not be able to play videos that are NOT set to mute and autoplay - USE WITH CAUTION" htmlFor="blocker-checkbox"  style={{textAlign:'center', fontSize:'60%', display:'none', flexDirection:'column', alignItems:'center', opacity: 'isVideoActive ? 1 : 0.5'}}>Block:
     <input
         aria-label="Block user interactions"
         id="blocker-checkbox"
         type="checkbox"
         className="youtubelinker"
         name="showBlocker"
-        // checked={showBlocker}
-        // onChange={handleBlockerChange}
+        checked={showBlocker}
+        onChange={handleBlockerChange}
         onChange={handleShowBlockerChange} checked={showBlocker}
         disabled={!isVideoActive}
         style={{maxWidth:'50px'}}
     />
-</label>
+</label> */}
 
 
 
-</div>
+{/* </div> */}
 
 
 
@@ -537,7 +575,7 @@ const handleAutoplayChange = (event) => {
     onClick={handleStartFromPlayhead} 
     placeholder={!startTime && 'Start'} 
     disabled={!isVideoActive}
-    style={{ maxWidth: '100px', fontSize: 'clamp(.7rem,.6vw,1rem)', textAlign: 'center',background:'rgba(0,0,0,.3)' }}
+    style={{ maxWidth: '70px', fontSize: 'clamp(.7rem,.6vw,1rem)', textAlign: 'center',background:'rgba(0,0,0,.3)' }}
 />
 <input
     aria-label="Stop Time"
@@ -551,7 +589,7 @@ const handleAutoplayChange = (event) => {
     onClick={handleEndFromPlayhead} 
     placeholder={!stopTime && 'Stop'} 
     disabled={!isVideoActive}
-    style={{ maxWidth: '100px', fontSize: 'clamp(.7rem,.6vw,1rem)', textAlign:'center',background:'rgba(0,0,0,.3)' }}
+    style={{ maxWidth: '70px', fontSize: 'clamp(.7rem,.6vw,1rem)', textAlign:'center',background:'rgba(0,0,0,.3)' }}
 />
 
 </div>
@@ -562,18 +600,22 @@ const handleAutoplayChange = (event) => {
 
 <div id="pastebox" style={{ display: 'flex', flexDirection:'row', gap: '2vw', alignItems: 'center', width:'', margin:'', border:'0px solid red' }}>
 
+
+
+
+
 <input
-    type="text"
-    name="seoTitle" 
-    title="Enter Video Title"
-    value={seoTitle}
-    onChange={(e) => setSeoTitle(e.target.value)} // Add this onChange handler
-    placeholder="Video Title" 
-    style={{ padding: '.5vh .4vw', minWidth:'140px', width: '100%', maxWidth: '800px', fontSize: 'clamp(.8rem,1.4vw,1rem)', background:'rgba(0,0,0,.2)', transition: 'all 1s ease-in-out', opacity: isVideoActive ? 1 : 0.5 }}
-    aria-label="Enter Video Title"
-    className="youtubelinker"
-    disabled={!isVideoActive}
-/>
+                type="text"
+                name="customImage" 
+                title="Custom Image Url"
+                value={customImage}
+                onChange={handleCustomImageChange}
+                placeholder="Image URL" 
+                style={{ padding: '.5vh .4vw', minWidth:'100px', width: '100%', maxWidth: '800px', fontSize: 'clamp(.8rem,1.4vw,1rem)', background:'rgba(0,0,0,.2)', transition: 'all 1s ease-in-out', opacity: isVideoActive ? 1 : 0.5 }}
+                aria-label="Custom Image Url"
+                className="youtubelinker"
+                disabled={!isVideoActive}
+            />
 
                     
                             <input
@@ -609,10 +651,6 @@ const handleAutoplayChange = (event) => {
 
                             {isRunningStandalone() && (
                             <div style={{position:'absolute', left:'0', top:'50vh', zIndex:'2', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', gap:'2vh', width:'55px',padding:'3px 10px', background:'rgba(0,0,0,.2)', outline:'1px solid #333', borderRadius:'var(--theme-ui-colors-borderRadius)'}}>
-
-
-
-
                                     <a title="Open YouTube" aria-label="Open YouTube" href="https://youtube.com">
                                         <TfiYoutube style={{ fontSize: '30px', opacity:'.8' }} />
                                     </a>

@@ -937,6 +937,9 @@ button:disabled{
     /* height: 100% !important; */
   }
 
+
+  #bigbox {flex-wrap: wrap;}
+
   /* .player-wrapper .menusnapp{top:72% !important;} */
 
   body.blogpost {padding-top:8vh !important;}
@@ -1399,6 +1402,7 @@ input {font-size: 16px !important;}
 body.youtube .player-wrapper {max-height: 100dvh;}
 
 .player-wrapper iframe{max-height: 100%; overflow:hidden; object-fit:contain;  margin:0 auto; aspect-ratio: 16/9;}
+
 
 
 /* #pwabanner {

@@ -53,7 +53,7 @@ const MenuComponent = () => {
         style={{
           position: "absolute",
           zIndex: "3",
-          top: "80px",
+          top: "100px",
           gap: "0",
           padding: "2vh 2vw",
           alignItems: "center",
