@@ -214,11 +214,37 @@ const handleCustomImageChange = (event) => {
 
 
 // Function to copy URL to clipboard
-// Function to copy URL to clipboard
 const handleCopyAndShareButtonClick = async () => {
-    // Construct the query parameters object with only the customImage value
+    // Retrieve autoplay value from query parameters
+    const autoplayQueryParam = queryParams.get('autoplay') === 'true';
+
+    if (typeof window !== 'undefined') {
+        if (navigator.share) { 
+          navigator.share({
+            title: 'PIRATE',
+            url: window.location.href
+          }).then(() => {
+            console.log('Thanks for being a Pirate!');
+          })
+          .catch(console.error);
+        }
+      }
+
+
+
+    // Construct the query parameters
     const queryParamsObject = {
-        customImage: customImage,
+        video: youtubelink,
+        start: startTime,
+        stop: stopTime,
+        loop,
+        mute,
+        controls,
+        autoplay: autoplayQueryParam, // Use the retrieved autoplay value
+        seoTitle,
+        hideEditor,
+        showBlocker,
+        customImage: customImage, // Include customImage parameter
     };
 
     // Remove any undefined or empty parameters
@@ -243,19 +269,18 @@ const handleCopyAndShareButtonClick = async () => {
         .catch((error) => console.error("Error copying to clipboard:", error));
 
 
-    if (typeof window !== 'undefined') {
-        if (navigator.share) { 
-            navigator.share({
+        if (typeof window !== 'undefined') {
+            if (navigator.share) { 
+              navigator.share({
                 title: 'PIRATE',
                 url: window.location.href
-            }).then(() => {
+              }).then(() => {
                 console.log('Thanks for being a Pirate!');
-            })
-            .catch(console.error);
-        }
-    }  
+              })
+              .catch(console.error);
+            }
+          }  
 };
-
 
 
 
