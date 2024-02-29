@@ -767,17 +767,7 @@ background: 'var(--theme-ui-colors-headerColor)',
 
 
 
-{showBranding ? (
-<>
-{showPro ? (
-    ""
-    ) : (
-        <PageMenu />
-        )}
-</>
-) : (
-""
-)}
+{showBranding && !showPro && <PageMenu />}
 
 
 {/* <div className={showBlocker ? "blocked-video" : ""}></div> */}
