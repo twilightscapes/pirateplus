@@ -525,7 +525,7 @@ const handleAutoplayChange = (event) => {
 {/* <div style={{ display: 'flex', flexDirection:'row', gap: '10px', alignItems: 'center', padding:'0 3px 5px 3px', background:'rgba(0,0,0,.2)', outline:'1px solid #333', borderRadius:'5px' }}> */}
 </div>
 
-<div style={{minWidth:'110px', marginRight: expanded ? '2vw' : '0'}}><input
+<div style={{minWidth:'110px', marginRight: expanded ? '' : '', border: expanded ? '1px solid var(--theme-ui-colors-siteColor)' : 'inherit', height:'30px', display:'flex', alignItems:'center' }}><input
             id="seoTitle"
             type="text"
             name="seoTitle"
@@ -541,10 +541,9 @@ const handleAutoplayChange = (event) => {
                 textAlign: 'center',
                 fontSize: 'clamp(.8rem,1.4vw,1rem)',
                 background: expanded ? 'rgba(0,0,0,.6)' : 'rgba(0,0,0,1)',
-                transition: 'all .4s ease-in-out',
                 position: expanded ? 'absolute' : 'static',
                 top: expanded ? '60px' : 'inherit',
-                left: expanded ? '20%' : 'auto',
+                left: expanded ? 'auto' : 'auto',
                 border: expanded ? '2px solid var(--theme-ui-colors-siteColor)' : 'inherit',
                 transition: 'opacity 1s ease-in-out',
             }}
