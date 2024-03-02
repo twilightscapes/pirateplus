@@ -1319,7 +1319,7 @@ html:has body.youtube{position:fixed !important; overflow: hidden !important;}
   {display: none !important;}
 
   #youtubelink-input::placeholder{color:var(--theme-ui-colors-siteColor) !important;}
-  /* body.youtube .public{display: none !important;} */
+  body.homepage .public{display: flex !important;}
 
   /* body.youtube #gobacker{top:14% !important; right:5px !important;} */
 
