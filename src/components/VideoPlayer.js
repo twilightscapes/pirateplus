@@ -215,23 +215,6 @@ const handleCustomImageChange = (event) => {
 
 // Function to copy URL to clipboard
 const handleCopyAndShareButtonClick = async () => {
-    // Retrieve autoplay value from query parameters
-    const autoplayQueryParam = queryParams.get('autoplay') === 'true';
-
-    if (typeof window !== 'undefined') {
-        if (navigator.share) { 
-          navigator.share({
-            title: 'PIRATE',
-            url: window.location.href
-          }).then(() => {
-            console.log('Thanks for being a Pirate!');
-          })
-          .catch(console.error);
-        }
-      }
-
-
-
     // Construct the query parameters
     const queryParamsObject = {
         video: youtubelink,
@@ -240,11 +223,11 @@ const handleCopyAndShareButtonClick = async () => {
         loop,
         mute,
         controls,
-        autoplay: autoplayQueryParam, // Use the retrieved autoplay value
+        autoplay: autoplayParam, // Use the initial autoplay value
         seoTitle,
         hideEditor,
         showBlocker,
-        customImage: customImage, // Include customImage parameter
+        customImage, // Include customImage parameter without checking for undefined or empty
     };
 
     // Remove any undefined or empty parameters
@@ -255,35 +238,36 @@ const handleCopyAndShareButtonClick = async () => {
     });
 
     // Update the query string
-    const newParams = new URLSearchParams(queryParamsObject);
+    // const newParams = new URLSearchParams(queryParamsObject);
+
+    const queryString = Object.keys(queryParamsObject)
+        .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(queryParamsObject[key])}`)
+        .join('&');
 
     // Construct the URL
-    const newUrl = `${window.location.origin}/video?${newParams.toString()}`;
+    // const newUrl = `${window.location.origin}${window.location.pathname}video?${newParams.toString()}`;
 
-
-
+    const fullUrl = `${window.location.origin}${window.location.pathname}video?${queryString}`;
 
     // Copy the URL to clipboard
-    navigator.clipboard.writeText(newUrl)
+    navigator.clipboard.writeText(fullUrl)
         .then(() => {
             setCopied(true);
             setTimeout(() => setCopied(false), 2000);
         })
-        .catch((error) => console.error("Error copying to clipboard:", error));
+        .catch(error => console.error("Error copying to clipboard:", error));
 
-
-        if (typeof window !== 'undefined') {
-            if (navigator.share) { 
-              navigator.share({
-                title: 'PIRATE',
-                url: window.location.href
-              }).then(() => {
-                console.log('Thanks for being a Pirate!');
-              })
-              .catch(console.error);
-            }
-          }  
+    // Share the URL if supported by the browser
+    if (typeof window !== 'undefined' && navigator.share) {
+        navigator.share({
+            title: 'PIRATE',
+            url: fullUrl
+        }).then(() => {
+            console.log('Thanks for being a Pirate!');
+        }).catch(console.error);
+    }
 };
+
 
 
 
