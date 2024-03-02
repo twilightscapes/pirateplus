@@ -1342,6 +1342,27 @@ html:has body.youtube{position:fixed !important; overflow: hidden !important;}
     background-size: cover;
     font-size: clamp(2rem,3vw,3rem);
 }
+
+
+.youtubelinker.expanded {
+  width: 80%;
+  position: absolute;
+  left: 10%;
+}
+
+@media (max-width:48rem) {
+#seoTitle{
+  width: 100% !important;
+  background: rgba(0,0,0,1) !important;
+  position:relative !important;
+  top: inherit !important;
+  left: inherit !important;
+  border: inherit !important;
+}
+  }
+
+
+
 /* .blocked-video{border:2px solid red !important;} */
 
 

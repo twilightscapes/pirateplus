@@ -260,6 +260,9 @@ const handleCopyAndShareButtonClick = async () => {
     // Construct the URL
     const newUrl = `${window.location.origin}/video?${newParams.toString()}`;
 
+
+
+
     // Copy the URL to clipboard
     navigator.clipboard.writeText(newUrl)
         .then(() => {
@@ -387,6 +390,18 @@ const handleAutoplayChange = (event) => {
         setIsPlaying(!shouldPause && (loop || !stopTime || playerRef.current.getCurrentTime() < parseFloat(stopTime)));
     }, [loop, shouldPause, stopTime]);
 
+
+
+    const [expanded, setExpanded] = useState(false);
+
+    const handleInputClick = () => {
+        setExpanded(true);
+    };
+    const handleInputBlur = () => {
+        setExpanded(false);
+    };
+    
+
     // JSX rendering
     return (
         <>
@@ -508,10 +523,42 @@ const handleAutoplayChange = (event) => {
                 
 
 {/* <div style={{ display: 'flex', flexDirection:'row', gap: '10px', alignItems: 'center', padding:'0 3px 5px 3px', background:'rgba(0,0,0,.2)', outline:'1px solid #333', borderRadius:'5px' }}> */}
-
-
-
 </div>
+
+<div style={{minWidth:'110px', marginRight: expanded ? '2vw' : '0'}}><input
+            id="seoTitle"
+            type="text"
+            name="seoTitle"
+            title="Enter Video Title"
+            value={seoTitle}
+            onChange={(e) => setSeoTitle(e.target.value)}
+            placeholder="Video Title"
+            style={{
+                padding: '.4vh .3vw',
+                minWidth: '110px',
+                width: expanded ? '60vw' : '100%', // 80% width when expanded
+                maxWidth: '800px',
+                textAlign: 'center',
+                fontSize: 'clamp(.8rem,1.4vw,1rem)',
+                background: expanded ? 'rgba(0,0,0,.6)' : 'rgba(0,0,0,1)',
+                transition: 'all .4s ease-in-out',
+                position: expanded ? 'absolute' : 'static',
+                top: expanded ? '60px' : 'inherit',
+                left: expanded ? '20%' : 'auto',
+                border: expanded ? '2px solid var(--theme-ui-colors-siteColor)' : 'inherit',
+                transition: 'opacity 1s ease-in-out',
+            }}
+            aria-label="Enter Video Title"
+            className={`youtubelinker${expanded ? ' expanded' : ''}`}
+            disabled={!isVideoActive}
+            onClick={handleInputClick}
+            maxLength={70}
+            onBlur={handleInputBlur} // Add onBlur event handler
+        />
+</div>
+        
+
+
 
 {/* <label  title="User Interaction Blocker - Keep people from clicking on anything on the page. Note, view will not be able to play videos that are NOT set to mute and autoplay - USE WITH CAUTION" htmlFor="blocker-checkbox"  style={{textAlign:'center', fontSize:'60%', display:'none', flexDirection:'column', alignItems:'center', opacity: 'isVideoActive ? 1 : 0.5'}}>Block:
     <input
@@ -532,7 +579,7 @@ const handleAutoplayChange = (event) => {
 
 {/* </div> */}
 
-<input
+{/* <input
     type="text"
     name="seoTitle" 
     title="Enter Video Title"
@@ -543,7 +590,11 @@ const handleAutoplayChange = (event) => {
     aria-label="Enter Video Title"
     className="youtubelinker"
     disabled={!isVideoActive}
-/>
+/> */}
+
+
+
+
 
 <div id="timers" style={{ display: 'flex', flexDirection:'row', gap: '2vw', alignItems: 'center', width:'100%', marginLeft:'',}}>
 <input
@@ -599,6 +650,8 @@ const handleAutoplayChange = (event) => {
                 className="youtubelinker"
                 disabled={!isVideoActive}
             />
+
+            
 
                     
                             <input
