@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import useSiteMetadata from "../hooks/SiteMetadata";
 import { Link } from "gatsby"
 import Layout from "../components/siteLayout"
@@ -15,7 +15,57 @@ export const Head = () => (
   </>
 )
 
-const AuthenticatedTimeline = () => {
+const AuthenticatedTimeline = ({ isSliderVisible }) => {
+
+
+
+// eslint-disable-next-line
+const [sliderVisible, setSliderVisible] = useState(true); 
+
+useEffect(() => {
+  // Check if window is defined to ensure it's running in a client-side environment
+  if (typeof window !== 'undefined') {
+    // Set the default visibility to true if localStorage value is not available
+    const storedSliderVisibility = localStorage.getItem("isSliderVisible");
+    const initialSliderVisible = storedSliderVisibility ? JSON.parse(storedSliderVisibility) : true;
+    // Set the initial visibility based on the prop or localStorage
+    setSliderVisible(isSliderVisible ?? initialSliderVisible);
+  }
+  return () => {
+    // Cleanup function if needed
+  };
+}, [isSliderVisible, setSliderVisible]); // Add setSliderVisible to the dependency array
+
+
+const scrollRef = useRef(null);
+const containerClass = isSliderVisible ? "slider" : "grid-container contentpanel";
+const handleScroll = (e) => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollLeft += e.deltaY;
+    }
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Your scroll handling logic
+    };
+  
+    const currentScrollRef = scrollRef.current;
+  
+    if (currentScrollRef) {
+      currentScrollRef.addEventListener("scroll", handleScroll);
+    }
+  
+    return () => {
+      if (currentScrollRef) {
+        currentScrollRef.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, [scrollRef]);
+
+
+
+
 
   const [storedFeedUrls, setStoredFeedUrls] = useState([]);
 
@@ -253,6 +303,7 @@ const AuthenticatedTimeline = () => {
   };
   
   
+
   
 
 
@@ -381,8 +432,11 @@ return (
       ))}
     </div> */}
 
-<div className='contentpanel grid-container' style={{ marginTop: '5vh' }}>
-        <div className='sliderSpacer' style={{ height: '', paddingTop: '0', display: 'none' }}></div>
+
+
+<div className={containerClass} onWheel={handleScroll}
+      ref={scrollRef} style={{ marginTop: '5vh' }}>
+        {/* <div className='sliderSpacer' style={{ height: '', paddingTop: '0', display: 'none' }}></div> */}
 
 
 
