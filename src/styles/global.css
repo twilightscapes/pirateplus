@@ -1,5 +1,5 @@
 
-@import "animate.css";
+
 
 @media (prefers-reduced-motion:reduce),(print) {
 .animated{-webkit-animation-duration:1ms;-webkit-animation-iteration-count:1;-webkit-transition-duration:1ms;animation-duration:1ms;animation-iteration-count:1;transition-duration:1ms}
