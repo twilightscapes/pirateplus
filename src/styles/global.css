@@ -1323,6 +1323,9 @@ html:has body.youtube{position:fixed !important; overflow: hidden !important;}
   #youtubelink-input::placeholder{color:var(--theme-ui-colors-siteColor) !important;}
   body.homepage .public{display: flex !important;}
 
+  body.youtube .public {display: flex !important; border:0px solid red !important;}
+  body.nope .public {display: none !important; border:0px solid red !important;}
+
   /* body.youtube #gobacker{top:14% !important; right:5px !important;} */
 
   @media(max-width:48rem) {
