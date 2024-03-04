@@ -322,7 +322,8 @@ const Layout = ({ children }) => {
                 </AnchorLink>
               </li>
 
-              <Menu id="sidechick" />
+              {/* <Menu id="sidechick" /> */}
+              {socialMenuPages.some(page => currentPage.startsWith(page)) ? <SocialMenu id="sidechick" /> : <Menu id="sidechick" />}
 
               <li>
                 <ul className="missioncontrol sitecontrols" style={{ display: 'flex', justifyContent: 'space-around', fontSize: 'clamp(.8rem, 2.3vw, 2.5rem)', gap: '', textAlign: 'center', maxHeight: '', alignItems: 'center', paddingTop: '5px' }}>

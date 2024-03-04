@@ -38,9 +38,11 @@ body.install #menu, body.install #gobacker, body.install .spacer  {display:none 
 body.contactpage #footercontact{display:none;}
 
 /* body.piratepage .missioncontrol{visibility:hidden !important;} */
-body.piratepage #gobacker, body.social #gobacker{visibility:hidden !important;}
+body.piratepage #gobacker{visibility:hidden !important;}
 /* body.piratepage :is(#gobacker) {display: none !important;} */
 body.piratepage footer {display: none !important;}
+
+body.social .searchIcon {visibility:hidden !important;}
 
 :root{--button-alternate-color:#e3272d;--button-color:#e5c3d3;--font-family:-apple-system,BlinkMacSystemFont,avenir next,avenir,helvetica neue,helvetica,Ubuntu,roboto,noto,segoe ui,arial,sans-serif;--font-family-mono:Menlo,Consolas,Monaco,Liberation Mono,Lucida Console,monospace;--font-size-small:12px;--grid-gap:30px;--home-link-color:#d4d4d4;--home-link-hover-color:var(--primary-color);--input-focus-border:#83aaac;--label-text:#777;--nav-link-hover-bg:#111;--post-link-color:#0f070b;--text-color-meta:rgba(0,0,0,.5), height:100vh;}
 

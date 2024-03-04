@@ -9,11 +9,7 @@ import userRssData from "../../static/data/userRss.json";
 // import useNetlifyIdentity from '../components/useNetlifyIdentity';
 import { RiMenuUnfoldFill, RiCloseCircleFill } from "react-icons/ri"
 
-export const Head = () => (
-  <>
-  <body className="social utilitypage" />
-  </>
-)
+import { Helmet } from "react-helmet"
 
 const AuthenticatedTimeline = ({ isSliderVisible }) => {
 
@@ -118,7 +114,7 @@ const handleScroll = (e) => {
 
 
 
-  const { showNav } = useSiteMetadata();
+  // const { showNav } = useSiteMetadata();
   const { showDates } = useSiteMetadata();
   const { postcount } = useSiteMetadata();
   const [feed, setFeed] = useState([]);
@@ -269,7 +265,7 @@ const handleScroll = (e) => {
   //   }
   // };
 
-  
+
     /* eslint-disable-next-line no-unused-vars */
   const uniqueSubscriptions = [...new Set(userSubscriptions.map(subscription => subscription.name))];
 
@@ -311,11 +307,14 @@ const handleScroll = (e) => {
 
 return (
 <Layout>
-{showNav ? (
+<Helmet>
+        <body id="body" className="social" />
+      </Helmet>
+{/* {showNav ? (
     <div className="spacer" style={{ height: "70px", border: "0px solid yellow" }}></div>
   ) : (
     ""
-  )}
+  )} */}
 
 
 
@@ -328,7 +327,7 @@ return (
             zIndex: "4",
             left: "1vw",
             right: "",
-            display: "flex",
+            display: "none",
             justifyContent: "center",
             alignItems: "center",
             width: "auto",
