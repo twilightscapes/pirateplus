@@ -79,7 +79,7 @@ const Layout = ({ children }) => {
 
   // Determine the current page location
   const currentPage = typeof window !== 'undefined' ? window.location.pathname : '/';
-  console.log('Current Page:', currentPage);
+  // console.log('Current Page:', currentPage);
   
 
   // Define an array of page locations where you want to show the social menu
