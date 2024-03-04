@@ -268,7 +268,9 @@ const handleScroll = (e) => {
   //     setNewFeedName("");
   //   }
   // };
+
   
+    /* eslint-disable-next-line no-unused-vars */
   const uniqueSubscriptions = [...new Set(userSubscriptions.map(subscription => subscription.name))];
 
   const addSubscription = () => {
@@ -354,7 +356,7 @@ return (
 
 <div className="flexbutt" style={{width:'100%', gap:'2vw'}}>
 
-<div className="contact-form flexcheek" style={{display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center', minWidth:'30vw' }}>
+{/* <div className="contact-form flexcheek" style={{display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center', minWidth:'30vw' }}>
 <h4>Add A Feed:</h4>
         <input
           type="text"
@@ -369,15 +371,15 @@ return (
           onChange={(e) => setNewFeedUrl(e.target.value)}
 />
 <button className="button" onClick={addSubscription}>Add Subscription</button>
-</div>
-<div className="flexcheek" style={{ minWidth: '', maxHeight: '40vh', overflow: 'scroll', border:'1px solid #333', padding:'100px 3% 0 3%', borderRadius:'8px', textAlign:'center', position:'relative' }}>
-<h3>Latest Feeds:</h3>
+</div> */}
+<div className="flexcheek" style={{ minWidth: '200px', maxHeight: '40vh', overflow: 'scroll', border:'1px solid #333', padding:'100px 3% 0 3%', borderRadius:'8px', textAlign:'center', position:'relative' }}>
+{/* <h3>Latest Feeds:</h3>
 
 <ul style={{display:'flex', flexDirection:'column'}}>
   {uniqueSubscriptions.map((subscription, index) => (
     <li key={index}>{subscription}</li>
   ))}
-</ul>
+</ul> */}
 
 
         <Link state={{modal: true}} to="/favorites" className="button" style={{position:'absolute',  top:'10px', left:'0', right:'0', width:'70%', margin:'0 auto'}} >Manage Feeds</Link>

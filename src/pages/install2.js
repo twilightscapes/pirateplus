@@ -60,7 +60,30 @@ function Install2() {
 <h3>STEP TWO (2 of 3)</h3>
 
 
+
 <br /><br /><strong>There is no Step Two!</strong><br /><br />
+
+{/* <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+  <input type="hidden" name="cmd" value="_s-xclick" />
+  <input type="hidden" name="hosted_button_id" value="KFH49DVS9AFQS" />
+  <input type="hidden" name="currency_code" value="USD" />
+  <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_subscribe_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Subscribe" />
+</form> */}
+
+
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+  <input type="hidden" name="cmd" value="_s-xclick" />
+  <input type="hidden" name="hosted_button_id" value="99GULJ7R9T68W" />
+  <input type="hidden" name="currency_code" value="USD" />
+  <button className="button fire" type="submit" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Buy Now" >Get Pirate Plus ($30)</button>
+</form>
+
+
+<Link className="button" state={{modal: true}} to="/install3" rel="nofollow">
+Continue with Free
+</Link>
+<br />
+
 
 {/* <br />Setup Account and Create YOUR Website<br />
 
@@ -81,10 +104,7 @@ Simply follow the prompts and ignore the scary jargon
 Setup Account
 </a> */}
 
-<Link className="button" state={{modal: true}} to="/install3" rel="nofollow">
-Continue
-</Link>
-<br />
+
 
 
 {/* <ContactForm /> */}

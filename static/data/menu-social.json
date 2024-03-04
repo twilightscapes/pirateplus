@@ -1,8 +1,12 @@
 {
   "menuItems": [
     {
-      "menutitle": "Timeline",
-      "url": "/timeline"
+      "menutitle": "Feeds",
+      "url": "/feeds"
+    },
+    {
+      "menutitle": "Favorites",
+      "url": "/favorites"
     },
     {
       "menutitle": "Create",
