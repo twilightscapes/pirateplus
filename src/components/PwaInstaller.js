@@ -83,7 +83,7 @@ const PWAInstaller = () => {
 
                   <span style={{display:'block'}}>Install the {companyname} Web app</span>
 
-                  <span style={{display:'block'}}>"Save to your Home Screen"</span>
+                  <span style={{display:'block'}}>"Add To Home Screen"</span>
 
                 
 
