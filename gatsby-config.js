@@ -366,7 +366,7 @@ module.exports = {
         htmlTitle: `PIRATE CMS`,
         htmlFavicon: `static/assets/logo.svg`,
         includeRobots: false,
-        logo_url: 'https://piratesocial.org/assets/logo.svg'
+        logo_url: 'https://pirateweb.org/assets/logo.svg'
       },
     },
     // 'gatsby-plugin-netlify-identity-widget',
