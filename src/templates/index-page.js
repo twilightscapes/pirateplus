@@ -454,7 +454,7 @@ display:'flex', justifyContent:'center', maxHeight:'80px !important', height:'15
 
 {/* show feature */}
 
-{!isRunningStandalone ? (
+{isRunningStandalone() ? (
   ""
 ) : (
   <>
@@ -528,7 +528,7 @@ style={{height:'auto', width:'100dvw', maxHeight:'100dvh', position:'relative', 
 
 
 {/* show profile */}
-{!isRunningStandalone ? (
+{isRunningStandalone() ? (
   ""
 ) : (
   <>

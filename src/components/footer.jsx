@@ -205,7 +205,7 @@ export default function Footer() {
 
 <>
 
-{!isRunningStandalone ? (
+{isRunningStandalone() ? (
   ""
 ) : (
 
