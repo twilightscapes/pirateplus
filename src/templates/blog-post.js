@@ -1409,7 +1409,7 @@ zindex:'1'
     </div>
 <div className="article-header" style={{textAlign:'center', paddingTop:'', height:'auto', color:'', borderRadius:'', marginTop:'0'}}>
 
-
+<br />
 {showTitles ? (   
     <>
             <h1 className="headline" style={{color:'', borderRadius:''}}>{frontmatter.title}</h1>

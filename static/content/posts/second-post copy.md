@@ -23,7 +23,7 @@ youtube:
  audioend: ""
  audiotitle: ""
  audiostart: ""
-
+shareable: true
 
 ---
 
