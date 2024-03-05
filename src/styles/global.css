@@ -1050,7 +1050,8 @@ body.contactpage .ReactModal__Content{padding-top:10vh !important;}
 
   .cattags{
     text-transform:capitalize;
-    background:var(--theme-ui-colors-headerColor);
+    /* background:var(--theme-ui-colors-headerColor); */
+    background:rgba(0, 0, 0, 0.1);
     color:var(--theme-ui-colors-headerColorText);
     -webkit-appearance: none;
     appearance: none;

@@ -464,17 +464,20 @@ const [playingIndex, setPlayingIndex] = useState(null);
                     <select
                       value={selectedCategory}
                       onChange={handleCategoryChange}
-                      style={{
-                        background: 'var(--theme-ui-colors-siteColor)',
-                        color: 'var(--theme-ui-colors-siteColorText)',
-                        borderRadius: 'var(--theme-ui-colors-borderRadius)',
-                        minWidth: '85px',
-                        maxWidth: '20%',
-                        overflow: 'hidden',
-                        height: '',
-                        lineHeight: '100%',
-                        padding: '5px 2px',
-                      }}
+                      style={{ padding: '.5vh .2vw', minWidth:'75px', width: '100%', maxWidth: '500px', textAlign:'center', fontSize: 'clamp(.6rem,1vw,1rem)', transition: 'all .4s ease-in-out', background:'rgba(0,0,0,.2)', outline:'1px solid #999', border:'0px solid var(--theme-ui-colors-siteColor)', 
+                      // color:'var(--theme-ui-colors-siteColor)' 
+                    }}
+                      // style={{
+                      //   background: 'var(--theme-ui-colors-siteColor)',
+                      //   color: 'var(--theme-ui-colors-siteColorText)',
+                      //   borderRadius: 'var(--theme-ui-colors-borderRadius)',
+                      //   minWidth: '85px',
+                      //   maxWidth: '20%',
+                      //   overflow: 'hidden',
+                      //   height: '',
+                      //   lineHeight: '100%',
+                      //   padding: '5px 2px',
+                      // }}
                       aria-label="Select Category"
                       id="categoryselect"
                     >
@@ -496,17 +499,20 @@ const [playingIndex, setPlayingIndex] = useState(null);
     id="tagselect"
     value={selectedTag}
     onChange={handleTagChange}
-    style={{
-      background: 'var(--theme-ui-colors-siteColor)',
-      color: 'var(--theme-ui-colors-siteColorText)',
-      borderRadius: 'var(--theme-ui-colors-borderRadius)',
-      minWidth: '85px',
-      maxWidth: '30%',
-      overflow: 'hidden',
-      height: '',
-      lineHeight: '100%',
-      padding: '5px 2px',
-    }}
+    style={{ padding: '.5vh .2vw', minWidth:'75px', width: '100%', maxWidth: '500px', textAlign:'center', fontSize: 'clamp(.6rem,1vw,1rem)', transition: 'all .4s ease-in-out', background:'rgba(0,0,0,.2)', outline:'1px solid #999', border:'0px solid var(--theme-ui-colors-siteColor)', 
+    // color:'var(--theme-ui-colors-siteColor)' 
+  }}
+    // style={{
+    //   background: 'var(--theme-ui-colors-siteColor)',
+    //   color: 'var(--theme-ui-colors-siteColorText)',
+    //   borderRadius: 'var(--theme-ui-colors-borderRadius)',
+    //   minWidth: '85px',
+    //   maxWidth: '30%',
+    //   overflow: 'hidden',
+    //   height: '',
+    //   lineHeight: '100%',
+    //   padding: '5px 2px',
+    // }}
     aria-label="Select Keyword"
   >
     <option value="">{dicKeyword}</option>
@@ -529,19 +535,9 @@ const [playingIndex, setPlayingIndex] = useState(null);
                       type="text"
                       placeholder={dicSearch + ":"}
                       onChange={handleSearch}
-                      style={{
-                        width: '',
-                        background: 'var(--theme-ui-colors-siteColor)',
-                        color: 'var(--theme-ui-colors-siteColorText)',
-                        marginRight: '',
-                        borderRadius: 'var(--theme-ui-colors-borderRadius)',
-                        height: '',
-                        lineHeight: '100%',
-                        padding: '6px 6px',
-                        minWidth: '85px',
-                        maxWidth: '35%',
-                      }}
+                      style={{ padding: '.2vh .2vw', minWidth:'75px', width: '100%', maxWidth: '500px', textAlign:'center', fontSize: 'clamp(.6rem,1vw,1rem)', transition: 'all .4s ease-in-out', background:'rgba(0,0,0,.2)', outline:'1px solid #999', border:'0px solid var(--theme-ui-colors-siteColor)', color:'var(--theme-ui-colors-siteColor)' }}
                       aria-label="Search"
+                      className="youtubelinker"
                     />
                   
                 </>
@@ -578,7 +574,7 @@ const [playingIndex, setPlayingIndex] = useState(null);
                   position: '',
                   right: '',
                   top: '',
-                  background: 'var(--theme-ui-colors-siteColor)',
+                  // background: 'var(--theme-ui-colors-siteColor)',
                   color: 'var(--theme-ui-colors-siteColorText)',
                   textAlign: 'center',
                   fontSize: '10px',
