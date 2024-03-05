@@ -1468,13 +1468,13 @@ margin: 0 auto;
   /* min-width: 200px; */
   outline: 1px solid #999;
   border-radius: var(--theme-ui-colors-borderRadius);
-  color: var(--theme-ui-colors-headerColorText);
+  /* color: var(--theme-ui-colors-headerColorText); */
 }
 
 /* Additional styling for the Reset button */
 .youtubelinker + button {
   font-size: 90%;
-  color: var(--theme-ui-colors-headerColorText);
+  /* color: var(--theme-ui-colors-headerColorText); */
   font-weight: bold;
   text-align: left;
   /* width: 100px; */
