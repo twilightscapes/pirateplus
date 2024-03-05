@@ -466,7 +466,7 @@ const [playingIndex, setPlayingIndex] = useState(null);
                     <select
                       value={selectedCategory}
                       onChange={handleCategoryChange}
-                      style={{ padding: '.5vh .2vw', minWidth:'75px', width: '100%', maxWidth: '500px', textAlign:'center', fontSize: 'clamp(.6rem,1vw,1rem)', transition: 'all .4s ease-in-out', background:'rgba(0,0,0,.2)', outline:'1px solid #999', border:'0px solid var(--theme-ui-colors-siteColor)', 
+                      style={{ padding: '.5vh .2vw', minWidth:'75px', width: '100%', maxWidth: '500px', textAlign:'center', fontSize: 'clamp(.6rem,1vw,1rem)', transition: 'all .4s ease-in-out', background:'rgba(0,0,0,.2)', outline:'1px solid #999', border:'0px solid var(--theme-ui-colors-siteColor)', borderRadius: 'var(--theme-ui-colors-borderRadius)'
                       // color:'var(--theme-ui-colors-siteColor)' 
                     }}
                       // style={{
@@ -501,7 +501,7 @@ const [playingIndex, setPlayingIndex] = useState(null);
     id="tagselect"
     value={selectedTag}
     onChange={handleTagChange}
-    style={{ padding: '.5vh .2vw', minWidth:'75px', width: '100%', maxWidth: '500px', textAlign:'center', fontSize: 'clamp(.6rem,1vw,1rem)', transition: 'all .4s ease-in-out', background:'rgba(0,0,0,.2)', outline:'1px solid #999', border:'0px solid var(--theme-ui-colors-siteColor)', 
+    style={{ padding: '.5vh .2vw', minWidth:'75px', width: '100%', maxWidth: '500px', textAlign:'center', fontSize: 'clamp(.6rem,1vw,1rem)', transition: 'all .4s ease-in-out', background:'rgba(0,0,0,.2)', outline:'1px solid #999', border:'0px solid var(--theme-ui-colors-siteColor)', borderRadius: 'var(--theme-ui-colors-borderRadius)' 
     // color:'var(--theme-ui-colors-siteColor)' 
   }}
     // style={{
@@ -537,7 +537,7 @@ const [playingIndex, setPlayingIndex] = useState(null);
                       type="text"
                       placeholder={dicSearch + ":"}
                       onChange={handleSearch}
-                      style={{ padding: '.2vh .2vw', minWidth:'75px', width: '100%', maxWidth: '500px', textAlign:'center', fontSize: 'clamp(.6rem,1vw,1rem)', transition: 'all .4s ease-in-out', background:'rgba(0,0,0,.2)', outline:'1px solid #999', border:'0px solid var(--theme-ui-colors-siteColor)', borderRadius: 'var(--theme-ui-colors-borderRadius)', }}
+                      style={{ padding: '.2vh .2vw', minWidth:'75px', width: '100%', maxWidth: '500px', textAlign:'center', fontSize: 'clamp(.6rem,1vw,1rem)', transition: 'all .4s ease-in-out', background:'rgba(0,0,0,.1)', outline:'1px solid #999', border:'0px solid var(--theme-ui-colors-siteColor)',  borderRadius: 'var(--theme-ui-colors-borderRadius)', color:'inherit' }}
                       aria-label="Search"
                       className="youtubelinker"
                     />

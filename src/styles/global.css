@@ -1071,12 +1071,16 @@ body.contactpage .ReactModal__Content{padding-top:10vh !important;}
      max-width:550px;
      /* box-shadow: 0px 0px 0px 1px var(--theme-ui-colors-borderColor); */
   }
-  .cattags ::placeholder{color:var(--theme-ui-colors-siteColorText);}
+  .cattags ::placeholder{
+    /* color:var(--theme-ui-colors-siteColorText); */
+    color:#666;
+    opacity:1 !important;
+  }
 
   .cattags:focus{
     outline:1px solid var(--theme-ui-colors-siteColor);
     border:1px solid #333;
-    opacity:.6;
+    /* opacity:.6; */
     background:rgba(0, 0, 0, 0.7);
   }
   .magicisland{
@@ -1327,7 +1331,7 @@ body:has(.ReactModal__Content) {overflow-x:hidden !important; overflow-y:hidden 
   body.youtube .upbar 
   {display: none !important;}
 
-  /* body.youtube .public{display: none !important;} */
+  body.homepage .public{display: flex !important;}
 
   /* body.youtube #gobacker{top:14% !important; right:5px !important;} */
 
