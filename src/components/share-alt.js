@@ -24,7 +24,7 @@ const ShareAlt = () => {
           <div style={{ display: "flex", gap:'2vw', flexDirection: "", alignItems: "center"}}>
             <input className="youtubelinker" type="text" value={siteUrl + pathname} readOnly style={{ padding: '.5vh .5vw', minWidth:'305px', width: '100%', maxWidth: '400px', fontSize: 'clamp(.6rem,1vw,1rem)', transition: 'all 1s ease-in-out', background:'rgba(0,0,0,.2)', outline:'1px solid #999', border:'0px solid var(--theme-ui-colors-siteColor)' }} />
 
-            <button className="button non" aria-label="Copy Url" onClick={handleCopy} style={{ display: "flex", gap: '.5vw', justifyContent: "center", padding: ".6vh .8vw", width:'60px', minWidth:'30px', maxHeight: "", margin: "0 auto", textAlign: 'center', fontSize: '14px', fontWeight: 'light', textShadow: '0 1px 0 #444', marginLeft:'', }}>{copied ? "Copied" : "Copy"}</button>
+            <button className="button non" aria-label="Copy Url" onClick={handleCopy} style={{ display: "flex", gap: '.5vw', justifyContent: "center", padding: ".6vh .8vw", width:'100px', minWidth:'30px', maxHeight: "", margin: "0 auto", textAlign: 'center', fontSize: '14px', fontWeight: 'light', textShadow: '0 1px 0 #444', marginLeft:'', }}>{copied ? "Copied" : "Copy"}</button>
           </div>
         </div>
       </div>
