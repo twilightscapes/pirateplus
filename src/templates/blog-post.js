@@ -998,12 +998,13 @@ const YouTube = frontmatter.youtube.youtuber
           // className="featured-image1"
             src={getSrc(FrontImage)}
             loading="eager"
+            alt={frontmatter.title + " - Featured image"}
             // zoomSrc={getSrc(FrontImage)}
             // fullscreenOnMobile={true}
             // moveType="drag"
             zoomScale={0.9}
             zoomPreload={true}
-            style={{  maxHeight:'75vh', objectFit:'scale-down'}}
+            style={{  maxHeight:'75vh', objectFit:'scale-down', margin:'0 auto'}}
             
             // height={300}
           />
