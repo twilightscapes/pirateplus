@@ -10,10 +10,33 @@ const ShareAlt = () => {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(siteUrl + pathname);
+    const fullUrl = siteUrl + pathname;
+  
+    // Copy URL to clipboard
+    const tempInput = document.createElement("input");
+    tempInput.value = fullUrl;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+  
     setCopied(true);
     setTimeout(() => setCopied(false), 2000); // Reset copied status after 2 seconds
+  
+    // Share URL using Web Share API if available
+    if (navigator.share) {
+      navigator.share({
+        title: 'PIRATE',
+        url: fullUrl
+      }).then(() => {
+        console.log('Thanks for being a Pirate!');
+      }).catch(console.error);
+    }
   };
+  
+  
+  
+  
 
   return (
     <>
