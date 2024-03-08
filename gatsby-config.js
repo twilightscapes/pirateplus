@@ -396,17 +396,17 @@ module.exports = {
     // },
 
 
-    { 
-      resolve: `gatsby-plugin-purgecss`,
-      options: {
-        printRejected: true, // Print removed selectors and processed file names
-        develop: true, // Enable while using `gatsby develop`
-        // tailwind: true, // Enable tailwindcss support
-        whitelist: ['.iiz', '#contentvideo', '.contentinside', '.contentbody', 'body.homepage .ReactModalPortal .nextbutt', '.modal-btn', '.modal-btn:hover', '.iiz__btn', '.iiz__close','.iiz__close::before','.iiz__hint:before','#contentvideo .contentbody','.bodycontent .contentinside','body.blogpost .gatsby-image-wrapper','body.homepage #showPosts','.bglogo','.gatsby-image-wrapper img','.gatsby-image-wrapper','input.special',],  // Don't remove this selector
-         ignore: ['reset.css', 'global.css', 'styles.min.css'], // Ignore files/folders
-        //  purgeOnly : ['/animate.css'] // Purge only these files/folders
-      }
-    },
+    // { 
+    //   resolve: `gatsby-plugin-purgecss`,
+    //   options: {
+    //     printRejected: true, // Print removed selectors and processed file names
+    //     develop: true, // Enable while using `gatsby develop`
+    //     // tailwind: true, // Enable tailwindcss support
+    //     whitelist: ['/iiz$/', '/modal$/', 'contentvideo', 'contentinside', 'contentbody', 'homepage', 'ReactModalPortal', 'nextbutt', 'modal-btn', 'modal-btn:hover', 'iiz__btn', 'iiz__close','iiz__close::before','iiz__hint:before','bodycontent','blogpost','gatsby-image-wrapper','special'],  // Don't remove this selector
+    //      ignore: ['reset.css', 'styles.min.css', 'global.css'], // Ignore files/folders
+    //     //  purgeOnly : ['/animate.css'] // Purge only these files/folders
+    //   }
+    // },
 
  
     // {
