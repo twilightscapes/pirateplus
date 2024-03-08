@@ -27,8 +27,8 @@ const HomePosts = ({ isSliderVisible }) => {
   const data = useStaticQuery(graphql`
   query ($homecount: Int) {
     allMarkdownRemark(
-      sort: [{ frontmatter: { spotlight: ASC } }, { frontmatter: { date: DESC } }]
-      filter: { frontmatter: { template: { eq: "blog-post" }, draft: { ne: true } } }
+      sort: [{frontmatter: {spotlight: ASC}}, {frontmatter: {date: DESC}}]
+      filter: {frontmatter: {template: {eq: "blog-post"}, draft: {ne: true}}}
       limit: $homecount
     ) {
       edges {
@@ -154,11 +154,12 @@ const { dicLoadMore, dicCategory, dicKeyword, dicSearch, dicClear, dicResults, d
   
     // Check if spotlight is explicitly set to false or is undefined
     if (spotlight === false || spotlight === undefined) {
-      return false; // Exclude posts with spotlight: false
+      return true; // Exclude posts with spotlight: false
     }
   
     return titleMatch && categoryMatch && tagMatch;
   });
+  
   
   
 

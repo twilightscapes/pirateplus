@@ -173,7 +173,9 @@ collections:
       - { label: "Share Buttons", name: "shareable", widget: "boolean", default: false, required: false }
       - { label: "Header Image Zoom", name: "showZoom", widget: "boolean", default: false, required: false }
       - { label: "Page Level Navigation", name: "showPageNav", widget: "boolean", default: true, required: false }
-      - { label: "Spotlight on Homepage", name: "spotlight", widget: "boolean", required: false, hint: "This weights this post to always show on the top of page results" }
+      # - { label: "Spotlight on Homepage", name: "spotlight", widget: "boolean", required: false, hint: "This weights this post to always show on the top of page results" }
+
+      - { label: "Spotlight on Homepage", name: "spotlight", widget: "select", options: ["True", ""], required: false, hint: "This weights this post to always show on the top of page results" }
 
       # - { label: "Turn Page Scroll On", name: "scrollable", widget: "boolean", default: "false", hint: "Allows post to be scrolled vertically", required: false  }
 
