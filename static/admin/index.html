@@ -26,31 +26,19 @@
     netlifyIdentity.on('logout', () => {
       // Refresh the parent window
       // window.top.location.reload();
-      window.top.location.href = '/admin';
+      window.top.location.href = '/pirate';
     });
 
     // Register 'login' event listener
     netlifyIdentity.on('login', () => {
-      window.top.location.href = '/admin';
-      window.top.location.reload();
+      window.top.location.href = '/pirate';
     });
   });
 </script>
 
-<!-- <script>
-  CMS.registerPreviewStyle("../../src/styles/global.css");
-</script> -->
-
 
 
 <link href="./mobile-overrides.css" rel="stylesheet" /> <link href="./mobile-overrides.css" rel="stylesheet" />
-
-<!-- <link href="../../src/styles/global.css" rel="stylesheet" /> <link href="./mobile-overrides.css" rel="stylesheet" /> -->
-
-<!-- <link href="./dark.css" rel="stylesheet" /> <link href="./mobile-overrides.css" rel="stylesheet" /> -->
-
-
-
   <!-- <script>
     CMS.registerPreviewStyle("./preview.css");
   </script>
