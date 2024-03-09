@@ -369,7 +369,7 @@ module.exports = {
         logo_url: 'https://pirateweb.org/assets/logo.svg'
       },
     },
-    // 'gatsby-plugin-netlify-identity-widget',
+    'gatsby-plugin-netlify-identity-widget',
 
     
     // {
