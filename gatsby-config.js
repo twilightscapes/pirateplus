@@ -361,7 +361,7 @@ module.exports = {
       resolve: `gatsby-plugin-decap-cms`,
       options: {
         modulePath: `${__dirname}/src/cms/cms.js`,
-        enableIdentityWidget: false,
+        enableIdentityWidget: true,
         publicPath: `admin`,
         htmlTitle: `PIRATE CMS`,
         htmlFavicon: `static/assets/logo.svg`,
@@ -369,7 +369,7 @@ module.exports = {
         logo_url: 'https://pirateweb.org/assets/logo.svg'
       },
     },
-    'gatsby-plugin-netlify-identity-widget',
+
 
     
     // {
