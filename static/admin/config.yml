@@ -53,8 +53,7 @@ collections:
       Create stuff for your website here.
     folder: "static/content/posts"
     slug: "{{slug}}"
-    # summary: "{{title}} — {{year}}/{{month}}/{{day}}"
-    summary: "{{title}} - {{date | date('YYYY-MM-DD')}} – {{slug | lower}}"
+    summary: "{{title}} — {{year}}/{{month}}/{{day}}"
     create: true # Allow users to create new documents in this collection
     fields: # The fields each document in this collection have
       - {
@@ -81,7 +80,6 @@ collections:
           hint: "Start slug with /. Use only alphanumeric characters, - and _. AVOID SPACES",
           default: "/",
         }
-        
 
       - { label: "Title", name: "title", widget: "string", tagname: "h1", hint: "Page Title (seo)" }
 
@@ -175,9 +173,9 @@ collections:
       - { label: "Share Buttons", name: "shareable", widget: "boolean", default: false, required: false }
       - { label: "Header Image Zoom", name: "showZoom", widget: "boolean", default: false, required: false }
       - { label: "Page Level Navigation", name: "showPageNav", widget: "boolean", default: true, required: false }
-      - { label: "Spotlight on Homepage", name: "spotlight", widget: "boolean", required: false, hint: "This weights this post to always show on the top of page results" }
+      # - { label: "Spotlight on Homepage", name: "spotlight", widget: "boolean", required: false, hint: "This weights this post to always show on the top of page results" }
 
-      # - { label: "Spotlight on Homepage", name: "spotlight", widget: "select", options: ["True", ""], required: false, hint: "This weights this post to always show on the top of page results" }
+      - { label: "Spotlight on Homepage", name: "spotlight", widget: "select", options: ["True", ""], required: false, hint: "This weights this post to always show on the top of page results" }
 
       # - { label: "Turn Page Scroll On", name: "scrollable", widget: "boolean", default: "false", hint: "Allows post to be scrolled vertically", required: false  }
 
