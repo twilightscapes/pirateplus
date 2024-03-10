@@ -1,6 +1,6 @@
 
 import CMS from "decap-cms-app"
-import "./mobile-overrides.css"
+// import "./mobile-overrides.css"
 // import "module-that-imports-styles.js"
 // import "styles.scss"
 
