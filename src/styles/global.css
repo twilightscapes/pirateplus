@@ -1466,6 +1466,10 @@ margin: 0 auto;
   gap:2vw;
 } */
 
+
+#youtubeform ::placeholder{color:inherit !important; opacity:.5;}
+
+
 .youtubelinker {
   background: var(--theme-ui-colors-headerColor);
   padding: .2vh 0.5vw;
