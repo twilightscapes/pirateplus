@@ -643,7 +643,7 @@ body.homepage .pleaseshare{display:none}
 
 .sidebarMenuInner{
   background-color:var(--theme-ui-colors-headerColor);
-  filter:brightness(.7);
+  /* filter:brightness(.7); */
 }
 
 .sidebarMenuInner li{
