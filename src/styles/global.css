@@ -1073,7 +1073,7 @@ body.contactpage .ReactModal__Content{padding-top:10vh !important;}
   }
   .cattags ::placeholder{
     /* color:var(--theme-ui-colors-siteColorText); */
-    color:#666;
+    /* color:#666; */
     opacity:1 !important;
   }
 
