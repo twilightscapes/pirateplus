@@ -361,7 +361,8 @@ module.exports = {
     // {
     //   resolve: `gatsby-plugin-netlify-identity`,
     //   options: {
-    //     url: `${settings.meta.siteUrl}`,
+    //     // url: `${settings.meta.siteUrl}`,
+    //     url: `https://pirateplus.netlify.app/`
     //   }
     // },
 
@@ -369,7 +370,7 @@ module.exports = {
       resolve: `gatsby-plugin-decap-cms`,
       options: {
         modulePath: `${__dirname}/src/cms/cms.js`,
-        enableIdentityWidget: true,
+        enableIdentityWidget: false,
         publicPath: `admin`,
         htmlTitle: `PIRATE CMS`,
         htmlFavicon: `static/assets/logo.svg`,
