@@ -23,21 +23,9 @@ import Switch from "../components/Switch"
 import BlueCheck from './bluecheck';
 import Footer from "../components/footer"
 import PwaInstaller from "../components/PwaInstaller"
-import IdentityModal, { useIdentityContext } from "react-netlify-identity-widget"
 
 const Layout = ({ children }) => {
   const [showBackToTop, setShowBackToTop] = useState(false);
-
-
-
-  const identity = useIdentityContext()
-  const [dialog, setDialog] = React.useState(false)
-  const name =
-    (identity && identity.user && identity.user.user_metadata && identity.user.user_metadata.name) || "NoName"
-
-  console.log(JSON.stringify(identity))
-  const isLoggedIn = identity && identity.isLoggedIn
-
 
 
   function isRunningStandalone() {
@@ -189,12 +177,7 @@ const Layout = ({ children }) => {
                 ""
               )}
 
-<button className="btn" onClick={() => setDialog(true)}>
-          {isLoggedIn ? `Hello ${name}, Log out here!` : "LOG IN"}
-        </button>
-
             </div>
-            
 
           </div>
 
@@ -206,7 +189,6 @@ const Layout = ({ children }) => {
 
 
       <main id="top" name="top" style={{height:'',}}>
-      <IdentityModal showDialog={dialog} onCloseDialog={() => setDialog(false)} />
         {children}
 
       <div className={`upbar button ${showBackToTop ? 'visible' : ''}`}
