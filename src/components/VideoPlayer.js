@@ -417,7 +417,7 @@ const handleAutoplayChange = (event) => {
         // transform: hideEditor ? 'translateY(-100%)' : 'none',
         transition: 'transform 0.5s ease-in-out',
         background: 'var(--theme-ui-colors-headerColor)',
-        color:'--theme-ui-colors-headerColorText'
+        // color:'--theme-ui-colors-headerColorText'
         
         // height: hideEditor ? '0' : 'auto'
 
