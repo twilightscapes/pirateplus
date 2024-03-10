@@ -356,20 +356,29 @@ module.exports = {
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-theme-ui`,
     // `gatsby-plugin-static-cms`,
+    `gatsby-plugin-decap-cms`,
 
     {
-      resolve: `gatsby-plugin-decap-cms`,
+      resolve: `gatsby-plugin-netlify-identity`,
       options: {
-        modulePath: `${__dirname}/src/cms/cms.js`,
-        enableIdentityWidget: true,
-        publicPath: `admin`,
-        htmlTitle: `PIRATE CMS`,
-        htmlFavicon: `static/assets/logo.svg`,
-        includeRobots: false,
-        logo_url: 'https://pirateweb.org/assets/logo.svg'
-      },
+        url: `${settings.meta.siteUrl}`,
+      }
     },
 
+    // {
+    //   resolve: `gatsby-plugin-decap-cms`,
+    //   options: {
+    //     modulePath: `${__dirname}/src/cms/cms.js`,
+    //     enableIdentityWidget: true,
+    //     publicPath: `admin`,
+    //     htmlTitle: `PIRATE CMS`,
+    //     htmlFavicon: `static/assets/logo.svg`,
+    //     includeRobots: false,
+    //     logo_url: 'https://pirateweb.org/assets/logo.svg'
+    //   },
+    // },
+
+    
 
     
     // {
