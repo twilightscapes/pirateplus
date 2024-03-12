@@ -27,7 +27,7 @@ const HomePosts = ({ isSliderVisible }) => {
   const data = useStaticQuery(graphql`
   query ($homecount: Int) {
     allMarkdownRemark(
-      sort: [{frontmatter: {spotlight: ASC}}, {frontmatter: {date: DESC}}]
+      sort: { fields: [frontmatter___date], order: DESC }
       filter: {frontmatter: {template: {eq: "blog-post"}, draft: {ne: true}}}
       limit: $homecount
     ) {
@@ -146,19 +146,41 @@ const { dicLoadMore, dicCategory, dicKeyword, dicSearch, dicClear, dicResults, d
   const allTagsSet = new Set(allPosts.flatMap(({ node }) => node.frontmatter.tags || []));
   const allTags = Array.from(allTagsSet);
 
-  const filteredPosts = allPosts.filter(({ node }) => {
-    const { title, tags, category: categories, spotlight } = node.frontmatter;
+
+
+
+
+
+  const spotlightTruePosts = allPosts.filter(({ node }) => node.frontmatter.spotlight === true);
+  const filteredPosts = allPosts
+  .filter(({ node }) => {
+    const { title, tags, category: categories } = node.frontmatter; // Remove the spotlight declaration
     const titleMatch = query === "" || title.toLowerCase().includes(query.toLowerCase());
     const categoryMatch = selectedCategory === "" || (Array.isArray(categories) && categories.includes(selectedCategory));
     const tagMatch = selectedTag === "" || (tags && Array.isArray(tags) && tags.includes(selectedTag));
-  
-    // Check if spotlight is explicitly set to false or is undefined
-    if (spotlight === false || spotlight === undefined) {
-      return true; // Exclude posts with spotlight: false
-    }
-  
     return titleMatch && categoryMatch && tagMatch;
-  });
+  })
+    .sort((a, b) => {
+      if (a.node.frontmatter.spotlight === b.node.frontmatter.spotlight) {
+        return new Date(b.node.frontmatter.date) - new Date(a.node.frontmatter.date);
+      } else {
+        return a.node.frontmatter.spotlight ? -1 : 1;
+      }
+    });
+  
+  // Prepend posts with spotlight: true to the filteredPosts array
+  filteredPosts.unshift(...spotlightTruePosts.filter(post => !filteredPosts.includes(post)));
+  
+  
+
+
+
+
+  
+  
+  
+  
+  
   
   
   
