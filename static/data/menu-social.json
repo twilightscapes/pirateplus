@@ -1,12 +1,16 @@
 {
   "menuItems": [
     {
+      "menutitle": "Explore",
+      "url": "/pirate/explore"
+    },
+    {
       "menutitle": "Feeds",
-      "url": "/feeds"
+      "url": "/pirate/feeds"
     },
     {
       "menutitle": "Favorites",
-      "url": "/favorites"
+      "url": "/pirate/favorites"
     },
     {
       "menutitle": "Create",
