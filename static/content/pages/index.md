@@ -83,6 +83,7 @@ draft: true
 spotlight: false
 comments: false
 shareable: false
+externalLink: https://piratesocial.org
 ---
 Pirate is a <strong>Personal Web App (PWA)</strong>. 
 
