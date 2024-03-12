@@ -121,8 +121,7 @@ collections:
           tagname: "",
           # default: "/assets/null.svg"
         }
-
-        - {
+      - {
           label: "External Link (Loads external sites into an iframe - may not work with all sites - use with caution)",
           name: "externalLink",
           widget: "string",
