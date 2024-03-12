@@ -122,6 +122,14 @@ collections:
           # default: "/assets/null.svg"
         }
 
+        - {
+          label: "External Link (Loads external sites into an iframe - may not work with all sites - use with caution)",
+          name: "externalLink",
+          widget: "string",
+          hint: "Enter the full website url",
+          default: "/",
+        }
+
 
 
       - {
@@ -131,7 +139,7 @@ collections:
               collapsed: true, # Set to true to collapse panel by default
             fields: [
               { label: "Video Url", name: "youtuber", widget: "string",required: false },
-              { label: "Show Video Only (PIRATE Plus ONLY)", name: "showVidOnly", widget: "boolean", default: false, required: false },
+              { label: "Show Video Only", name: "showVidOnly", widget: "boolean", default: false, required: false },
               { label: "Primary Video Start Time", name: "youtubestart", widget: "string", default: "0", required: false },
               { label: "Primary Video End Time", name: "youtubeend", widget: "string", default: "0", required: false },
               { label: "Video Mute", name: "youtubemute", widget: "boolean", default: false, required: false },
@@ -152,7 +160,7 @@ collections:
           }
 
       - {
-              label: "Bumper Content Warnings (PIRATE Plus ONLY)",
+              label: "Bumper Content Warnings",
               name: "mediawarnings",
               widget: "object",
               collapsed: true, # Set to true to collapse panel by default
@@ -170,7 +178,7 @@ collections:
             ]
           }
 
-      - { label: "Post is Hidden (PIRATE Plus ONLY)", name: "draft", widget: "boolean", required: false, hint: "This hides the post from search, and filtering across the site. The post is still visible to google and anyone who know the location", }
+      - { label: "Post is Hidden", name: "draft", widget: "boolean", required: false, hint: "This hides the post from search, and filtering across the site. The post is still visible to google and anyone who know the location", }
 
       - { label: "Share Buttons", name: "shareable", widget: "boolean", default: false, required: false }
       - { label: "Header Image Zoom", name: "showZoom", widget: "boolean", default: false, required: false }
