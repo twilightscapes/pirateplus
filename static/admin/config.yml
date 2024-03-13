@@ -125,8 +125,7 @@ collections:
           label: "External Link (Loads external sites into an iframe - may not work with all sites - use with caution)",
           name: "externalLink",
           widget: "string",
-          hint: "Enter the full website url",
-          default: "/",
+          hint: "Enter the full website url"
         }
 
 
