@@ -4,6 +4,7 @@ date: 2024-03-12 03:21
 slug: /external1
 title: External1
 description: external1
+featuredImage: /assets/lauren-curtains-promo.webp
 externalLink: https://toddlambert.com
 youtube:
   showVidOnly: false
