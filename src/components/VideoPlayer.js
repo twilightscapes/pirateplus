@@ -387,8 +387,7 @@ const handleAutoplayChange = (event) => {
               <div id="piratevideo" className='player-wrapper' style={{ display: 'grid', placeContent: '', height:'auto',  width: '100vw', transition: 'all .4s ease-in-out' }}>
 
 
-
-            {showPro ? (
+              {showPro && isRunningStandalone() ? (
 
 <div className="font" style={{ position: 'relative', zIndex: '3', top: '0', width: '100vw', margin: '0 auto', transition: 'all .4s ease-in-out', marginTop: showNav ? '0' : '0',
 //  height: hideEditor ? '0' : '50px', 
@@ -690,10 +689,10 @@ const handleAutoplayChange = (event) => {
 
 
                 
-    ) : (
+) : isRunningStandalone() ? (
 
 
-<div className="font public" style={{display: hideEditor ? 'none' : 'flex', position: 'relative', zIndex: '3', top: '0', width: '100vw', margin: '0 auto', marginTop: showNav ? '0' : '', transition: 'all .4s ease-in-out', 
+<div className="font public" style={{display: showPro ? 'flex' : 'flex', position: 'relative', zIndex: '3', top: '0', width: '100vw', margin: '0 auto', marginTop: showNav ? '0' : '', transition: 'all .4s ease-in-out', 
 // height: hideEditor ? '0' : '50px', 
 // background: 'var(--theme-ui-colors-headerColor)',
  }}>
@@ -778,7 +777,10 @@ background: 'var(--theme-ui-colors-headerColor)',
                              )}
 
                     </div>
-    )}
+) : (
+""
+      
+      )}
 
 
 
