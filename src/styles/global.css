@@ -1035,6 +1035,7 @@ body.contactpage .ReactModal__Content{padding-top:10vh !important;}
 
 
 
+
   /* .grid-container {margin:0 auto 0 auto ; padding-top:16vh; } */
   /* body.homepage .grid-container {margin-top:0 ; padding-top:14vh !important;} */
 
@@ -1150,34 +1151,26 @@ iframe.virtualtour{
 .fullscreenButt{display:none}
 .has-app{display:block}
 }
-@media(max-width:48rem) {
 
+
+@media(max-width:48rem) {
 /* .grid-container {margin:0 auto 0 auto ; margin-top:0; } */
 .grid-container {margin-top:0; padding-top:16vh !important;}
-
-
 .slider{margin:16vh auto 0 auto !important;}
-
-
-
 .slider .loadmore{height:40vh}
-
 .magicisland {margin-top:10vh;}
 .cattags {max-width:450px !important;}
-
 #resume span{display:flex;flex-direction:column;gap:20px;position:-webkit-sticky;position:sticky;top:0}
 #resume span div{display:block;width:100%}
 .nameblock{background:transparent;color:inherit;}
 #gobacker{position:fixed; top:70vh ; right:1vw; z-index:11;}
-
-
-
-
 }
 
 
 
-.slider .boom{min-width:85vw !important; border:0px solid red !important;}
+.slider .boom{min-width:85vw !important; border:1px solid red !important;}
+
+
 
 
 @media(min-width:48em) {
