@@ -193,3 +193,14 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
     });
   }
 };
+
+
+exports.onCreateWebpackConfig = ({ actions }) => {
+  actions.setWebpackConfig({
+    resolve: {
+      fallback: {
+        "process": require.resolve("process")
+      }
+    }
+  });
+};
