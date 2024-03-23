@@ -3,6 +3,7 @@
     "iconimage": "/assets/logo.svg",
     "companyname": "Pirate",
     "siteUrl": "https://piratesocial.org",
+    "defaultCollection": "Favorites",
     "featureOptions": {
       "showDefault": true,
       "showArchive": true,
@@ -14,8 +15,7 @@
       "showSwipe": true,
       "showVideoPlayer": true,
       "showHomePosts": true,
-      "showProfile": true,
-      "defaultCollection": "Favorites"
+      "showProfile": true
     },
     "twitterUsername": "toddlambert",
     "titleDefault": "PIRATE",
