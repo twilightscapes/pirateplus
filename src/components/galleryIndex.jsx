@@ -7,8 +7,8 @@ const GalleryIndex = ({ isSliderVisible }) => {
 
 
 
-  const { featureOptions, language } = useSiteMetadata();
-  const { showTitles, defaultCollection } = featureOptions;
+  const { featureOptions, language, defaultCollection } = useSiteMetadata();
+  const { showTitles } = featureOptions;
   const { dicGallery } = language;
   
   // Ensure defaultCollection is valid and fallback to "Favorites" if not set
