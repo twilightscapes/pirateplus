@@ -4,6 +4,7 @@
     "companyname": "Pirate",
     "siteUrl": "https://piratesocial.org",
     "defaultCollection": "Favorites",
+    "showCollectionTitles": false,
     "featureOptions": {
       "showDefault": true,
       "showArchive": true,
