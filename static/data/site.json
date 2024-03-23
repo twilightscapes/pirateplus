@@ -14,7 +14,8 @@
       "showSwipe": true,
       "showVideoPlayer": true,
       "showHomePosts": true,
-      "showProfile": true
+      "showProfile": true,
+      "defaultCollection": "Favorites"
     },
     "twitterUsername": "toddlambert",
     "titleDefault": "PIRATE",
