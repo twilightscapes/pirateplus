@@ -16,32 +16,38 @@ const GalleryIndex = ({ isSliderVisible }) => {
   const scrollRef = useRef(null);
   const data = useStaticQuery(graphql`
   query {
-      allDirectory(filter: {sourceInstanceName: {eq: "assets"}}, sort: {name: ASC}) {
-        nodes {
-          name
-        }
+    allDirectory(
+      filter: { sourceInstanceName: { eq: "assets" } }
+      sort: { fields: name, order: ASC }
+    ) {
+      nodes {
+        name
       }
-      allFile(
-        filter: {sourceInstanceName: {eq: "assets"}, extension: {regex: "/(jpg)|(jpeg)|(png)|(gif)|(webp)|(avif)/"}}
-      ) {
-        edges {
-          node {
-            name
-            id
-            relativePath
-            childImageSharp {
-              gatsbyImageData(
-                placeholder: BLURRED
-                layout: CONSTRAINED
-                width: 1600
-                formats: [AUTO, WEBP]
-              )
-            }
-            publicURL
+    }
+    allFile(
+      filter: {
+        sourceInstanceName: { eq: "assets" }
+        extension: { regex: "/(jpg)|(jpeg)|(png)|(gif)|(webp)|(avif)/" }
+      }
+    ) {
+      edges {
+        node {
+          name
+          id
+          relativePath
+          childImageSharp {
+            gatsbyImageData(
+              placeholder: BLURRED
+              layout: CONSTRAINED
+              width: 1600
+              formats: [AUTO, WEBP]
+            )
           }
+          publicURL # Add this to handle non-image files
         }
       }
     }
+  }
 `);
 
   useEffect(() => {
