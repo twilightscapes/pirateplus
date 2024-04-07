@@ -59,20 +59,22 @@ const HomePage = ({ data, location }) => {
   
   
     return (
-      <Seo
-        title={seoTitleParam || frontmatter.title }
-        description={frontmatter.description ? frontmatter.description : excerpt}
-        image={customImageParam || (videoId ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg` : 'https://pirateyoutube.com/assets/default-og-image.webp')}
-      />
+<Seo
+  title={seoTitleParam || frontmatter.title}
+  description={frontmatter.description || excerpt}
+  image={customImageParam || (videoId ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg` : `${siteUrl}/assets/default-og-image.webp`)}
+/>
+
     );
   };
 
-  const { language, proOptions, featureOptions  } = useSiteMetadata();
+  const { language, proOptions, featureOptions, siteUrl  } = useSiteMetadata();
 
   const { showFeature } = proOptions
   const { showDefault, showVideoPlayer, showNav, showProfile, showHomePosts } = featureOptions
 
   const { dicPlayVideo, dicProfileAudioText, dicProfileAudioActionText} = language;
+
 
   
   const { markdownRemark } = data;
