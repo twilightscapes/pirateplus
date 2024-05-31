@@ -1,60 +1,74 @@
 ---
-profileName: BECOME A PIRATE!
-profileSocial: true
+draft: true
 addressText: The Fleet Launches Soon
-addressText2: It's Completely FREE
-youtube: 
- youtuber: https://youtu.be/TLV4_xaYynY
- youtuber2: https://youtu.be/TLV4_xaYynY
- youtubeshoworiginal: false
- youtubersuggestion1: ""
- youtubersuggestion2: ""
- youtubersuggestion3: "null"
- youtubestart: ""
- youtubeend: ""
- youtubemute: false
- youtubecontrols: false
- youtubeautostart: true
- youtubeloop: false
- clicktoplay: false
- showVidOnly: false
- customcontrols: false
- audioend: "0"
- audiotitle: "Jimi Hendrix"
- audiostart: "0"
- contentinvideo: false
- liarliar: false
-
-showPageNav: false
-showZoom: false
 showPostContact: true
+template: index-page
+youtube:
+  youtubersuggestion3: "null"
+  showVidOnly: false
+  audiotitle: Jimi Hendrix
+  youtuber2: ""
+  audioend: "0"
+  youtubeloop: false
+  customcontrols: false
+  audiostart: "0"
+  youtuber: ""
+  youtubeautostart: true
+  youtubeshoworiginal: false
+  clicktoplay: false
+  youtubeend: ""
+  youtubecontrols: false
+  liarliar: false
+  youtubemute: false
+  contentinvideo: false
+  youtubersuggestion1: ""
+  youtubersuggestion2: ""
+  youtubestart: ""
+externalLink: https://piratesocial.org
 profText: ""
-tagline: YOU... ARE THE CAPTAIN NOW!
-
-featuredImage: /assets/pirate-propaganda.webp
 secondaryImage: /assets/default-user.webp
-underlayImage: /assets/losser.webp
 scrollable: false
 portfolio:
   openText: ""
   closeText: ""
 nftdrop: x
 slug: /
-
+tagline: YOU... ARE THE CAPTAIN NOW!
+featuredImage: /assets/img_2975.webp
 excludeFromRSS: true
-skillsText: 
-
+skillsText: null
+underlayImage: ""
 bumpertext: x
+showZoom: false
 cta:
-  ctaText: Get Your FREE Ship!
+  ctaText: Book A Cleaning
   ctaLink: /contact
   showCTA: true
 homecount: 5
+addressText2: It's Completely FREE
+spotlight: false
+comments: false
+profileName: BECOME A PIRATE!
 pagePW: ""
+profileSocial: true
 skillsTitle: ""
 svgImage: /assets/null.svg
-template: index-page
+showPageNav: false
 title: Social media by the people for the people
+tags:
+  - manic
+shareable: false
+mediawarnings:
+  marating1: X
+  marating2: X
+  marating3: X
+  marating4: X
+  viewerwarning: Viewer Discretion Strongly Advised
+  marate: X
+  maratingtx1: X
+  maratingtx2: X
+  maratingtx3: X
+  maratingtx4: X
 postLimit: "4"
 description: PIRATE - social media for the people by the people
 svgzindex: x
@@ -63,27 +77,9 @@ coverletter:
   coverLink: /contact
   showCover: false
 sharethis: false
-profTitle: Hoist Your Flag!
-tags: 
- - manic
 category:
- - ""
-mediawarnings:
- viewerwarning: Viewer Discretion Strongly Advised
- marate: X
- marating1: X
- marating2: X
- marating3: X
- marating4: X
- maratingtx1: X
- maratingtx2: X
- maratingtx3: X
- maratingtx4: X
-draft: true
-spotlight: false
-comments: false
-shareable: false
-externalLink: https://piratesocial.org
+  - ""
+profTitle: Hoist Your Flag!
 ---
 Pirate is a <strong>Personal Web App (PWA)</strong>. 
 
