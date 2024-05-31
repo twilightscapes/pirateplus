@@ -1,13 +1,3 @@
 {
-  "menuItems": [
-    {
-      "menutitle": "What is Pirate?",
-      "url": "https://pirateweb.org/about"
-    },
-    {
-      "menutitle": "User Resources",
-      "url": "/search"
-    }
-    
-  ]
+  "menuItems": []
 }
