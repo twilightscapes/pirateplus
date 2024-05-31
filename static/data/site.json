@@ -1,22 +1,20 @@
 {
   "meta": {
     "iconimage": "/assets/logo.svg",
-    "companyname": "Pirate",
-    "siteUrl": "https://piratesocial.org",
-    "defaultCollection": "Favorites",
-    "showCollectionTitles": false,
+    "companyname": "Dog Poopers",
+    "siteUrl": "https://dogpoopers.com",
     "featureOptions": {
       "showDefault": true,
       "showArchive": true,
-      "showSearch": true,
-      "showDates": true,
-      "showSocial": true,
+      "showSearch": false,
+      "showDates": false,
+      "showSocial": false,
+      "showProfile": false,
+      "showHomePosts": false,
       "showTitles": true,
-      "showfooter": true,
+      "showfooter": false,
       "showSwipe": true,
-      "showVideoPlayer": true,
-      "showHomePosts": true,
-      "showProfile": true
+      "showVideoPlayer": false
     },
     "twitterUsername": "toddlambert",
     "titleDefault": "PIRATE",
@@ -31,19 +29,20 @@
     "proOptions": {
       "showModals": true,
       "showContact": true,
+      "showResume": true,
       "startUrl": "/",
       "showPopup": true,
+      "showLocation": true,
       "ShowDisclaimer": false,
       "showBranding": true,
       "showFeature": true,
-      "showResume": true,
-      "showLocation": true,
       "showLegal": true,
-      "showConsent": true,
-      "showPWA": true
+      "showConsent": false,
+      "showPWA": false
     },
     "titleTemplate": "%s",
-    "title": "PIRATE SOCIAL",
+    "showCollectionTitles": false,
+    "title": "Dog Poopers",
     "language": {
       "dicContact": "Contact",
       "dicSignUpText": "Sign Up - Enter your email",
@@ -64,6 +63,7 @@
       "dicClear": "Clear",
       "dicPhone": "Your Phone Number",
       "dicConfirmation": "Message Received",
+      "dicGallery": "Choose Collection",
       "dicDark": "Dark",
       "dicSubmit": "Send Message",
       "dicPirate": "Pirate's life for me",
@@ -78,16 +78,16 @@
       "dicCategory": "Category",
       "dicPlayMultimedia": "View Multimedia",
       "dicEmail": "your@email.com",
-      "dicViewArchive": "View Archive",
-      "dicGallery": "Choose Collection"
+      "dicViewArchive": "View Archive"
     },
     "image": "/assets/pirate-logo.svg",
     "navOptions": {
       "showNav": true,
-      "showNav2": true,
-      "showFooterMenu": true
+      "showNav2": false,
+      "showFooterMenu": false
     },
-    "description": "Pirate Social media for the people by the people",
-    "icon512": "/assets/pirate-icon.svg"
+    "description": "Dog poop and waste removal service",
+    "icon512": "/assets/pirate-icon.svg",
+    "defaultCollection": "Favorites"
   }
 }
