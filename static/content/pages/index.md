@@ -37,7 +37,7 @@ tagline: YOU... ARE THE CAPTAIN NOW!
 featuredImage: /assets/img_2975.webp
 excludeFromRSS: true
 skillsText: null
-underlayImage: ""
+underlayImage: /assets/transparent.png
 bumpertext: x
 showZoom: false
 cta:
