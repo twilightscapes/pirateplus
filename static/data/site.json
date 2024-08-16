@@ -6,13 +6,13 @@
     "featureOptions": {
       "showDefault": true,
       "showArchive": true,
-      "showSearch": false,
-      "showDates": false,
-      "showSocial": false,
-      "showProfile": false,
-      "showHomePosts": false,
+      "showSearch": true,
+      "showDates": true,
+      "showSocial": true,
+      "showProfile": true,
+      "showHomePosts": true,
       "showTitles": true,
-      "showfooter": false,
+      "showfooter": true,
       "showSwipe": true,
       "showVideoPlayer": false
     },
@@ -33,16 +33,16 @@
       "startUrl": "/",
       "showPopup": true,
       "showLocation": true,
-      "ShowDisclaimer": false,
+      "ShowDisclaimer": true,
       "showBranding": true,
       "showFeature": true,
       "showLegal": true,
       "showConsent": false,
-      "showPWA": false
+      "showPWA": true
     },
     "titleTemplate": "%s",
-    "showCollectionTitles": false,
-    "title": "Dog Poopers",
+    "showCollectionTitles": true,
+    "title": "Pirate Test Site",
     "language": {
       "dicContact": "Contact",
       "dicSignUpText": "Sign Up - Enter your email",
@@ -86,7 +86,7 @@
       "showNav2": false,
       "showFooterMenu": false
     },
-    "description": "Dog poop and waste removal service",
+    "description": "A test pirate site",
     "icon512": "/assets/pirate-icon.svg",
     "defaultCollection": "Favorites"
   }

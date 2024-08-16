@@ -34,10 +34,10 @@ portfolio:
 nftdrop: x
 slug: /
 tagline: YOU... ARE THE CAPTAIN NOW!
-featuredImage: /assets/img_2975.webp
+featuredImage: /assets/riding-with-elon-promo.webp
 excludeFromRSS: true
 skillsText: null
-underlayImage: /assets/transparent.png
+underlayImage: /assets/riding-with-elon-promo.webp
 bumpertext: x
 showZoom: false
 cta:
