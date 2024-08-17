@@ -2,7 +2,7 @@
 draft: true
 addressText: The Fleet Launches Soon
 showPostContact: true
-template: index-page
+tagline: YOU... ARE THE CAPTAIN NOW!
 youtube:
   youtubersuggestion3: "null"
   showVidOnly: false
@@ -33,7 +33,6 @@ portfolio:
   closeText: ""
 nftdrop: x
 slug: /
-tagline: YOU... ARE THE CAPTAIN NOW!
 featuredImage: /assets/riding-with-elon-promo.webp
 excludeFromRSS: true
 skillsText: null
@@ -41,7 +40,7 @@ underlayImage: /assets/riding-with-elon-promo.webp
 bumpertext: x
 showZoom: false
 cta:
-  ctaText: Book A Cleaning
+  ctaText: Sign Up Now!
   ctaLink: /contact
   showCTA: true
 homecount: 5
@@ -58,6 +57,7 @@ title: Social media by the people for the people
 tags:
   - manic
 shareable: false
+template: index-page
 mediawarnings:
   marating1: X
   marating2: X
